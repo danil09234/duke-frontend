@@ -10,9 +10,11 @@ export function MyAssistant() {
   const runtime = useEdgeRuntime({ api: "/api/chat" });
 
   return (
-    <Thread
-      runtime={runtime}
-      assistantMessage={{ components: { Text: MarkdownText } }}
-    />
+    <div className="chat-container">
+      <Thread
+        runtime={runtime}
+        assistantMessage={{ components: { Text: MarkdownText } }}
+      />
+    </div>
   );
 }
