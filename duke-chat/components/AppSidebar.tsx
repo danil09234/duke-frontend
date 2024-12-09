@@ -8,7 +8,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarMenuItem, SidebarTrigger,
 } from "@/components/ui/sidebar";
 
 // Menu items.
@@ -36,6 +36,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Vladyslav</SidebarGroupLabel>
+          <SidebarTrigger />
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

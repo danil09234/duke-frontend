@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MyAssistant } from "../components/MyAssistant";
+import { MyAssistant } from "@/components/MyAssistant";
 
 export default function ChatPage() {
   return (

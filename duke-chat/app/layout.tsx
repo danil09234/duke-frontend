@@ -3,7 +3,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import localFont from "next/font/local";
 import "./globals.css";
 import ChatPage from "../pages/ChatPage";
-import { AppSidebar } from "@/components/App-Sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,11 +34,10 @@ export default function RootLayout({
         <SidebarProvider>
           <AppSidebar />
           <main>
-            <SidebarTrigger />
             {children}
           </main>
         </SidebarProvider>
-        <div className="h-dvh">
+        <div className="absolute inset-0">
           <ChatPage />
         </div>
       </body>
