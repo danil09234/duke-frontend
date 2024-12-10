@@ -30,13 +30,39 @@ const items = [
   },
 ];
 
+function AvatarAndIcons() {
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center space-x-2">
+        <img alt="Avatar" src="@/resources/av2024-small.jpg" />
+        <SidebarGroupLabel>Vladyslav</SidebarGroupLabel>
+      </div>
+      <div>
+        <SidebarTrigger />
+      </div>
+    </div>
+  )
+}
+
+function SidebarTop() {
+  return (
+      <div className="flex flex-col">
+        <AvatarAndIcons />
+        <div>
+          Search
+        </div>
+      </div>
+  )
+}
+
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Vladyslav</SidebarGroupLabel>
           <SidebarTrigger />
+        </SidebarGroup>
+        <SidebarGroup className="space-y-20">
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
