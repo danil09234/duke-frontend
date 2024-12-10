@@ -6,16 +6,55 @@ import {
   ThreadPrimitive,
 } from "@assistant-ui/react";
 import type { FC } from "react";
-import { SendHorizontalIcon } from "lucide-react";
+import { SendHorizontalIcon, Plus } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
+import { Card, CardContent } from "@/components/ui/card";
+
+const cardData = {
+  title: "Čo chcete vedieť o univerzite?",
+  description:
+    "Naša vyškolená umelá inteligencia vám pomôže s vašimi otázkami! Vyber si niektorú z často kladených otázok nižšie alebo polož vlastnú otázku!",
+};
+
+const StartMaking: FC = () => {
+  return (
+    <Card className="w-[654px] px-[135px] py-[50px] border-components-cards-borders-BR-color-2">
+      <CardContent className="flex flex-col items-center gap-8 p-0">
+        <div className="relative w-[100px] h-[100px] rounded-full bg-gradient-to-b from-[rgba(141,193,255,0.6)] to-[rgba(141,193,255,0)]">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="relative">
+              <div className="w-[62px] h-8 bg-components-sections-BG-color-1 rounded-[3px] border-[0.6px] border-globals-global-borders-border-4 shadow-neutral-BS-regular">
+                <div className="w-full h-2.5 bg-white" />
+                <div className="w-full h-px bg-gray-200 mt-1" />
+              </div>
+
+              <div className="absolute bottom-[-21px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-blue-500 shadow-[0px_3.51px_5.27px_#2375fd47] flex items-center justify-center">
+                <Plus className="w-[9px] h-[9px] text-white" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h2 className="font-display-3-medium text-components-inputs-select-text-text-dark text-base font-medium">
+            {cardData.title}
+          </h2>
+          <p className="w-[383px] font-paragraph-default-regular text-components-inputs-select-text-text-neutral text-sm">
+            {cardData.description}
+          </p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 export const MyThread: FC = () => {
   return (
     <ThreadPrimitive.Root className="bg-background h-full">
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
-        <MyThreadWelcome />
+        <StartMaking />
 
         <ThreadPrimitive.Messages
           components={{
@@ -31,19 +70,6 @@ export const MyThread: FC = () => {
         </div>
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
-  );
-};
-
-const MyThreadWelcome: FC = () => {
-  return (
-    <ThreadPrimitive.Empty>
-      <div className="flex flex-grow flex-col items-center justify-center h-full">
-        <Avatar>
-          <AvatarFallback>C</AvatarFallback>
-        </Avatar>
-        <p className="mt-4 font-medium">How can I help you today?</p>
-      </div>
-    </ThreadPrimitive.Empty>
   );
 };
 
