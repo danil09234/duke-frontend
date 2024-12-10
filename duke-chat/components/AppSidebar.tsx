@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import Link from "next/link";
 import Image from "next/image";
 import avatar from "../public/resources/av2024-small.jpg";
 
@@ -12,10 +13,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { usePathname } from "next/navigation";
 import {
   Book,
   MessageCircle,
-  Moon,
   Plus,
   Puzzle,
   Search,
@@ -27,6 +28,7 @@ import styles from "@/styles/SidebarWrapper.module.css";
 
 const AppSidebar: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const pathname = usePathname();
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -70,7 +72,7 @@ const AppSidebar: React.FC = () => {
       )}
 
       {/* Navigation */}
-      <SidebarMenu className="flex flex-col">
+      {/* <SidebarMenu className="flex flex-col">
         {routes.map((item, index) => (
           <SidebarMenuItem key={index} className="w-full">
             <NavLink
@@ -96,6 +98,36 @@ const AppSidebar: React.FC = () => {
             </NavLink>
           </SidebarMenuItem>
         ))}
+      </SidebarMenu> */}
+
+      {/* Navigation */}
+      <SidebarMenu className="flex flex-col">
+        {routes.map((item, index) => {
+          const isActive = pathname === item.path;
+          return (
+            <SidebarMenuItem key={index} className="w-full">
+              <Link
+                href={item.path}
+                className={`${
+                  styles.defaultSidebarItem
+                } flex items-center justify-between w-full group hover:bg-gray-200 rounded-md transition-colors px-3 py-2 ${
+                  isActive ? styles.activeSidebarItem : ""
+                }`}
+              >
+                <div className="flex items-center gap-3 w-full">
+                  <item.icon className="h-5 w-5 text-gray-600" />
+                  <span className="text-gray-800 flex-grow">{item.name}</span>
+                </div>
+                <Badge
+                  className="flex-shrink-0 w-8 h-8 flex items-center justify-center"
+                  variant="secondary"
+                >
+                  {item.shortcut}
+                </Badge>
+              </Link>
+            </SidebarMenuItem>
+          );
+        })}
       </SidebarMenu>
 
       {/* Chat History */}

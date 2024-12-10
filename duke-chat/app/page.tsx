@@ -1,5 +1,6 @@
-import { MyAssistant } from "@/components/MyAssistant";
+import React from "react";
+import ChatPage from "@/pages/ChatPage";
 
-export default function Home() {
-  return <main className="h-dvh">{/* <MyAssistant /> */}</main>;
+export default function LibraryRoute() {
+  return <ChatPage />;
 }
