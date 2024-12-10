@@ -59,7 +59,7 @@ const cardsData = [
 
 const StartMaking: FC = () => {
   return (
-    <Card className="w-full max-w-2xl px-8 py-6 border-components-cards-borders-BR-color-2">
+    <Card className="w-full max-w-3xl px-8 py-6 border-components-cards-borders-BR-color-2">
       <CardContent className="flex flex-col items-center gap-8 p-0">
         <div className="relative w-24 h-24 rounded-full bg-gradient-to-b from-[rgba(141,193,255,0.6)] to-[rgba(141,193,255,0)]">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -93,7 +93,7 @@ const Frame: FC<{ onCardClick: (message: string) => void }> = ({
   onCardClick,
 }) => {
   return (
-    <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {cardsData.map((card, index) => (
         <Card
           key={index}
@@ -151,7 +151,7 @@ export const MyThread: FC = () => {
 
         {hasMessages && (<div className="min-h-8 flex-grow" />)}
 
-        <div className="sticky bottom-0 mt-3 flex w-full max-w-2xl flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
+        <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
           <MyComposer onSend={() => setHasMessages(true)} />
         </div>
       </ThreadPrimitive.Viewport>
@@ -188,7 +188,7 @@ const MyComposer: FC<{ onSend?: () => void }> = ({ onSend }) => {
 
 const MyUserMessage: FC = () => {
   return (
-    <MessagePrimitive.Root className="grid w-full max-w-2xl auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 py-4">
+    <MessagePrimitive.Root className="grid w-full max-w-3xl auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 py-4">
       <div className="bg-muted text-foreground col-start-2 row-start-1 max-w-xl break-words rounded-3xl px-5 py-2.5">
         <MessagePrimitive.Content />
       </div>
@@ -198,7 +198,7 @@ const MyUserMessage: FC = () => {
 
 const MyAssistantMessage: FC = () => {
   return (
-    <MessagePrimitive.Root className="relative grid w-full max-w-2xl grid-cols-[auto_1fr] grid-rows-[auto_1fr] py-4">
+    <MessagePrimitive.Root className="relative grid w-full max-w-3xl grid-cols-[auto_1fr] grid-rows-[auto_1fr] py-4">
       <Avatar className="col-start-1 row-span-full row-start-1 mr-4">
         <AvatarFallback>A</AvatarFallback>
       </Avatar>
