@@ -37,7 +37,7 @@ export const MyThread: FC = () => {
 const MyThreadWelcome: FC = () => {
   return (
     <ThreadPrimitive.Empty>
-      <div className="flex flex-grow flex-col items-center justify-center">
+      <div className="flex flex-grow flex-col items-center justify-center h-full">
         <Avatar>
           <AvatarFallback>C</AvatarFallback>
         </Avatar>
@@ -49,7 +49,7 @@ const MyThreadWelcome: FC = () => {
 
 const MyComposer: FC = () => {
   return (
-    <ComposerPrimitive.Root className="focus-within:border-aui-ring/20 flex w-full flex-wrap items-end rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
+    <ComposerPrimitive.Root className="focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
       <ComposerPrimitive.Input
         autoFocus
         placeholder="Write a message..."
