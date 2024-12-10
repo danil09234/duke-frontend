@@ -10,13 +10,16 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem, SidebarTrigger, useSidebar,
+  SidebarMenuItem, SidebarTrigger, useSidebar
 } from "@/components/ui/sidebar";
 import {MoonIcon} from "@heroicons/react/24/outline";
 import {Button, DayPickerProvider} from "react-day-picker";
 import {useTheme} from "next-themes";
 
 import Avatar from "@/resources/av2024-small.jpg";
+
+import { Input } from "@/components/ui/input"
+import {SearchInput} from "@/components/ui/search";
 
 // Menu items.
 const items = [
@@ -55,8 +58,8 @@ function ExpandedSidebarTop() {
   return (
       <div className="flex flex-col">
         <AvatarAndIcons />
-        <div>
-          Search
+        <div className="flex items-center space-x-2">
+          <SearchInput placeholder="Hľadáj chat..." />
         </div>
       </div>
   )
