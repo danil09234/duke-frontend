@@ -1,3 +1,5 @@
+"use client"
+
 import { Calendar, MessageCircle, Inbox, Puzzle, Book } from "lucide-react";
 
 import {
@@ -8,7 +10,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem, SidebarTrigger,
+  SidebarMenuItem, SidebarTrigger, useSidebar,
 } from "@/components/ui/sidebar";
 
 // Menu items.
@@ -44,7 +46,7 @@ function AvatarAndIcons() {
   )
 }
 
-function SidebarTop() {
+function ExpandedSidebarTop() {
   return (
       <div className="flex flex-col">
         <AvatarAndIcons />
@@ -55,12 +57,28 @@ function SidebarTop() {
   )
 }
 
+function CollapsedSidebarTop() {
+  return (
+    <div className="flex flex-column">
+      <SidebarTrigger />
+    </div>
+  )
+}
+
+function SidebarTop() {
+  const { isMobile, state } = useSidebar();
+
+  return (
+      state === "expanded" ? <ExpandedSidebarTop /> : <CollapsedSidebarTop />
+  )
+}
+
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarTrigger />
+          <SidebarTop />
         </SidebarGroup>
         <SidebarGroup className="space-y-20">
           <SidebarGroupContent>
