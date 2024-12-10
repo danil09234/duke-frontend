@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 import avatar from "../public/resources/av2024-small.jpg";
 
+import { routes } from "@/routes";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,12 +25,23 @@ import {
 import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
 
 const navigationItems = [
-  { icon: MessageCircle, label: "Chaty", shortcut: "⌘1" },
-  { icon: Book, label: "Knižnica", shortcut: "⌘2" },
-  { icon: Puzzle, label: "Nájsť program", shortcut: "⌘3" },
+  { icon: MessageCircle, label: "Chaty", shortcut: "⌘1", href: "/" },
+  { icon: Book, label: "Knižnica", shortcut: "⌘2", href: "/library" },
+  {
+    icon: Puzzle,
+    label: "Nájsť program",
+    shortcut: "⌘3",
+    href: "/find-program",
+  },
 ];
 
 const chatHistory = [
+  "Prijímacie skúšky na TUKE",
+  "Tipy a rady pre uchádzačov",
+  "Tipy pre nováčikov",
+  "Ako sa adaptovať ku štúdiu",
+  "Štipendiá, granty",
+  "Prihláška online MAIS",
   "Prijímacie skúšky na TUKE",
   "Tipy a rady pre uchádzačov",
   "Tipy pre nováčikov",
@@ -86,24 +99,30 @@ export function AppSidebar() {
 
         {/* Navigation */}
         <SidebarMenu className="flex flex-col gap-1 p-1">
-          {navigationItems.map((item, index) => (
+          {routes.map((item, index) => (
             <SidebarMenuItem
               key={index}
-              href="#"
+              href={item.path}
               className="flex items-center justify-between p-2"
             >
-              <div className="flex items-center gap-2">
-                <item.icon className="h-4 w-4" />
-                <span className="font-display-2-regular text-components-inputs-select-text-text-neutral">
-                  {item.label}
-                </span>
-              </div>
-              <Badge
-                className="w-8 flex items-center justify-center"
-                variant="secondary"
+              {/* Wrap the content with Link to make it clickable */}
+              <Link
+                href={item.path}
+                className="flex items-center justify-between w-full group"
               >
-                {item.shortcut}
-              </Badge>
+                <div className="flex items-center gap-2">
+                  <item.icon className="h-4 w-4" />
+                  <span className="font-display-2-regular text-components-inputs-select-text-text-neutral">
+                    {item.name}
+                  </span>
+                </div>
+                <Badge
+                  className="w-8 flex items-center justify-center"
+                  variant="secondary"
+                >
+                  {item.shortcut}
+                </Badge>
+              </Link>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
@@ -122,7 +141,6 @@ export function AppSidebar() {
                 text-left 
                 [text-underline-position:from-font] 
                 [text-decoration-skip-ink:none] 
-                text-components-titles-paragraphs-text-neutral-light
                 text-[#BAC0CC]
               "
             >
