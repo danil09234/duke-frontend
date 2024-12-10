@@ -69,7 +69,7 @@ function SidebarTop() {
   const { isMobile, state } = useSidebar();
 
   return (
-      state === "expanded" ? <ExpandedSidebarTop /> : <CollapsedSidebarTop />
+      state === "expanded" ? <ExpandedSidebarTop key="expanded" /> : <CollapsedSidebarTop key="collapsed" />
   )
 }
 
