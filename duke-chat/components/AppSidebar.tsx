@@ -42,7 +42,7 @@ function AvatarAndIcons() {
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-2">
         <img src={Avatar} alt="Avatar"  />
-        <SidebarGroupLabel>Vladyslav</SidebarGroupLabel>
+        <p>Vladyslav</p>
       </div>
       <div>
         <SidebarTrigger />
@@ -128,6 +128,11 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        {state === "expanded" &&
+          <SidebarGroup>
+            <SidebarGroupLabel className="uppercase">História chatov</SidebarGroupLabel>
+          </SidebarGroup>
+        }
       </SidebarContent>
     </Sidebar>
   );
