@@ -4,6 +4,8 @@ import {
   ComposerPrimitive,
   MessagePrimitive,
   ThreadPrimitive,
+  useThreadRuntime,
+  useThread,
 } from "@assistant-ui/react";
 import type { FC } from "react";
 import { SendHorizontalIcon, Plus } from "lucide-react";
@@ -87,11 +89,17 @@ const StartMaking: FC = () => {
   );
 };
 
-const Frame: FC = () => {
+const Frame: FC<{ onCardClick: (message: string) => void }> = ({
+  onCardClick,
+}) => {
   return (
     <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {cardsData.map((card, index) => (
-        <Card key={index} className="border border-[#e3e6ea] shadow-sm">
+        <Card
+          key={index}
+          className="border border-[#e3e6ea] shadow-sm cursor-pointer"
+          onClick={() => onCardClick(card.text)}
+        >
           <CardContent className="p-6 space-y-3">
             <div className="w-4">{card.icon}</div>
             <p className="text-sm text-gray-600 leading-[150%] line-clamp-2">
@@ -105,13 +113,34 @@ const Frame: FC = () => {
 };
 
 export const MyThread: FC = () => {
+  const [hasMessages, setHasMessages] = React.useState(false);
+  const thread = useThread();
+  const messages = thread.messages;
+  const threadRuntime = useThreadRuntime();
+  
+  const handleCardClick = (message: string) => {
+    threadRuntime.append({
+      role: "user",
+      content: [{ type: "text", text: message }],
+    });
+    setHasMessages(true);
+  };
+  
+  React.useEffect(() => {
+    if (messages.length > 0) {
+      setHasMessages(true);
+    }
+  }, [messages]);
+
   return (
     <ThreadPrimitive.Root className="bg-background h-full">
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
-        <div className="flex flex-grow flex-col items-center justify-center gap-8">
-          <StartMaking />
-          <Frame />
-        </div>
+        {!hasMessages && (
+          <div className="flex flex-grow flex-col items-center justify-center gap-8">
+            <StartMaking />
+            <Frame onCardClick={handleCardClick} />
+          </div>
+        )}
 
         <ThreadPrimitive.Messages
           components={{
@@ -121,16 +150,21 @@ export const MyThread: FC = () => {
         />
 
         <div className="sticky bottom-0 mt-3 flex w-full max-w-2xl flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
-          <MyComposer />
+          <MyComposer onSend={() => setHasMessages(true)} />
         </div>
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
   );
 };
 
-const MyComposer: FC = () => {
+const MyComposer: FC<{ onSend?: () => void }> = ({ onSend }) => {
   return (
-    <ComposerPrimitive.Root className="focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
+    <ComposerPrimitive.Root
+      onSubmit={() => {
+        if (onSend) onSend();
+      }}
+      className="focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in"
+    >
       <ComposerPrimitive.Input
         autoFocus
         placeholder="Write a message..."
