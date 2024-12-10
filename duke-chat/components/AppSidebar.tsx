@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, MessageCircle, Inbox, Puzzle, Book } from "lucide-react";
+import {Calendar, MessageCircle, Inbox, Puzzle, Book, SunIcon} from "lucide-react";
 
 import {
   Sidebar,
@@ -12,6 +12,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem, SidebarTrigger, useSidebar,
 } from "@/components/ui/sidebar";
+import {MoonIcon} from "@heroicons/react/24/outline";
+import {Button, DayPickerProvider} from "react-day-picker";
+import {useTheme} from "next-themes";
+
+import Avatar from "@/resources/av2024-small.jpg";
 
 // Menu items.
 const items = [
@@ -36,7 +41,7 @@ function AvatarAndIcons() {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-2">
-        <img alt="Avatar" src="@/resources/av2024-small.jpg" />
+        <img src={Avatar} alt="Avatar"  />
         <SidebarGroupLabel>Vladyslav</SidebarGroupLabel>
       </div>
       <div>
@@ -57,10 +62,30 @@ function ExpandedSidebarTop() {
   )
 }
 
+
+export const ThemeToggle = () => {
+  const { theme, setTheme } = useTheme();
+
+  return (
+      <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      >
+        <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+  );
+};
+
 function CollapsedSidebarTop() {
   return (
-    <div className="flex flex-column">
-      <SidebarTrigger />
+    <div className="flex flex-col items-center">
+      <DayPickerProvider initialProps={{ mode: "single" }}>
+        <ThemeToggle />
+        <SidebarTrigger />
+      </DayPickerProvider>
     </div>
   )
 }
@@ -73,14 +98,21 @@ function SidebarTop() {
   )
 }
 
+function Divider() {
+  return <hr className="my-2 w-[27px] h-[1px] bg-[var(--Divider-Border-BR-Color-2,#BAC0CC)]" />
+}
+
 export function AppSidebar() {
+  const { isMobile, state } = useSidebar();
+
   return (
     <Sidebar collapsible="icon">
-      <SidebarContent>
+      <SidebarContent className="items-center gap-0">
         <SidebarGroup>
           <SidebarTop />
         </SidebarGroup>
-        <SidebarGroup className="space-y-20">
+        {state === "collapsed" && <Divider />}
+        <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
