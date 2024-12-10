@@ -147,7 +147,7 @@ export const MyThread: FC = () => {
   return (
     <>
       <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
-        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 pt-8 z-10">
+        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit pt-8 z-10">
           {hasMessages ? (
             <ThreadPrimitive.Messages
               components={{
