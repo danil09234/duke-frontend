@@ -149,6 +149,8 @@ export const MyThread: FC = () => {
           }}
         />
 
+        <div className="min-h-8 flex-grow" />
+
         <div className="sticky bottom-0 mt-3 flex w-full max-w-2xl flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
           <MyComposer onSend={() => setHasMessages(true)} />
         </div>
