@@ -1,7 +1,7 @@
 "use client";
 
-import { useEdgeRuntime } from "@assistant-ui/react";
-import { Thread } from "@assistant-ui/react";
+import {AssistantRuntimeProvider, useEdgeRuntime} from "@assistant-ui/react";
+import { MyThread } from "@/components/ui/assistant-ui/thread";
 import { makeMarkdownText } from "@assistant-ui/react-markdown";
 
 const MarkdownText = makeMarkdownText();
@@ -11,10 +11,11 @@ export function MyAssistant() {
 
   return (
     <div className="p-0 flex-1">
-      <Thread
-        runtime={runtime}
-        assistantMessage={{ components: { Text: MarkdownText } }}
-      />
+        <AssistantRuntimeProvider runtime={runtime}>
+          <MyThread
+            assistantMessage={{ components: { Text: MarkdownText } }}
+          />
+        </AssistantRuntimeProvider>
     </div>
   );
 }

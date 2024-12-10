@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.72",
-    "@assistant-ui/react": "^0.7.0",
+    "@assistant-ui/react": "^0.7.11",
     "@assistant-ui/react-markdown": "^0.7.0",
     "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^3.9.1",
