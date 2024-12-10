@@ -147,7 +147,7 @@ export const MyThread: FC = () => {
   return (
     <>
       <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
-        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit pt-8 z-10">
+        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 z-10">
           {hasMessages ? (
             <ThreadPrimitive.Messages
               components={{
@@ -165,7 +165,7 @@ export const MyThread: FC = () => {
           {hasMessages && (<div className="min-h-8 flex-grow" />)}
         </ThreadPrimitive.Viewport>
       </ThreadPrimitive.Root>
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center px-4">
         <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg bg-transparent pb-4 z-10">
           <MyComposer onSend={() => setHasMessages(true)} className="bg-white" />
         </div>
