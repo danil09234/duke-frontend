@@ -111,7 +111,21 @@ export function AppSidebar() {
         {/* Chat History */}
         {isExpanded && (
           <div className="flex flex-col gap-3">
-            <span className="px-2.5 font-display-1-uppercase-medium text-components-titles-paragraphs-text-neutral-light">
+            <span
+              className="
+                px-2.5 
+                font-inter 
+                text-xs 
+                font-medium 
+                leading-[15.6px] 
+                tracking-widest 
+                text-left 
+                [text-underline-position:from-font] 
+                [text-decoration-skip-ink:none] 
+                text-components-titles-paragraphs-text-neutral-light
+                text-[#BAC0CC]
+              "
+            >
               HISTÓRIA CHATOV
             </span>
             <ScrollArea className="h-[300px] relative">
@@ -120,12 +134,24 @@ export function AppSidebar() {
                   key={index}
                   className="flex items-center px-4 py-2 hover:bg-accent rounded-md cursor-pointer"
                 >
-                  <span className="font-display-2-regular text-components-inputs-select-text-text-neutral truncate">
+                  <span
+                    className="
+                    font-inter 
+                    text-sm 
+                    font-normal 
+                    leading-[18.2px] 
+                    text-left 
+                    [text-underline-position:from-font] 
+                    [text-decoration-skip-ink:none] 
+                    text-[#666F8D]
+                    truncate
+                  "
+                  >
                     {chat}
                   </span>
                 </div>
               ))}
-              <div className="absolute bottom-0 left-0 right-0 h-[117px] bg-gradient-to-t from-background to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-gradient-to-t from-background to-transparent" />
             </ScrollArea>
           </div>
         )}
