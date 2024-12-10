@@ -335,18 +335,6 @@ You can apply the theme on any DOM node, not just the `body`
   --paragraph-default-regular-line-height: 150%;
 }
 
-/*
-
-To enable a theme in your HTML, simply add one of the following data attributes to an HTML element, like so:
-
-<body data-components-mode="default">
-    <!-- the rest of your content -->
-</body>
-
-You can apply the theme on any DOM node, not just the `body`
-
-*/
-
 [data-components-mode="default"] {
   --components-cards-backgrounds-BG-color-1: var(
     --globals-global-surfaces-surface-1

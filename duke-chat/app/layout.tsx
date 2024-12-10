@@ -3,7 +3,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import localFont from "next/font/local";
 import "./globals.css";
 import ChatPage from "../pages/ChatPage";
-import { AppSidebar } from "@/components/AppSidebar";
+import AppSidebar from "@/components/AppSidebar";
+import ClientRouter from "@/components/ClientRouter";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,10 +29,12 @@ export default function RootLayout() {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SidebarProvider>
-          <AppSidebar />
-          <main className="w-full">
-            <ChatPage />
-          </main>
+          <ClientRouter>
+            <AppSidebar />
+            <main className="w-full">
+              <ChatPage />
+            </main>
+          </ClientRouter>
         </SidebarProvider>
       </body>
     </html>
