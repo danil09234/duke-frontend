@@ -56,11 +56,9 @@ function AvatarAndIcons() {
 
 function ExpandedSidebarTop() {
   return (
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
         <AvatarAndIcons />
-        <div className="flex items-center space-x-2">
-          <SearchInput placeholder="Hľadáj chat..." />
-        </div>
+        <SearchInput placeholder="Hľadáj chat..." />
       </div>
   )
 }
