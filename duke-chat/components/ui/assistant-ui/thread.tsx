@@ -12,26 +12,63 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
 import { Card, CardContent } from "@/components/ui/card";
 
+import {
+  BanknoteIcon,
+  FileText,
+  MessageCircle,
+  PenLine,
+  Plane,
+  Star,
+} from "lucide-react";
+import React from "react";
+
 const cardData = {
   title: "Čo chcete vedieť o univerzite?",
   description:
     "Naša vyškolená umelá inteligencia vám pomôže s vašimi otázkami! Vyber si niektorú z často kladených otázok nižšie alebo polož vlastnú otázku!",
 };
 
+const cardsData = [
+  {
+    icon: <MessageCircle className="w-4 h-4 text-orange-500" />,
+    text: "Ktorý študijný program na vybrať pre dceru?",
+  },
+  {
+    icon: <Star className="w-4 h-4 text-orange-500" />,
+    text: "Kedy je termín na podanie prihlášky na FEI KPI?",
+  },
+  {
+    icon: <Plane className="w-4 h-4 text-orange-500" />,
+    text: "Aké študijné programy ponúka Letecka fakulta?",
+  },
+  {
+    icon: <BanknoteIcon className="w-4 h-4 text-orange-500" />,
+    text: "Aké sú poplatky spojené so štúdiom alebo podaním prihlášky?",
+  },
+  {
+    icon: <FileText className="w-4 h-4 text-orange-500" />,
+    text: "Ako sa dá podať prihláška online pomocou MAIS?",
+  },
+  {
+    icon: <PenLine className="w-4 h-4 text-orange-500" />,
+    text: "Kde môžem nájsť informácie o prijímacích skúškach?",
+  },
+];
+
 const StartMaking: FC = () => {
   return (
-    <Card className="w-[654px] px-[135px] py-[50px] border-components-cards-borders-BR-color-2">
+    <Card className="w-full max-w-2xl px-8 py-6 border-components-cards-borders-BR-color-2">
       <CardContent className="flex flex-col items-center gap-8 p-0">
-        <div className="relative w-[100px] h-[100px] rounded-full bg-gradient-to-b from-[rgba(141,193,255,0.6)] to-[rgba(141,193,255,0)]">
+        <div className="relative w-24 h-24 rounded-full bg-gradient-to-b from-[rgba(141,193,255,0.6)] to-[rgba(141,193,255,0)]">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className="relative">
-              <div className="w-[62px] h-8 bg-components-sections-BG-color-1 rounded-[3px] border-[0.6px] border-globals-global-borders-border-4 shadow-neutral-BS-regular">
+              <div className="w-16 h-8 bg-components-sections-BG-color-1 rounded-sm border border-globals-global-borders-border-4 shadow-neutral-BS-regular">
                 <div className="w-full h-2.5 bg-white" />
                 <div className="w-full h-px bg-gray-200 mt-1" />
               </div>
 
-              <div className="absolute bottom-[-21px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-blue-500 shadow-[0px_3.51px_5.27px_#2375fd47] flex items-center justify-center">
-                <Plus className="w-[9px] h-[9px] text-white" />
+              <div className="absolute bottom-[-12px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-blue-500 shadow-[0px_3.51px_5.27px_#2375fd47] flex items-center justify-center">
+                <Plus className="w-3 h-3 text-white" />
               </div>
             </div>
           </div>
@@ -41,7 +78,7 @@ const StartMaking: FC = () => {
           <h2 className="font-display-3-medium text-components-inputs-select-text-text-dark text-base font-medium">
             {cardData.title}
           </h2>
-          <p className="w-[383px] font-paragraph-default-regular text-components-inputs-select-text-text-neutral text-sm">
+          <p className="w-full max-w-md font-paragraph-default-regular text-components-inputs-select-text-text-neutral text-sm">
             {cardData.description}
           </p>
         </div>
@@ -50,11 +87,31 @@ const StartMaking: FC = () => {
   );
 };
 
+const Frame: FC = () => {
+  return (
+    <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {cardsData.map((card, index) => (
+        <Card key={index} className="border border-[#e3e6ea] shadow-sm">
+          <CardContent className="p-6 space-y-3">
+            <div className="w-4">{card.icon}</div>
+            <p className="text-sm text-gray-600 leading-[150%] line-clamp-2">
+              {card.text}
+            </p>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
+};
+
 export const MyThread: FC = () => {
   return (
     <ThreadPrimitive.Root className="bg-background h-full">
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
-        <StartMaking />
+        <div className="flex flex-grow flex-col items-center justify-center gap-8">
+          <StartMaking />
+          <Frame />
+        </div>
 
         <ThreadPrimitive.Messages
           components={{
@@ -62,8 +119,6 @@ export const MyThread: FC = () => {
             AssistantMessage: MyAssistantMessage,
           }}
         />
-
-        <div className="min-h-8 flex-grow" />
 
         <div className="sticky bottom-0 mt-3 flex w-full max-w-2xl flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
           <MyComposer />
