@@ -1,11 +1,7 @@
-import React from "react";
-
-import Image from "next/image";
-import avatar from "../public/resources/av2024-small.jpg";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -17,37 +13,37 @@ import {
   Search,
   PanelRightOpen,
 } from "lucide-react";
-
-import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
+import React from "react";
 
 const navigationItems = [
-  { icon: MessageCircle, label: "Chaty", shortcut: "⌘1" },
-  { icon: Book, label: "Knižnica", shortcut: "⌘2" },
-  { icon: Puzzle, label: "Nájsť program", shortcut: "⌘3" },
+  { icon: MessageCircle, label: "Chaty", shortcut: "1" },
+  { icon: Book, label: "Knižnica", shortcut: "2" },
+  { icon: Puzzle, label: "Nájsť program", shortcut: "3" },
 ];
 
 const chatHistory = [
-  "Prijímacie skúšky na TUKE",
-  "Tipy a rady pre uchádzačov",
-  "Tipy pre nováčikov",
-  "Ako sa adaptovať ku štúdiu",
-  "Štipendiá, granty",
-  "Prihláška online MAIS",
+  "Quis ipsum suspendisse",
+  "Ut tristique et egestas quis ipsum sus",
+  "Sed viverra tellus inhac",
+  "Eros in cursus turpis massa",
+  "Dictum at tempor commodo ullamcorper",
+  "Morbi tristique senectus et",
 ];
 
-export function AppSidebar() {
+export default function SidebarWrapper() {
   return (
     <div className="flex flex-col w-[296px] h-screen bg-background">
       <div className="flex flex-col p-6 gap-8">
         {/* Header */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Avatar className="h-8 w-8">
-                <Image src={avatar} alt="Avatar" className="rounded-full" />
+                <AvatarImage src="/element.png" alt="Avatar" />
+                <AvatarFallback>AN</AvatarFallback>
               </Avatar>
               <span className="font-display-2-medium text-components-inputs-select-text-text-dark">
-                Vladyslav
+                Annamária
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -67,8 +63,8 @@ export function AppSidebar() {
               defaultValue=""
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-            <Badge className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1">
-              ⌘K
+            <Badge className="absolute right-2 top-1/2 transform -translate-y-1/2">
+              K
             </Badge>
           </div>
         </div>
@@ -90,12 +86,7 @@ export function AppSidebar() {
                   {item.label}
                 </span>
               </div>
-              <Badge
-                className="w-7 flex items-center justify-center"
-                variant="secondary"
-              >
-                {item.shortcut}
-              </Badge>
+              <Badge variant="secondary">{item.shortcut}</Badge>
             </Card>
           ))}
         </div>

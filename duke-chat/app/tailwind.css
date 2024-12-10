@@ -1,0 +1,286 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+:root {
+  --components-avatars-backgrounds-BG-color-1: var(
+    --globals-global-surfaces-surface-8
+  );
+  --components-badges-backgrounds-BG-color-1: var(
+    --globals-global-surfaces-surface-1
+  );
+  --components-badges-backgrounds-BG-color-2: var(
+    --globals-global-surfaces-surface-2
+  );
+  --components-badges-borders-BR-color-2: var(
+    --globals-global-borders-border-2
+  );
+  --components-badges-gaps-gap-small: 4px;
+  --components-badges-paddings-PD-small: var(
+    --globals-default-gaps-default-paddings-PD-tiny
+  );
+  --components-badges-small: var(--core-BR-size-2);
+  --components-badges-text-text-dark: var(--globals-global-texts-color-4);
+  --components-buttons-gaps-gap-regular: var(
+    --globals-default-gaps-default-gaps-gap-small
+  );
+  --components-buttons-paddings-PD-medium: var(
+    --globals-default-gaps-default-paddings-PD-default
+  );
+  --components-buttons-paddings-PD-regular: var(
+    --globals-default-gaps-default-paddings-PD-small
+  );
+  --components-buttons-primary-text-text-light-mode: var(
+    --globals-global-texts-color-1
+  );
+  --components-inputs-input-text-paddings-PD-regular: var(
+    --globals-default-gaps-default-paddings-PD-small
+  );
+  --components-inputs-input-text-paddings-PD-small: var(
+    --globals-default-gaps-default-paddings-PD-tiny
+  );
+  --components-inputs-select-backgrounds-BG-color-1: var(
+    --globals-global-surfaces-surface-1
+  );
+  --components-inputs-select-borders-BR-color-1: var(
+    --globals-global-borders-border-2
+  );
+  --components-inputs-select-small: var(--globals-globals-BR-small);
+  --components-inputs-select-text-text-dark: var(
+    --globals-global-texts-color-4
+  );
+  --components-inputs-select-text-text-neutral: var(
+    --globals-global-texts-color-3
+  );
+  --components-lists-gaps-gap-small: var(
+    --globals-default-gaps-default-gaps-gap-tiny
+  );
+  --components-titles-paragraphs-text-neutral-light: var(
+    --globals-global-texts-color-2
+  );
+  --core-BR-pill: 200px;
+  --core-BR-size-2: 4px;
+  --core-BR-size-3: 8px;
+  --core-BR-size-5: 24px;
+  --core-BR-size-6: 32px;
+  --core-neutrals-colors-100: rgba(255, 255, 255, 1);
+  --core-neutrals-colors-200: rgba(247, 248, 250, 1);
+  --core-neutrals-colors-300: rgba(240, 242, 245, 1);
+  --core-neutrals-colors-500: rgba(186, 192, 204, 1);
+  --core-neutrals-colors-600: rgba(102, 111, 141, 1);
+  --core-neutrals-colors-800: rgba(25, 33, 61, 1);
+  --core-secondary-colors-200: rgba(255, 249, 247, 1);
+  --core-sizes-size-0: 2px;
+  --core-sizes-size-1: 6px;
+  --core-sizes-size-2: 8px;
+  --core-sizes-size-3: 12px;
+  --core-sizes-size-4: 16px;
+  --core-sizes-size-5: 24px;
+  --core-sizes-size-7: 40px;
+  --display-1-medium-font-family: "Inter", Helvetica;
+  --display-1-medium-font-size: 12px;
+  --display-1-medium-font-style: normal;
+  --display-1-medium-font-weight: 500;
+  --display-1-medium-letter-spacing: 0px;
+  --display-1-medium-line-height: 129.99999523162842%;
+  --display-1-regular-font-family: "Inter", Helvetica;
+  --display-1-regular-font-size: 12px;
+  --display-1-regular-font-style: normal;
+  --display-1-regular-font-weight: 400;
+  --display-1-regular-letter-spacing: 0px;
+  --display-1-regular-line-height: 129.99999523162842%;
+  --display-1-uppercase-medium-font-family: "Inter", Helvetica;
+  --display-1-uppercase-medium-font-size: 12px;
+  --display-1-uppercase-medium-font-style: normal;
+  --display-1-uppercase-medium-font-weight: 500;
+  --display-1-uppercase-medium-letter-spacing: 1.2px;
+  --display-1-uppercase-medium-line-height: 129.99999523162842%;
+  --display-2-medium-font-family: "Inter", Helvetica;
+  --display-2-medium-font-size: 14px;
+  --display-2-medium-font-style: normal;
+  --display-2-medium-font-weight: 500;
+  --display-2-medium-letter-spacing: 0px;
+  --display-2-medium-line-height: 129.99999523162842%;
+  --display-2-regular-font-family: "Inter", Helvetica;
+  --display-2-regular-font-size: 14px;
+  --display-2-regular-font-style: normal;
+  --display-2-regular-font-weight: 400;
+  --display-2-regular-letter-spacing: 0px;
+  --display-2-regular-line-height: 129.99999523162842%;
+  --display-2-strong-font-family: "Inter", Helvetica;
+  --display-2-strong-font-size: 14px;
+  --display-2-strong-font-style: normal;
+  --display-2-strong-font-weight: 600;
+  --display-2-strong-letter-spacing: 0px;
+  --display-2-strong-line-height: 129.99999523162842%;
+  --globals-default-gaps-default-gaps-gap-default: var(--core-sizes-size-3);
+  --globals-default-gaps-default-gaps-gap-extra-large: var(--core-sizes-size-7);
+  --globals-default-gaps-default-gaps-gap-small: var(--core-sizes-size-2);
+  --globals-default-gaps-default-gaps-gap-tiny: var(--core-sizes-size-0);
+  --globals-default-gaps-default-paddings-PD-default: var(--core-sizes-size-4);
+  --globals-default-gaps-default-paddings-PD-medium: var(--core-sizes-size-5);
+  --globals-default-gaps-default-paddings-PD-small: var(--core-sizes-size-3);
+  --globals-default-gaps-default-paddings-PD-tiny: var(--core-sizes-size-1);
+  --globals-global-borders-border-2: var(--core-neutrals-colors-300);
+  --globals-global-surfaces-surface-1: var(--core-neutrals-colors-100);
+  --globals-global-surfaces-surface-2: var(--core-neutrals-colors-200);
+  --globals-global-surfaces-surface-8: var(--core-secondary-colors-200);
+  --globals-global-texts-color-1: var(--core-neutrals-colors-100);
+  --globals-global-texts-color-2: var(--core-neutrals-colors-500);
+  --globals-global-texts-color-3: var(--core-neutrals-colors-600);
+  --globals-global-texts-color-4: var(--core-neutrals-colors-800);
+  --globals-globals-BR-small: var(--core-BR-size-3);
+  --neutral-BS-small: 0px 1px 3px 0px rgba(25, 33, 61, 0.1);
+}
+
+/*
+
+To enable a theme in your HTML, simply add one of the following data attributes to an HTML element, like so:
+
+<body data-core-mode="default">
+    <!-- the rest of your content -->
+</body>
+
+You can apply the theme on any DOM node, not just the `body`
+
+*/
+
+[data-core-mode="default"] {
+  --core-secondary-colors-200: rgba(255, 249, 247, 1);
+}
+
+[data-core-mode="dark-mode"] {
+  --core-secondary-colors-200: rgba(53, 62, 92, 1);
+}
+
+[data-components-mode="default"] {
+  --components-avatars-backgrounds-BG-color-1: var(
+    --globals-global-surfaces-surface-8
+  );
+  --components-badges-backgrounds-BG-color-1: var(
+    --globals-global-surfaces-surface-1
+  );
+  --components-badges-backgrounds-BG-color-2: var(
+    --globals-global-surfaces-surface-2
+  );
+  --components-badges-borders-BR-color-2: var(
+    --globals-global-borders-border-2
+  );
+  --components-badges-text-text-dark: var(--globals-global-texts-color-4);
+  --components-inputs-select-backgrounds-BG-color-1: var(
+    --globals-global-surfaces-surface-1
+  );
+  --components-inputs-select-borders-BR-color-1: var(
+    --globals-global-borders-border-2
+  );
+  --components-inputs-select-text-text-dark: var(
+    --globals-global-texts-color-4
+  );
+  --components-inputs-select-text-text-neutral: var(
+    --globals-global-texts-color-3
+  );
+  --components-titles-paragraphs-text-neutral-light: var(
+    --globals-global-texts-color-2
+  );
+}
+
+[data-components-mode="dark-mode"] {
+  --components-avatars-backgrounds-BG-color-1: rgba(53, 62, 92, 1);
+  --components-badges-backgrounds-BG-color-1: rgba(20, 24, 40, 1);
+  --components-badges-backgrounds-BG-color-2: rgba(73, 85, 122, 1);
+  --components-badges-borders-BR-color-2: rgba(75, 82, 104, 1);
+  --components-badges-text-text-dark: rgba(207, 213, 223, 1);
+  --components-inputs-select-backgrounds-BG-color-1: rgba(35, 40, 61, 1);
+  --components-inputs-select-borders-BR-color-1: rgba(75, 82, 104, 1);
+  --components-inputs-select-text-text-dark: rgba(237, 240, 244, 1);
+  --components-inputs-select-text-text-neutral: rgba(172, 180, 192, 1);
+  --components-titles-paragraphs-text-neutral-light: rgba(155, 165, 181, 1);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
