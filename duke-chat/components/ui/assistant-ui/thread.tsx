@@ -133,7 +133,7 @@ export const MyThread: FC = () => {
   }, [messages]);
 
   return (
-    <ThreadPrimitive.Root className="bg-background h-full">
+    <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
         {hasMessages ? (
           <ThreadPrimitive.Messages

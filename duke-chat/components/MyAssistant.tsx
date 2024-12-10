@@ -13,7 +13,7 @@ export function MyAssistant() {
   return (
     <div className="flex flex-col p-0 flex-1 h-screen">
       <TopBarWrapper />
-      <AssistantRuntimeProvider runtime={runtime} className="flex-1">
+      <AssistantRuntimeProvider runtime={runtime}>
         <MyThread
           assistantMessage={{ components: { Text: MarkdownText } }}
         />
