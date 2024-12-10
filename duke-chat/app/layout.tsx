@@ -3,6 +3,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import localFont from "next/font/local";
 import "./globals.css";
 import ChatPage from "../pages/ChatPage";
+import LibraryPage from "../pages/LibraryPage";
 import AppSidebar from "@/components/AppSidebar";
 import ClientRouter from "@/components/ClientRouter";
 
@@ -31,8 +32,8 @@ export default function RootLayout() {
         <SidebarProvider>
           <ClientRouter>
             <AppSidebar />
-            <main className="w-full">
-              <ChatPage />
+            <main className="flex-1">
+              <LibraryPage />
             </main>
           </ClientRouter>
         </SidebarProvider>

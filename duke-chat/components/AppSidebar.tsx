@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Image from "next/image";
 import avatar from "../public/resources/av2024-small.jpg";
 
@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 
 import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
+import styles from "@/styles/SidebarWrapper.module.css";
 
 const AppSidebar: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -48,16 +49,16 @@ const AppSidebar: React.FC = () => {
           <AvatarImage src={avatar.src} alt="User Avatar" />
           <AvatarFallback>U</AvatarFallback>
         </Avatar>
-        <Button variant="ghost" size="icon" onClick={toggleSidebar}>
+        <Button variant="ghost" size="32px" onClick={toggleSidebar}>
           <PanelRightOpen className="h-5 w-5" />
         </Button>
       </div>
 
       {/* Search Input */}
       {isExpanded && (
-        <div className="relative py-4">
+        <div className="relative py-4 mb-8">
           <Input
-            className="h-[42px] pl-8"
+            className="h-[42px] pl-8 bg-white"
             placeholder="Hľadáj chat..."
             defaultValue=""
           />
@@ -69,30 +70,30 @@ const AppSidebar: React.FC = () => {
       )}
 
       {/* Navigation */}
-      <SidebarMenu className="flex flex-col gap-1 p-1">
+      <SidebarMenu className="flex flex-col">
         {routes.map((item, index) => (
-          <SidebarMenuItem
-            key={index}
-            className="flex items-center justify-between p-2"
-          >
-            {/* Wrap the content with Link to make it clickable */}
-            <Link
-              to={item.path} // Changed from href to to
-              className="flex items-center justify-between w-full group hover:bg-slate-600 rounded-md transition-colors"
+          <SidebarMenuItem key={index} className="w-full">
+            <NavLink
+              to={item.path}
+              className={({ isActive }) =>
+                `${
+                  styles.defaultSidebarItem
+                } flex items-center justify-between w-full group hover:bg-gray-200 rounded-md transition-colors px-3 py-2 ${
+                  isActive ? styles.activeSidebarItem : ""
+                }`
+              }
             >
-              <div className="flex items-center gap-2">
-                <item.icon className="h-4 w-4" />
-                <span className="font-display-2-regular text-components-inputs-select-text-text-neutral">
-                  {item.name}
-                </span>
+              <div className="flex items-center gap-3 w-full">
+                <item.icon className="h-5 w-5 text-gray-600" />
+                <span className="text-gray-800 flex-grow">{item.name}</span>
               </div>
               <Badge
-                className="w-8 flex items-center justify-center"
+                className="flex-shrink-0 w-8 h-8 flex items-center justify-center"
                 variant="secondary"
               >
                 {item.shortcut}
               </Badge>
-            </Link>
+            </NavLink>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
