@@ -7,11 +7,11 @@ import TopBarWrapper from "@/components/ui/TopBarWrapper";
 
 const MarkdownText = makeMarkdownText();
 
-export function MyAssistant() {
+export function ChatPageContent() {
   const runtime = useEdgeRuntime({ api: "/api/chat" });
 
   return (
-    <div className="flex flex-col p-0 flex-1 h-screen">
+    <div className="flex flex-col p-0 flex-1 h-full">
       <TopBarWrapper />
       <AssistantRuntimeProvider runtime={runtime}>
         <MyThread
