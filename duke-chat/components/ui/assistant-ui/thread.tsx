@@ -135,21 +135,21 @@ export const MyThread: FC = () => {
   return (
     <ThreadPrimitive.Root className="bg-background h-full">
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
-        {!hasMessages && (
-          <div className="flex flex-grow flex-col items-center justify-center gap-8">
+        {hasMessages ? (
+          <ThreadPrimitive.Messages
+            components={{
+              UserMessage: MyUserMessage,
+              AssistantMessage: MyAssistantMessage,
+            }}
+          />
+        ) : (
+          <div className="flex flex-col items-center gap-8 mt-auto mb-4">
             <StartMaking />
             <Frame onCardClick={handleCardClick} />
           </div>
         )}
 
-        <ThreadPrimitive.Messages
-          components={{
-            UserMessage: MyUserMessage,
-            AssistantMessage: MyAssistantMessage,
-          }}
-        />
-
-        <div className="min-h-8 flex-grow" />
+        {hasMessages && (<div className="min-h-8 flex-grow" />)}
 
         <div className="sticky bottom-0 mt-3 flex w-full max-w-2xl flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
           <MyComposer onSend={() => setHasMessages(true)} />
