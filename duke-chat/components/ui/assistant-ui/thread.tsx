@@ -23,6 +23,7 @@ import {
   Star,
 } from "lucide-react";
 import React from "react";
+import ChatBackgroundSVG from "@/public/resources/background-chat.svg"
 
 const cardData = {
   title: "Čo chcete vedieť o univerzite?",
@@ -59,7 +60,7 @@ const cardsData = [
 
 const StartMaking: FC = () => {
   return (
-    <Card className="w-full max-w-3xl px-8 py-6 border-components-cards-borders-BR-color-2">
+    <Card className="w-full max-w-3xl px-8 py-6 border-components-cards-borders-BR-color-2 z-10">
       <CardContent className="flex flex-col items-center gap-8 p-0">
         <div className="relative w-24 h-24 rounded-full bg-gradient-to-b from-[rgba(141,193,255,0.6)] to-[rgba(141,193,255,0)]">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -93,11 +94,11 @@ const Frame: FC<{ onCardClick: (message: string) => void }> = ({
   onCardClick,
 }) => {
   return (
-    <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 z-10">
       {cardsData.map((card, index) => (
         <Card
           key={index}
-          className="border border-[#e3e6ea] shadow-sm cursor-pointer"
+          className="border border-[#e3e6ea] shadow-sm cursor-pointer bg-white"
           onClick={() => onCardClick(card.text)}
         >
           <CardContent className="p-6 space-y-3">
@@ -112,12 +113,23 @@ const Frame: FC<{ onCardClick: (message: string) => void }> = ({
   );
 };
 
+function CSVBackgroundEffect() {
+  return <ChatBackgroundSVG
+      className="absolute overflow-visible"
+      style={{
+        width: '1064px',
+        height: 'auto',
+        transform: 'translateY(400px)',
+      }}
+  />;
+}
+
 export const MyThread: FC = () => {
   const [hasMessages, setHasMessages] = React.useState(false);
   const thread = useThread();
   const messages = thread.messages;
   const threadRuntime = useThreadRuntime();
-  
+
   const handleCardClick = (message: string) => {
     threadRuntime.append({
       role: "user",
@@ -125,7 +137,7 @@ export const MyThread: FC = () => {
     });
     setHasMessages(true);
   };
-  
+
   React.useEffect(() => {
     if (messages.length > 0) {
       setHasMessages(true);
@@ -133,39 +145,43 @@ export const MyThread: FC = () => {
   }, [messages]);
 
   return (
-    <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
-      <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 pt-8">
-        {hasMessages ? (
-          <ThreadPrimitive.Messages
-            components={{
-              UserMessage: MyUserMessage,
-              AssistantMessage: MyAssistantMessage,
-            }}
-          />
-        ) : (
-          <div className="flex flex-col items-center gap-8 mt-auto mb-4">
-            <StartMaking />
-            <Frame onCardClick={handleCardClick} />
-          </div>
-        )}
+    <>
+      <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
+        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 z-10">
+          {hasMessages ? (
+            <ThreadPrimitive.Messages
+              components={{
+                UserMessage: MyUserMessage,
+                AssistantMessage: MyAssistantMessage,
+              }}
+            />
+          ) : (
+            <div className="flex flex-col items-center gap-8 mt-auto mb-4 z-10">
+              <StartMaking />
+              <Frame onCardClick={handleCardClick} />
+            </div>
+          )}
 
-        {hasMessages && (<div className="min-h-8 flex-grow" />)}
-
-        <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
-          <MyComposer onSend={() => setHasMessages(true)} />
+          {hasMessages && (<div className="min-h-8 flex-grow" />)}
+        </ThreadPrimitive.Viewport>
+      </ThreadPrimitive.Root>
+      <div className="flex w-full justify-center px-4">
+        <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg bg-transparent pb-4 z-10">
+          <MyComposer onSend={() => setHasMessages(true)} className="bg-white" />
         </div>
-      </ThreadPrimitive.Viewport>
-    </ThreadPrimitive.Root>
+      </div>
+      <CSVBackgroundEffect />
+    </>
   );
 };
 
-const MyComposer: FC<{ onSend?: () => void }> = ({ onSend }) => {
+const MyComposer: FC<{ onSend?: () => void, className?: string }> = ({ onSend, className }) => {
   return (
     <ComposerPrimitive.Root
       onSubmit={() => {
         if (onSend) onSend();
       }}
-      className="focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in"
+      className={"focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in " + className}
     >
       <ComposerPrimitive.Input
         autoFocus
@@ -188,7 +204,7 @@ const MyComposer: FC<{ onSend?: () => void }> = ({ onSend }) => {
 
 const MyUserMessage: FC = () => {
   return (
-    <MessagePrimitive.Root className="grid w-full max-w-3xl auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 py-4">
+    <MessagePrimitive.Root className="grid w-full max-w-3xl auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 py-4 z-10">
       <div className="bg-muted text-foreground col-start-2 row-start-1 max-w-xl break-words rounded-3xl px-5 py-2.5">
         <MessagePrimitive.Content />
       </div>
@@ -198,7 +214,7 @@ const MyUserMessage: FC = () => {
 
 const MyAssistantMessage: FC = () => {
   return (
-    <MessagePrimitive.Root className="relative grid w-full max-w-3xl grid-cols-[auto_1fr] grid-rows-[auto_1fr] py-4">
+    <MessagePrimitive.Root className="relative grid w-full max-w-3xl grid-cols-[auto_1fr] grid-rows-[auto_1fr] py-4 z-10">
       <Avatar className="col-start-1 row-span-full row-start-1 mr-4">
         <AvatarFallback>A</AvatarFallback>
       </Avatar>

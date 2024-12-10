@@ -11,7 +11,7 @@ export function ChatPageContent() {
   const runtime = useEdgeRuntime({ api: "/api/chat" });
 
   return (
-    <div className="flex flex-col p-0 flex-1 h-full">
+    <div className="flex flex-col py-0 h-full overflow-hidden relative">
       <TopBarWrapper />
       <AssistantRuntimeProvider runtime={runtime}>
         <MyThread
