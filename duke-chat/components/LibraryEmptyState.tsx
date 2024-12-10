@@ -1,57 +1,72 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Plus } from "lucide-react";
+import {
+  BanknoteIcon,
+  FileText,
+  MessageCircle,
+  PenLine,
+  Plane,
+  Plus,
+  Star,
+} from "lucide-react";
 import React from "react";
+import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
 
-const chatData = {
-  title: "Čo chceš vedieť o univerzite?",
+const cardData = {
+  title: "Čo chcete vedieť o univerzite?",
   description:
     "Zatiaľ si sa nášho asistenta na nič nepýtal. Ak potrebuješ pomoc, neváhaj sa opýtať – náš asistent nehryzie!",
-  subText: "Stačí začať nový chat!",
+  subdescription: "Stačí začať nový chat!",
   buttonText: "Nový chat",
 };
 
+const cardsData = [
+  {
+    icon: <MessageCircle className="w-4 h-4 text-orange-500" />,
+    text: "Ktorý študijný program na vybrať pre dceru?",
+  },
+  {
+    icon: <Star className="w-4 h-4 text-orange-500" />,
+    text: "Kedy je termín na podanie prihlášky na FEI KPI?",
+  },
+  {
+    icon: <Plane className="w-4 h-4 text-orange-500" />,
+    text: "Aké študijné programy ponúka Letecka fakulta?",
+  },
+  {
+    icon: <BanknoteIcon className="w-4 h-4 text-orange-500" />,
+    text: "Aké sú poplatky spojené so štúdiom alebo podaním prihlášky?",
+  },
+  {
+    icon: <FileText className="w-4 h-4 text-orange-500" />,
+    text: "Ako sa dá podať prihláška online pomocou MAIS?",
+  },
+  {
+    icon: <PenLine className="w-4 h-4 text-orange-500" />,
+    text: "Kde môžem nájsť informácie o prijímacích skúškach?",
+  },
+];
+
 export default function LibraryEmptyState(): JSX.Element {
   return (
-    <Card className="w-[754px] bg-components-cards-backgrounds-BG-color-1 border-components-cards-borders-BR-color-2 shadow-neutral-BS-regular">
-      <CardContent className="flex flex-col items-center pt-8 pb-8">
-        {/* Icon Container */}
-        <div className="w-[100px] h-[100px] rounded-full bg-gradient-to-b from-[rgba(141,193,255,0.6)] to-[rgba(141,193,255,0)] mb-6 flex items-center justify-center">
-          <div className="relative w-[62px] h-11">
-            <div className="absolute w-[62px] h-8 bg-components-sections-BG-color-1 rounded-[3px] border-[0.6px] border-globals-global-borders-border-4 shadow-neutral-BS-regular">
-              <div className="w-full h-px bg-globals-global-borders-border-4 mt-2.5" />
-              <div className="w-full h-2.5 bg-globals-global-borders-border-4/10" />
-            </div>
-
-            <div className="absolute w-6 h-6 top-[21px] left-[19px] rounded-full bg-primary shadow-[0px_3.51px_5.27px_#2375fd47] flex items-center justify-center">
-              <Plus className="w-[9px] h-[9px] text-white" />
-            </div>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="flex flex-col items-center gap-4 max-w-[383px]">
-          <h2 className="font-display-3-medium text-components-inputs-select-text-text-dark text-center">
-            {chatData.title}
+    <Card className="w-full max-w-3xl px-8 py-6 border-components-cards-borders-BR-color-2 z-10">
+      <CardContent className="flex flex-col items-center gap-8 p-0">
+        <ChatLibraryPNG />
+        <div className="flex flex-col items-center gap-2 text-center max-w-[384]">
+          <h2 className="font-display-3-medium text-components-inputs-select-text-text-dark text-base font-medium">
+            {cardData.title}
           </h2>
-
-          <p className="text-components-inputs-select-text-text-neutral text-center">
-            {chatData.description}
+          <p className="w-full max-w-md font-paragraph-default-regular text-sm text-[#666F8D]">
+            {cardData.description}
           </p>
-
-          <p className="text-components-inputs-select-text-text-neutral text-center">
-            {chatData.subText}
+          <p className="w-full max-w-md font-paragraph-default-regular text-sm text-[#666F8D] mt-2">
+            {cardData.subdescription}
           </p>
-
-          <Button
-            variant="default"
-            size="default"
-            className="mt-2 bg-primary text-white hover:bg-primary/90"
-          >
-            {chatData.buttonText}
-            <Plus className="ml-2 h-4 w-4" />
-          </Button>
         </div>
+        <Button className="inline-flex items-center gap-1 bg-[#FF4100] hover:bg-[#FF4100]/90 text-white border-none font-display-1-medium text-xs font-medium rounded-[8]">
+          <span>Nový chat</span>
+          <Plus className="h-2.5 w-2.5" />
+        </Button>
       </CardContent>
     </Card>
   );
