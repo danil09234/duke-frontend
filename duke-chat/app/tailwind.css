@@ -284,3 +284,158 @@ You can apply the theme on any DOM node, not just the `body`
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+:root {
+  --components-cards-backgrounds-BG-color-1: var(
+    --globals-global-surfaces-surface-1
+  );
+  --components-cards-borders-BR-color-2: var(--globals-global-borders-border-3);
+  --components-inputs-select-text-text-dark: var(
+    --globals-global-texts-color-4
+  );
+  --components-inputs-select-text-text-neutral: var(
+    --globals-global-texts-color-3
+  );
+  --components-sections-BG-color-1: var(--globals-global-surfaces-surface-1);
+  --core-neutrals-colors-100: rgba(255, 255, 255, 1);
+  --core-neutrals-colors-400: rgba(227, 230, 234, 1);
+  --core-neutrals-colors-500: rgba(186, 192, 204, 1);
+  --core-neutrals-colors-600: rgba(102, 111, 141, 1);
+  --core-neutrals-colors-800: rgba(25, 33, 61, 1);
+  --core-sizes-size-1: 6px;
+  --core-sizes-size-4: 16px;
+  --display-3-medium-font-family: "Inter", Helvetica;
+  --display-3-medium-font-size: 16px;
+  --display-3-medium-font-style: normal;
+  --display-3-medium-font-weight: 500;
+  --display-3-medium-letter-spacing: 0px;
+  --display-3-medium-line-height: 129.99999523162842%;
+  --globals-default-gaps-default-gaps-gap-extra-small: var(--core-sizes-size-1);
+  --globals-default-gaps-default-gaps-gap-medium: var(--core-sizes-size-4);
+  --globals-global-borders-border-3: var(--core-neutrals-colors-400);
+  --globals-global-borders-border-4: var(--core-neutrals-colors-500);
+  --globals-global-surfaces-surface-1: var(--core-neutrals-colors-100);
+  --globals-global-texts-color-3: var(--core-neutrals-colors-600);
+  --globals-global-texts-color-4: var(--core-neutrals-colors-800);
+  --neutral-BS-regular: 0px 2px 4px 0px rgba(25, 33, 61, 0.08);
+  --paragraph-default-regular-font-family: "Inter", Helvetica;
+  --paragraph-default-regular-font-size: 14px;
+  --paragraph-default-regular-font-style: normal;
+  --paragraph-default-regular-font-weight: 400;
+  --paragraph-default-regular-letter-spacing: 0px;
+  --paragraph-default-regular-line-height: 150%;
+}
+
+[data-components-mode="default"] {
+  --components-cards-backgrounds-BG-color-1: var(
+    --globals-global-surfaces-surface-1
+  );
+  --components-cards-borders-BR-color-2: var(--globals-global-borders-border-3);
+  --components-inputs-select-text-text-dark: var(
+    --globals-global-texts-color-4
+  );
+  --components-inputs-select-text-text-neutral: var(
+    --globals-global-texts-color-3
+  );
+  --components-sections-BG-color-1: var(--globals-global-surfaces-surface-1);
+}
+
+[data-components-mode="dark-mode"] {
+  --components-cards-backgrounds-BG-color-1: rgba(35, 40, 61, 1);
+  --components-cards-borders-BR-color-2: rgba(68, 75, 95, 1);
+  --components-inputs-select-text-text-dark: rgba(237, 240, 244, 1);
+  --components-inputs-select-text-text-neutral: rgba(172, 180, 192, 1);
+  --components-sections-BG-color-1: rgba(20, 24, 40, 1);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}

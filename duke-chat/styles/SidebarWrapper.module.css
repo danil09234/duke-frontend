@@ -57,13 +57,7 @@
   height: 32px;
   display: flex;
 }
-.Element_9612_45438 {
-  background: #d3d3d3 url("../resources/av2024-small.jpg") -8.355px -0.115px/148.23%
-    103.484% no-repeat;
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-}
+
 .AccountName_9620_53223 {
   align-items: center;
   gap: var(--Default-Gaps-Default-Gaps-Gap-Tiny, 2px);
@@ -369,4 +363,14 @@
   font-weight: 600;
   line-height: 130%;
   display: inline-block;
+}
+
+.activeSidebarItem {
+  border-radius: var(--Globals-BR-Small, 8px);
+  background: var(--inputs-select-backgrounds-bg-color-1, #fff);
+  box-shadow: 0px 1px 3px 0px rgba(25, 33, 61, 0.1);
+}
+
+.defaultSidebarItem {
+  border-radius: var(--Globals-BR-Small, 8px);
 }
