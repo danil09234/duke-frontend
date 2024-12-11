@@ -1,14 +1,7 @@
 "use client";
 
 import {
-  Calendar,
-  MessageCircle,
-  Inbox,
-  Puzzle,
-  Book,
-  SunIcon,
   Plus,
-  PanelRightOpen,
   Search,
 } from "lucide-react";
 import Link from "next/link";
@@ -16,83 +9,19 @@ import { usePathname } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem, SidebarTrigger, useSidebar,
 } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
-import {MoonIcon} from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
-import {useTheme} from "next-themes";
 import { routes } from "@/routes";
 import avatar from "../public/resources/av2024-small.jpg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input"
-import {SearchInput} from "@/components/ui/search";
 import styles from "@/styles/SidebarWrapper.module.css";
 
-// Menu items.
-const items = [
-  {
-    title: "Chaty",
-    url: "#",
-    icon: MessageCircle,
-  },
-  {
-    title: "Knižnica",
-    url: "#",
-    icon: Book,
-  },
-  {
-    title: "Nájsť program",
-    url: "#",
-    icon: Puzzle,
-  },
-];
-
-function AvatarAndIcons() {
-  return (
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <img src={Avatar} alt="Avatar"  />
-          <p>Vladyslav</p>
-        </div>
-        <div>
-          <SidebarTrigger />
-        </div>
-      </div>
-  )
-}
-
-function ExpandedSidebarTop() {
-  return (
-      <div className="flex flex-col gap-2">
-        <AvatarAndIcons />
-        <SearchInput placeholder="Hľadáj chat..." />
-      </div>
-  )
-}
-
-
-export const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
-
-  return (
-      <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      >
-        <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        <span className="sr-only">Toggle theme</span>
-      </Button>
-  );
-};
 
 function Divider() {
   return <hr className="my-2 w-[27px] h-[1px] bg-[var(--Divider-Border-BR-Color-2,#BAC0CC)]" />
@@ -174,7 +103,7 @@ const AppSidebar: React.FC = () => {
           </SidebarMenu>
 
           {state === "expanded" && (
-              <div className="flex flex-col gap-3 py-6">
+              <div className="flex flex-col gap-3 py-6 mt-4">
           <span className="px-2.5 font-inter text-xs font-medium leading-[15.6px] tracking-widest text-left [text-underline-position:from-font] [text-decoration-skip-ink:none] text-components-titles-paragraphs-text-neutral-light text-[#BAC0CC]">
             HISTÓRIA CHATOV
           </span>
@@ -207,13 +136,15 @@ const AppSidebar: React.FC = () => {
           )}
 
           <div className="mt-auto py-6">
-            <Button
-                className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
-                size="lg"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Start New Chat
-            </Button>
+            <Link href={"/chats/chat123"} passHref>
+              <Button
+                  className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
+                  size="lg"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Start New Chat
+              </Button>
+            </Link>
           </div>
         </SidebarContent>
       </Sidebar>
