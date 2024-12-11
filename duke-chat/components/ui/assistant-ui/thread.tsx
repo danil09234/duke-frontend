@@ -7,6 +7,7 @@ import {
   useThreadRuntime,
   useThread,
 } from "@assistant-ui/react";
+import Image from "next/image";
 import type { FC } from "react";
 import { SendHorizontalIcon, Plus } from "lucide-react";
 
@@ -23,7 +24,8 @@ import {
   Star,
 } from "lucide-react";
 import React from "react";
-import ChatBackgroundSVG from "@/public/resources/background-chat.svg"
+import ChatBackgroundSVG from "@/public/resources/background-chat.svg";
+import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
 
 const cardData = {
   title: "Čo chcete vedieť o univerzite?",
@@ -60,28 +62,14 @@ const cardsData = [
 
 const StartMaking: FC = () => {
   return (
-    <Card className="w-full max-w-3xl px-8 py-6 border-components-cards-borders-BR-color-2 z-10">
+    <Card className="w-full max-w-3xl px-8 py-12 border-components-cards-borders-BR-color-2 z-10">
       <CardContent className="flex flex-col items-center gap-8 p-0">
-        <div className="relative w-24 h-24 rounded-full bg-gradient-to-b from-[rgba(141,193,255,0.6)] to-[rgba(141,193,255,0)]">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="relative">
-              <div className="w-16 h-8 bg-components-sections-BG-color-1 rounded-sm border border-globals-global-borders-border-4 shadow-neutral-BS-regular">
-                <div className="w-full h-2.5 bg-white" />
-                <div className="w-full h-px bg-gray-200 mt-1" />
-              </div>
-
-              <div className="absolute bottom-[-12px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-blue-500 shadow-[0px_3.51px_5.27px_#2375fd47] flex items-center justify-center">
-                <Plus className="w-3 h-3 text-white" />
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <ChatLibraryPNG />
         <div className="flex flex-col items-center gap-2 text-center">
           <h2 className="font-display-3-medium text-components-inputs-select-text-text-dark text-base font-medium">
             {cardData.title}
           </h2>
-          <p className="w-full max-w-md font-paragraph-default-regular text-components-inputs-select-text-text-neutral text-sm">
+          <p className="w-full max-w-md font-paragraph-default-regular text-sm text-[#666F8D]">
             {cardData.description}
           </p>
         </div>
@@ -103,7 +91,7 @@ const Frame: FC<{ onCardClick: (message: string) => void }> = ({
         >
           <CardContent className="p-6 space-y-3">
             <div className="w-4">{card.icon}</div>
-            <p className="text-sm text-gray-600 leading-[150%] line-clamp-2">
+            <p className="text-sm text-[#666F8D] leading-[150%] line-clamp-2">
               {card.text}
             </p>
           </CardContent>
@@ -114,14 +102,16 @@ const Frame: FC<{ onCardClick: (message: string) => void }> = ({
 };
 
 function CSVBackgroundEffect() {
-  return <ChatBackgroundSVG
+  return (
+    <ChatBackgroundSVG
       className="absolute overflow-visible"
       style={{
-        width: '1064px',
-        height: 'auto',
-        transform: 'translateY(400px)',
+        width: "1064px",
+        height: "auto",
+        transform: "translateY(400px)",
       }}
-  />;
+    />
+  );
 }
 
 export const MyThread: FC = () => {
@@ -162,12 +152,15 @@ export const MyThread: FC = () => {
             </div>
           )}
 
-          {hasMessages && (<div className="min-h-8 flex-grow" />)}
+          {hasMessages && <div className="min-h-8 flex-grow" />}
         </ThreadPrimitive.Viewport>
       </ThreadPrimitive.Root>
       <div className="flex w-full justify-center px-4 bg-white">
         <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg pb-4 z-10">
-          <MyComposer onSend={() => setHasMessages(true)} className="bg-white" />
+          <MyComposer
+            onSend={() => setHasMessages(true)}
+            className="bg-white"
+          />
         </div>
       </div>
       <CSVBackgroundEffect />
@@ -175,13 +168,19 @@ export const MyThread: FC = () => {
   );
 };
 
-const MyComposer: FC<{ onSend?: () => void, className?: string }> = ({ onSend, className }) => {
+const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
+  onSend,
+  className,
+}) => {
   return (
     <ComposerPrimitive.Root
       onSubmit={() => {
         if (onSend) onSend();
       }}
-      className={"focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in " + className}
+      className={
+        "focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in " +
+        className
+      }
     >
       <ComposerPrimitive.Input
         autoFocus

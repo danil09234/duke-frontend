@@ -12,18 +12,18 @@ export const routes: Route[] = [
     name: "Chaty",
     path: "/",
     icon: MessageCircle,
-    shortcut: "⌘1",
+    shortcut: "⌘ 1",
   },
   {
     name: "Knižnica",
     path: "/library",
     icon: Book,
-    shortcut: "⌘2",
+    shortcut: "⌘ 2",
   },
   {
     name: "Nájsť program",
     path: "/find-program",
     icon: Puzzle,
-    shortcut: "⌘3",
+    shortcut: "⌘ 3",
   },
 ];

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Calendar,
@@ -122,8 +122,6 @@ const AppSidebar: React.FC = () => {
             <SidebarTrigger />
           </div>
 
-
-          {/* Search Input */}
           {state === "expanded" && (
               <div className="relative py-4 mb-8">
                 <Input
@@ -131,8 +129,8 @@ const AppSidebar: React.FC = () => {
                     placeholder="Hľadáj chat..."
                     defaultValue=""
                 />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Badge className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#19213D]" />
+                  <Badge className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-[#F7F8FA] text-[#19213D]">
                   ⌘K
                 </Badge>
               </div>
@@ -150,12 +148,12 @@ const AppSidebar: React.FC = () => {
                           href={item.path}
                           className={`${
                               styles.defaultSidebarItem
-                          } flex items-center justify-between w-full group hover:bg-gray-200 rounded-md transition-colors px-3 py-2 ${
+                          } flex items-center justify-between w-full group hover:bg-gray-200 rounded-md transition-colors gap-2 px-3 py-2 ${
                               isActive ? styles.activeSidebarItem : ""
                           }`}
                       >
                         <item.icon />
-                        <span className="text-gray-800 flex-grow">{item.name}</span>
+                        <span className={`${isActive ? styles.activeText : "text-[#666F8D]"} flex-grow`}>{item.name}</span>
                         {state === "expanded" && (
                           <Badge
                             className={`

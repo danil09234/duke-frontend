@@ -374,3 +374,7 @@
 .defaultSidebarItem {
   border-radius: var(--Globals-BR-Small, 8px);
 }
+
+.activeText {
+  color: #19213d;
+}
