@@ -1,4 +1,3 @@
-// components/AppSidebar.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -64,9 +63,9 @@ const AppSidebar: React.FC = () => {
             placeholder="Hľadáj chat..."
             defaultValue=""
           />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Badge className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1">
-            ⌘K
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#19213D]" />
+          <Badge className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-[#F7F8FA] text-[#19213D]">
+            ⌘ K
           </Badge>
         </div>
       )}
@@ -110,16 +109,29 @@ const AppSidebar: React.FC = () => {
                 href={item.path}
                 className={`${
                   styles.defaultSidebarItem
-                } flex items-center justify-between w-full group hover:bg-gray-200 rounded-md transition-colors px-3 py-2 ${
+                } flex items-center justify-between w-full group hover:bg-gray-200 rounded-md transition-colors gap-2 px-3 py-2 ${
                   isActive ? styles.activeSidebarItem : ""
                 }`}
               >
                 <div className="flex items-center gap-3 w-full">
-                  <item.icon className="h-5 w-5 text-gray-600" />
-                  <span className="text-gray-800 flex-grow">{item.name}</span>
+                  <item.icon
+                    className={`${
+                      isActive ? styles.activeText : "text-[#666F8D]"
+                    } h-5 w-5`}
+                  />
+                  <span
+                    className={`${
+                      isActive ? styles.activeText : "text-[#666F8D]"
+                    } flex-grow`}
+                  >
+                    {item.name}
+                  </span>
                 </div>
                 <Badge
-                  className="flex-shrink-0 w-8 h-8 flex items-center justify-center"
+                  className={`
+                    absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-white text-[#19213D]
+                    ${isActive ? "bg-[#F7F8FA] text-[#19213D]" : ""}
+                  `}
                   variant="secondary"
                 >
                   {item.shortcut}
