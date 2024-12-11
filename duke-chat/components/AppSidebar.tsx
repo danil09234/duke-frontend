@@ -144,8 +144,8 @@ const AppSidebar: React.FC = () => {
 
       {/* Chat History */}
       {isExpanded && (
-        <div className="flex flex-col gap-3 py-6">
-          <span className="px-2.5 font-inter text-xs font-medium leading-[15.6px] tracking-widest text-left [text-underline-position:from-font] [text-decoration-skip-ink:none] text-components-titles-paragraphs-text-neutral-light text-[#BAC0CC]">
+        <div className="flex flex-col gap-3 py-6 mt-4">
+          <span className="px-2.5 font-inter text-xs font-medium leading-[15.6px] tracking-widest text-left [text-underline-position:from-font] [text-decoration-skip-ink:none] text-[#BAC0CC]">
             HISTÓRIA CHATOV
           </span>
           <ScrollArea className="h-[300px] relative">
@@ -178,13 +178,15 @@ const AppSidebar: React.FC = () => {
 
       {/* New Chat Button */}
       <div className="mt-auto py-6">
-        <Button
-          className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
-          size="lg"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Start New Chat
-        </Button>
+        <Link href={"/chats/chat123"} passHref>
+          <Button
+            className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
+            size="lg"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Start New Chat
+          </Button>
+        </Link>
       </div>
     </div>
   );

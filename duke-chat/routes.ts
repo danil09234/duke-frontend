@@ -10,7 +10,7 @@ import { MessageCircle, Book, Puzzle } from "lucide-react";
 export const routes: Route[] = [
   {
     name: "Chaty",
-    path: "/",
+    path: "/chats",
     icon: MessageCircle,
     shortcut: "⌘ 1",
   },

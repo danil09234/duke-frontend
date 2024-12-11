@@ -1,6 +1,6 @@
 import React from "react";
-import ChatPage from "@/pages/ChatPage";
+import Chats from "@/pages/Chats";
 
 export default function LibraryRoute() {
-  return <ChatPage />;
+  return <Chats />;
 }
