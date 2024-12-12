@@ -20,6 +20,19 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        "components-cards-backgrounds-BG-color-1":
+          "var(--components-cards-backgrounds-BG-color-1)",
+        "components-cards-borders-BR-color-2":
+          "var(--components-cards-borders-BR-color-2)",
+        "components-inputs-select-text-text-neutral":
+          "var(--components-inputs-select-text-text-neutral)",
+        "components-titles-paragraphs-text-neutral":
+          "var(--components-titles-paragraphs-text-neutral)",
+        "globals-global-borders-border-3":
+          "var(--globals-global-borders-border-3)",
+        "globals-global-surfaces-surface-1":
+          "var(--globals-global-surfaces-surface-1)",
+        "globals-global-texts-color-3": "var(--globals-global-texts-color-3)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

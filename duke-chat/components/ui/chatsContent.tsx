@@ -2,10 +2,11 @@ import React from "react";
 import { TooltipIconButton } from "./assistant-ui/tooltip-icon-button";
 import { SearchIcon, SendHorizontalIcon } from "lucide-react";
 import { Button } from "./button";
+import ChatsGrid from "../ChatsGrid";
 
 const ChatsContent = (): JSX.Element => {
   return (
-    <div className="flex flex-col justify-center items-center my-[40px]">
+    <div className="flex flex-col justify-center items-center my-[40px] px-[160px]">
       <div className="flex flex-col gap-[40px] w-[775px]">
         <div
           className="w-full px-[32px] py-[48px] z-10"
@@ -40,6 +41,7 @@ const ChatsContent = (): JSX.Element => {
             </div>
           </div>
         </div>
+
         <div className="flex flex-col gap-[30px] w-full ">
           <div className="flex items-center justify-between w-[775px]">
             <p className="text-[16px] text-[#666F8D]">Chaty (56)</p>
@@ -86,7 +88,9 @@ const ChatsContent = (): JSX.Element => {
               </Button>
             </div>
           </div>
-          <div></div>
+          <div>
+            <ChatsGrid />
+          </div>
         </div>
       </div>
     </div>
