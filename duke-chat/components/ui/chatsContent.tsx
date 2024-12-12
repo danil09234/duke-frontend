@@ -6,10 +6,10 @@ import ChatsGrid from "../ChatsGrid";
 
 const ChatsContent = (): JSX.Element => {
   return (
-    <div className="flex flex-col justify-center items-center my-[40px] px-[160px]">
-      <div className="flex flex-col gap-[40px] w-[775px]">
+    <div className="flex flex-col justify-center items-center my-10 px-4 sm:px-6 md:px-8 lg:px-[100]">
+      <div className="flex flex-col gap-10 w-full max-w-4xl">
         <div
-          className="w-full px-[32px] py-[48px] z-10"
+          className="w-full px-8 py-12 z-10"
           style={{
             backgroundImage: "url(/resources/PromptBox.png)",
             backgroundSize: "contain",
@@ -17,14 +17,14 @@ const ChatsContent = (): JSX.Element => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className="flex flex-col items-center gap-[24px]">
-            <div className="gap-[6px] flex flex-col items-center">
-              <p className="text-[22px]">Ahoj, Danylo</p>
-              <p className="text-[14px] text-[#666F8D]">
+          <div className="flex flex-col items-center gap-6">
+            <div className="gap-1.5 flex flex-col items-center">
+              <p className="text-xl">Ahoj, Danylo</p>
+              <p className="text-sm text-[#666F8D]">
                 Vitaj na stránke asistenta pre uchádzačov!
               </p>
             </div>
-            <div className="flex w-[400px] h-[58px] max-w-xl flex-row items-center rounded-[16px] border bg-white px-2.5 shadow-sm transition-colors ease-in">
+            <div className="flex w-full max-w-md h-14 flex-row items-center rounded-lg border bg-white px-2.5 shadow-sm transition-colors ease-in">
               <input
                 autoFocus
                 placeholder="Ako vám môžem pomôcť?"
@@ -34,7 +34,7 @@ const ChatsContent = (): JSX.Element => {
               <TooltipIconButton
                 tooltip="Send"
                 variant="default"
-                className="bg-[#FF4100] w-[42px] h-[42px] rounded-[8px] hover:bg-[#FF4100]/90"
+                className="bg-[#FF4100] w-10 h-10 rounded-md hover:bg-[#FF4100]/90"
               >
                 <SendHorizontalIcon />
               </TooltipIconButton>
@@ -42,11 +42,11 @@ const ChatsContent = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-[30px] w-full ">
-          <div className="flex items-center justify-between w-[775px]">
-            <p className="text-[16px] text-[#666F8D]">Chaty (56)</p>
-            <div className="flex items-center gap-[8px]">
-              <div className="flex items-center rounded-[8px] shadow-sm border border-gray-200 bg-white box-border w-[266px] h-[40px] min-h-[39px] px-[12px] py-[6px]">
+        <div className="flex flex-col gap-8 w-full">
+          <div className="flex flex-col sm:flex-row items-center justify-between w-full">
+            <p className="text-base text-[#666F8D] mb-4 sm:mb-0">Chaty (56)</p>
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+              <div className="flex items-center rounded-md shadow-sm border border-gray-200 bg-white w-full sm:w-auto h-10 px-3 py-1.5">
                 <SearchIcon className="w-5 h-5 text-gray-500 mr-2" />
                 <input
                   type="text"
@@ -55,7 +55,7 @@ const ChatsContent = (): JSX.Element => {
                 />
               </div>
 
-              <Button className="bg-[#FFFFFF] hover:bg-[#FFFFFF]/90 text-[#666F8D] border-[#F0F2F5] px-[12px] py-[6px]">
+              <Button className="bg-white hover:bg-[#FFFFFF]/90 text-[#666F8D] border-[#F0F2F5] px-3 py-1.5 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -66,6 +66,7 @@ const ChatsContent = (): JSX.Element => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="mr-1"
                 >
                   <path d="M3 6h18" />
                   <path d="M7 12h10" />
@@ -82,6 +83,7 @@ const ChatsContent = (): JSX.Element => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="ml-1"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
