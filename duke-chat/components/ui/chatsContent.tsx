@@ -6,10 +6,10 @@ import ChatsGrid from "../ChatsGrid";
 
 const ChatsContent = (): JSX.Element => {
   return (
-    <div className="flex flex-col justify-center items-center my-10 px-4 sm:px-6 md:px-8 lg:px-[100]">
-      <div className="flex flex-col gap-10 w-full max-w-4xl">
+    <div className="flex h-full flex-col justify-center items-center mt-10 px-4 sm:px-6 md:px-8 lg:px-[100] overflow-y-hidden overflow-x-visible">
+      <div className="h-full flex flex-col gap-10 max-w-4xl overflow-y-hidden overflow-x-visible">
         <div
-          className="w-full px-8 py-12 z-10"
+          className="w-full px-8 py-12 z-10 overflow-x-visible"
           style={{
             backgroundImage: "url(/resources/PromptBox.png)",
             backgroundSize: "contain",
@@ -42,10 +42,10 @@ const ChatsContent = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-8 w-full">
-          <div className="flex flex-col sm:flex-row items-center justify-between w-full">
+        <div className="h-full flex flex-col gap-8 w-full overflow-y-hidden overflow-x-visible">
+          <div className="flex flex-col sm:flex-row items-center justify-between w-full overflow-x-visible">
             <p className="text-base text-[#666F8D] mb-4 sm:mb-0">Chaty (56)</p>
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto overflow-visible">
               <div className="flex items-center rounded-md shadow-sm border border-gray-200 bg-white w-full sm:w-auto h-10 px-3 py-1.5">
                 <SearchIcon className="w-5 h-5 text-gray-500 mr-2" />
                 <input
@@ -90,9 +90,7 @@ const ChatsContent = (): JSX.Element => {
               </Button>
             </div>
           </div>
-          <div>
-            <ChatsGrid />
-          </div>
+          <ChatsGrid />
         </div>
       </div>
     </div>
