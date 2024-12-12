@@ -2,7 +2,7 @@
 
 import {
   Plus,
-  Search,
+  Search, SendHorizontalIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,6 +21,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input"
 import styles from "@/styles/SidebarWrapper.module.css";
+import React from "react";
+import {TooltipIconButton} from "@/components/ui/assistant-ui/tooltip-icon-button";
 
 
 function Divider() {
@@ -135,15 +137,24 @@ const AppSidebar: React.FC = () => {
               </div>
           )}
 
-          <div className="mt-auto py-6">
+          <div className="mt-auto">
             <Link href={"/chats/chat123"} passHref>
-              <Button
+              {state === "expanded" ?
+                <Button
                   className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
                   size="lg"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                Start New Chat
-              </Button>
+                >
+                  <Plus className="h-4 w-4 mr-2"/>
+                  Start New Chat
+                </Button> :
+                <TooltipIconButton
+                  tooltip="New Chat"
+                  side="right"
+                  className="bg-[#FF4100] w-8 h-8 rounded-[8px] hover:bg-[#FF4100]/90"
+                >
+                  <Plus color="white"/>
+                </TooltipIconButton>
+              }
             </Link>
           </div>
         </SidebarContent>
