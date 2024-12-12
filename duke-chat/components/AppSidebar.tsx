@@ -79,11 +79,11 @@ const AppSidebar: React.FC = () => {
                           href={item.path}
                           className={`${
                               styles.defaultSidebarItem
-                          } flex items-center justify-between w-full group hover:bg-gray-200 rounded-md transition-colors gap-2 px-3 py-2 ${
+                          } flex items-center justify-between w-full group hover:bg-[#E8EAED] rounded-md transition-colors gap-2 px-3 py-2 ${
                               isActive ? styles.activeSidebarItem : ""
                           }`}
                       >
-                        <item.icon />
+                        <item.icon className={`${isActive ? styles.activeText : "text-[#666F8D]"} h-5 w-5`}/>
                         <span className={`${isActive ? styles.activeText : "text-[#666F8D]"} flex-grow`}>{item.name}</span>
                         {state === "expanded" && (
                           <Badge
