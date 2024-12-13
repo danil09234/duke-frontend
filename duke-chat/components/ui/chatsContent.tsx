@@ -6,8 +6,8 @@ import ChatsGrid from "../ChatsGrid";
 
 const ChatsContent = (): JSX.Element => {
   return (
-    <div className="flex h-full flex-col justify-center items-center mt-10 px-4 sm:px-6 md:px-8 lg:px-[100] overflow-y-hidden overflow-x-visible">
-      <div className="h-full flex flex-col gap-10 max-w-4xl overflow-y-hidden overflow-x-visible">
+    <div className="flex flex-col items-center items-center px-4 py-10 sm:px-6 md:px-8 lg:px-[100] overflow-y-auto scrollbar-hide">
+      <div className="flex flex-col gap-10 max-w-4xl w-full">
         <div
           className="w-full px-8 py-12 z-10 overflow-x-visible"
           style={{
