@@ -1,7 +1,7 @@
 "use client";
 
 import TopBarWrapperChats from "@/components/ui/TopBarWrapperChats";
-import ChatsContent from "./ui/chatsContent";
+import ChatsContent from "./chatsContent";
 
 export function ChatsPageContent() {
   return (
