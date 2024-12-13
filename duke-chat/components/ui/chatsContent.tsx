@@ -1,6 +1,11 @@
 import React from "react";
 import { TooltipIconButton } from "./assistant-ui/tooltip-icon-button";
-import { SearchIcon, SendHorizontalIcon } from "lucide-react";
+import {
+  SearchIcon,
+  SendHorizontalIcon,
+  ListFilter,
+  ChevronDown,
+} from "lucide-react";
 import { Button } from "./button";
 import ChatsGrid from "../ChatsGrid";
 
@@ -43,9 +48,11 @@ const ChatsContent = (): JSX.Element => {
         </div>
 
         <div className="h-full flex flex-col gap-8 w-full overflow-y-hidden overflow-x-visible">
-          <div className="flex flex-col sm:flex-row items-center justify-between w-full overflow-x-visible">
-            <p className="text-base text-[#666F8D] mb-4 sm:mb-0">Chaty (56)</p>
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto overflow-visible">
+          <div className="flex flex-col items-left sm:flex-row sm:items-center justify-between w-full overflow-x-visible">
+            <p className="text-base text-[#666F8D] h-fit mb-4 sm:mb-0 flex items-left">
+              Chaty (56)
+            </p>
+            <div className="flex sm:flex-row items-center gap-4 w-full sm:w-auto overflow-visible sm:flex-nowrap">
               <div className="flex items-center rounded-md shadow-sm border border-gray-200 bg-white w-full sm:w-auto h-10 px-3 py-1.5">
                 <SearchIcon className="w-5 h-5 text-gray-500 mr-2" />
                 <input
@@ -56,37 +63,9 @@ const ChatsContent = (): JSX.Element => {
               </div>
 
               <Button className="bg-white hover:bg-[#FFFFFF]/90 text-[#666F8D] border-[#F0F2F5] px-3 py-1.5 flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="mr-1"
-                >
-                  <path d="M3 6h18" />
-                  <path d="M7 12h10" />
-                  <path d="M10 18h4" />
-                </svg>
-                Zoradiť podľa
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="ml-1"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
+                <ListFilter />
+                <span className="hidden xs:inline">Zoradiť podľa</span>
+                <ChevronDown className="hidden xs:inline" />
               </Button>
             </div>
           </div>

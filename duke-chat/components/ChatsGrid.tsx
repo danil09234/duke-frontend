@@ -42,7 +42,7 @@ const posts = [
 
 const ChatsGrid: React.FC = () => {
   return (
-    <div className="h-full overflow-hidden overflow-y-auto p-4">
+    <div className="h-full overflow-hidden overflow-y-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {posts.map((post, index) => (
           <ChatHistory
