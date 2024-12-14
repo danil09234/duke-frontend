@@ -9,7 +9,7 @@ const ChatsContent = (): JSX.Element => {
     <div className="flex flex-col items-center px-4 py-10 sm:px-6 md:px-8 lg:px-[100] overflow-y-auto scrollbar-hide">
       <div className="flex flex-col gap-10 max-w-4xl w-full">
         <WelcomeCard
-          userName="Danylo"
+          userName="Vladyslav"
           welcomeMessage="Vitaj na stránke asistenta pre uchádzačov!"
           inputPlaceholder="Ako vám môžem pomôcť?"
         />
