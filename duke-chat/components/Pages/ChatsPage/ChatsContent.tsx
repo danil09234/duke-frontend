@@ -24,15 +24,15 @@ const ChatsContent = (): JSX.Element => {
              w-full sm:w-auto overflow-visible sm:flex-nowrap"
             >
               <div className="flex items-center rounded-md shadow-sm border border-gray-200 bg-white w-full sm:w-auto h-10 px-3 py-1.5">
-                <SearchIcon className="w-5 h-5 text-gray-500 mr-2" />
+                <SearchIcon className="w-5 h-5 text-[#666F8D] mr-2" />
                 <input
                   type="text"
-                  className="flex-grow placeholder-gray-500 bg-transparent focus:outline-none"
+                  className="flex-grow placeholder-[#666F8D] bg-transparent focus:outline-none"
                   placeholder="Hľadáj chat..."
                 />
               </div>
 
-              <Button className="bg-white hover:bg-[#FFFFFF]/90 text-[#666F8D] border-[#F0F2F5] px-3 py-1.5 flex items-center">
+              <Button className="h-10 bg-white hover:bg-[#FFFFFF]/90 text-[#666F8D] border border-gray-200 px-3 py-3 flex items-center">
                 <ListFilter />
                 <span className="hidden xs:inline">Zoradiť podľa</span>
                 <ChevronDown className="hidden xs:inline" />
