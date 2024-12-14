@@ -84,7 +84,7 @@ const AppSidebar: React.FC = () => {
                     href={item.path}
                     className={`${
                       styles.defaultSidebarItem
-                    } flex items-center justify-between w-full group hover:bg-[#F0F2F5] rounded-md transition-colors gap-2 px-3 py-2 ${
+                    } flex items-center justify-between w-full group hover:bg-[#e7ebf0] rounded-md transition-colors gap-2 px-3 py-2 ${
                       isActive ? styles.activeSidebarItem : ""
                     }`}
                   >
