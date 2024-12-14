@@ -1,9 +1,10 @@
+import { ReactNode } from "react";
+
 export interface ChatCardProps {
-  icon: string;
+  icon: ReactNode;
   title: string;
   description: string;
   date: string;
-  iconUrls: string[];
 }
 
 export interface ChatListProps {
