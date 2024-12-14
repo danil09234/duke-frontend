@@ -76,7 +76,9 @@ const AppSidebar: React.FC = () => {
             </Avatar>
             <span className="font-medium text-gray-900">Vladyslav P.</span>
           </div>
-          {!isMobile && <SidebarTrigger />}
+          <div className="text-[#666F8D]">
+            {!isMobile && <SidebarTrigger />}
+          </div>
         </div>
 
         {state === "expanded" && (
@@ -94,9 +96,11 @@ const AppSidebar: React.FC = () => {
         )}
 
         <SidebarMenu className="flex flex-col">
-          {state === "collapsed" && !isMobile && (
-            <SidebarTrigger className="p-2 w-full h-fit" />
-          )}
+          <div className="text-[#666F8D]">
+            {state === "collapsed" && !isMobile && (
+              <SidebarTrigger className="p-2 w-full h-fit" />
+            )}
+          </div>
           {state === "collapsed" && !isMobile && <Divider />}
           {routes.map((item, index) => {
             const isActive = pathname === item.path;
