@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Search, SendHorizontalIcon } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -15,7 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { routes } from "@/routes";
-import avatar from "../public/resources/av2024-small.jpg";
+import avatar from "@/public/resources/av2024-small.jpg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
@@ -57,7 +57,7 @@ const AppSidebar: React.FC = () => {
         </div>
 
         {state === "expanded" && (
-          <div className="relative py-4 mb-8">
+          <div className="relative py-4 mb-4">
             <Input
               className="h-[42px] pl-8 bg-white"
               placeholder="Hľadáj chat..."
@@ -80,14 +80,16 @@ const AppSidebar: React.FC = () => {
             return (
               <SidebarMenuItem key={index} className="w-full">
                 <SidebarMenuButton
-                  className={`${styles.defaultSidebarItem} hover:bg-[#e7ebf0] ${
+                  className={`${
+                    styles.defaultSidebarItem
+                  } h-fit hover:bg-[#e7ebf0] ${
                     isActive ? styles.activeSidebarItem : ""
                   }`}
                   asChild
                 >
                   <Link
                     href={item.path}
-                    className={`flex items-center justify-between w-full group rounded-md transition-colors gap-2 px-3 py-2 ${
+                    className={`flex items-center justify-between w-full group rounded-md transition-colors gap-2 px-3 py-3 ${
                       isActive
                         ? `${styles.activeSidebarItem} pointer-events-none`
                         : `${styles.defaultSidebarItem} hover:bg-[#e7ebf0] active:bg-[#edf0f4]`

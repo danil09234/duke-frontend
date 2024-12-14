@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import localFont from "next/font/local";
 import "./globals.css";
-import ChatPage from "../pages/ChatPage";
-import LibraryPage from "../pages/LibraryPage";
-import AppSidebar from "@/components/AppSidebar";
+import AppSidebar from "@/components/Sidebar/AppSidebar";
 import ClientRouter from "@/components/ClientRouter";
 
 const geistSans = localFont({

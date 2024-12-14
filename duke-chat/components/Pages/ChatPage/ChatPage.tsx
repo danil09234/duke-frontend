@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import { ChatPageContent } from "@/components/ChatPageContent";
-import {useSidebar} from "@/components/ui/sidebar";
+import { ChatPageContent } from "@/components/Pages/ChatPage/ChatPageContent";
+import { useSidebar } from "@/components/ui/sidebar";
 
 function MainBodyWrapper() {
   return (
@@ -18,7 +18,11 @@ function Body() {
 
   return (
     <div
-      className={!isMobile ? "my-2 mr-2 rounded-2xl border shadow-lg overflow-hidden flex-1" : "overflow-hidden flex-1"}
+      className={
+        !isMobile
+          ? "my-2 mr-2 rounded-2xl border shadow-lg overflow-hidden flex-1"
+          : "overflow-hidden flex-1"
+      }
     >
       <ChatPageContent />
     </div>

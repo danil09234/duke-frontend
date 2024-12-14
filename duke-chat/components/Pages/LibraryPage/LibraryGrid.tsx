@@ -1,5 +1,5 @@
 import React from "react";
-import ChatHistory from "./ChatCard";
+import ChatHistory from "@/components/Pages/LibraryPage/LibraryCard";
 
 const posts = [
   {
@@ -40,7 +40,7 @@ const posts = [
   },
 ];
 
-const ChatsGrid: React.FC = () => {
+const LibraryGrid: React.FC = () => {
   return (
     <div className="h-full overflow-hidden overflow-y-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -57,4 +57,4 @@ const ChatsGrid: React.FC = () => {
   );
 };
 
-export default ChatsGrid;
+export default LibraryGrid;

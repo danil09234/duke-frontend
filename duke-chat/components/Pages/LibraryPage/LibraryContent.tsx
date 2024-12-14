@@ -1,10 +1,10 @@
 import React from "react";
 import { SearchIcon, ListFilter, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ChatsGrid from "./ChatsGrid";
-import { WelcomeCard } from "./PromptBox/WelcomeCard";
+import LibraryGrid from "@/components/Pages/LibraryPage/LibraryGrid";
+import { WelcomeCard } from "../../PromptBox/WelcomeCard";
 
-const ChatsContent = (): JSX.Element => {
+const LibraryContent = (): JSX.Element => {
   return (
     <div className="flex flex-col items-center px-4 py-10 sm:px-6 md:px-8 lg:px-[100] overflow-y-auto scrollbar-hide">
       <div className="flex flex-col gap-10 max-w-4xl w-full">
@@ -39,11 +39,11 @@ const ChatsContent = (): JSX.Element => {
               </Button>
             </div>
           </div>
-          <ChatsGrid />
+          <LibraryGrid />
         </div>
       </div>
     </div>
   );
 };
 
-export default ChatsContent;
+export default LibraryContent;

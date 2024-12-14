@@ -3,7 +3,7 @@
 import React from "react";
 
 import { useSidebar } from "@/components/ui/sidebar";
-import { ChatsPageContent } from "@/components/ChatsPageContent";
+import { LibraryPageContent } from "@/components/Pages/LibraryPage/LibraryPageContent";
 
 function MainBodyWrapper() {
   return (
@@ -18,7 +18,7 @@ function Body() {
 
   return (
     <div className="my-2 mr-2 rounded-2xl border shadow-lg overflow-hidden flex-1">
-      <ChatsPageContent />
+      <LibraryPageContent />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
-import { UserAvatar } from "./Avatar";
-import { SidebarItem } from "./SidebarItem";
-import { Button } from "../components/ui/button";
-import { List, ListSubheader } from "../components/ui/list";
+import { UserAvatar } from "@/components/Avatar/Avatar";
+import { SidebarItem } from "@/components/Sidebar/SidebarItem";
+import { Button } from "@/components/ui/button";
+import { List, ListSubheader } from "@/components/ui/list";
 import {
   MoonIcon,
   PlusIcon,
