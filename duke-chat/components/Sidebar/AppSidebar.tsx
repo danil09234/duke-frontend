@@ -20,7 +20,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import styles from "@/styles/SidebarWrapper.module.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
 
 function Divider() {
@@ -30,7 +30,28 @@ function Divider() {
 }
 
 const AppSidebar: React.FC = () => {
-  const { isMobile, state } = useSidebar();
+  const { toggleSidebar, state } = useSidebar();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isScreenMobile = window.innerWidth <= 880;
+      setIsMobile(isScreenMobile);
+
+      if (isScreenMobile && state !== "collapsed") {
+        toggleSidebar();
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [toggleSidebar, state]);
+
   const pathname = usePathname();
 
   const chatHistory = [
@@ -55,7 +76,7 @@ const AppSidebar: React.FC = () => {
             </Avatar>
             <span className="font-medium text-gray-900">Vladyslav P.</span>
           </div>
-          <SidebarTrigger />
+          {!isMobile && <SidebarTrigger />}
         </div>
 
         {state === "expanded" && (
@@ -73,10 +94,10 @@ const AppSidebar: React.FC = () => {
         )}
 
         <SidebarMenu className="flex flex-col">
-          {state === "collapsed" && (
+          {state === "collapsed" && !isMobile && (
             <SidebarTrigger className="p-2 w-full h-fit" />
           )}
-          {state === "collapsed" && <Divider />}
+          {state === "collapsed" && !isMobile && <Divider />}
           {routes.map((item, index) => {
             const isActive = pathname === item.path;
             return (
