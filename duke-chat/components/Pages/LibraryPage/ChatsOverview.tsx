@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ChatList } from "@/components/Pages/LibraryPage/ChatList";
 import { chatData } from "@/components/Pages/LibraryPage/card_data";
+import { ArrowRightIcon } from "lucide-react";
 
 export const ChatsOverview: React.FC = () => {
   return (
@@ -12,12 +13,7 @@ export const ChatsOverview: React.FC = () => {
           </div>
           <div className="flex gap-1.5 justify-center items-center self-stretch my-auto text-xs text-center text-blue-500">
             <div className="self-stretch my-auto">Browse all </div>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/dbdaa4be8f6cd4b5521a73400c4af4b945283828274b861455a329e68fd8dc82?placeholderIfAbsent=true&apiKey=e1ccbc5048c74312a1e3a65ba1a0b07d"
-              alt=""
-              className="object-contain shrink-0 self-stretch my-auto w-3 aspect-square"
-            />
+            <ArrowRightIcon className="w-4 " />
           </div>
         </div>
         <ChatList chats={chatData} />
