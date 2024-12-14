@@ -59,11 +59,11 @@ const LibraryContent = (): JSX.Element => {
             </TabsList>
 
             <div className="flex items-center rounded-md shadow-sm border border-gray-200 bg-white w-full max-w-[320px] h-10 px-3 py-1.5">
-              <SearchIcon className="w-5 h-5 text-[#666F8D] mr-2" />
+              <SearchIcon className="w-4 text-[#666F8D] mr-2" />
               <input
                 type="text"
-                className="flex-grow placeholder-[#666F8D] bg-transparent focus:outline-none"
-                placeholder="Hľadáj chat..."
+                className="flex-grow flex-shrink-0 w-0 max-w-full placeholder-[#666F8D] bg-transparent focus:outline-none truncate"
+                placeholder="Hľadaj chat..."
               />
             </div>
           </div>
