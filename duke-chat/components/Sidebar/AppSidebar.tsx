@@ -49,10 +49,13 @@ const AppSidebar: React.FC = () => {
     >
       <SidebarContent className="bg-[#f7f8fa]">
         <div className="flex items-center justify-between">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={avatar.src} alt="User Avatar" />
-            <AvatarFallback>U</AvatarFallback>
-          </Avatar>
+          <div className="flex items-center gap-2">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={avatar.src} alt="User Avatar" />
+              <AvatarFallback>VP</AvatarFallback>
+            </Avatar>
+            <span className="font-medium text-gray-900">Vladyslav P.</span>
+          </div>
           <SidebarTrigger />
         </div>
 
