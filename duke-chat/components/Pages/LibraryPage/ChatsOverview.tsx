@@ -1,0 +1,27 @@
+import * as React from "react";
+import { ChatList } from "@/components/Pages/LibraryPage/ChatList";
+import { chatData } from "@/components/Pages/LibraryPage/card_data";
+
+export const ChatsOverview: React.FC = () => {
+  return (
+    <div className="flex overflow-hidden flex-col justify-center max-w-[854px]">
+      <div className="flex flex-col flex-1 w-full max-md:max-w-full">
+        <div className="flex flex-wrap gap-2.5 items-center w-full font-medium leading-tight max-md:max-w-full">
+          <div className="flex-1 shrink self-stretch my-auto text-lg basis-0 text-slate-800 max-md:max-w-full">
+            All chats
+          </div>
+          <div className="flex gap-1.5 justify-center items-center self-stretch my-auto text-xs text-center text-blue-500">
+            <div className="self-stretch my-auto">Browse all </div>
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/dbdaa4be8f6cd4b5521a73400c4af4b945283828274b861455a329e68fd8dc82?placeholderIfAbsent=true&apiKey=e1ccbc5048c74312a1e3a65ba1a0b07d"
+              alt=""
+              className="object-contain shrink-0 self-stretch my-auto w-3 aspect-square"
+            />
+          </div>
+        </div>
+        <ChatList chats={chatData} />
+      </div>
+    </div>
+  );
+};
