@@ -64,7 +64,7 @@ const AppSidebar: React.FC = () => {
               defaultValue=""
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#19213D]" />
-            <Badge className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-[#F7F8FA] text-[#19213D]">
+            <Badge className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-[#F7F8FA] text-[#19213D] pointer-events-none">
               ⌘K
             </Badge>
           </div>
@@ -79,13 +79,18 @@ const AppSidebar: React.FC = () => {
             const isActive = pathname === item.path;
             return (
               <SidebarMenuItem key={index} className="w-full">
-                <SidebarMenuButton className="h-fit" asChild>
+                <SidebarMenuButton
+                  className={`${styles.defaultSidebarItem} hover:bg-[#e7ebf0] ${
+                    isActive ? styles.activeSidebarItem : ""
+                  }`}
+                  asChild
+                >
                   <Link
                     href={item.path}
-                    className={`${
-                      styles.defaultSidebarItem
-                    } flex items-center justify-between w-full group hover:bg-[#e7ebf0] rounded-md transition-colors gap-2 px-3 py-2 ${
-                      isActive ? styles.activeSidebarItem : ""
+                    className={`flex items-center justify-between w-full group rounded-md transition-colors gap-2 px-3 py-2 ${
+                      isActive
+                        ? `${styles.activeSidebarItem} pointer-events-none`
+                        : `${styles.defaultSidebarItem} hover:bg-[#e7ebf0] active:bg-[#edf0f4]`
                     }`}
                   >
                     <item.icon
