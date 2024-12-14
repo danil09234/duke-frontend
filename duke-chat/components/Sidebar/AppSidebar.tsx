@@ -39,7 +39,6 @@ const AppSidebar: React.FC = () => {
     "Tipy pre nováčikov",
     "Ako sa adaptovať ku štúdiu",
     "Štipendiá, granty",
-    "Prihláška online MAIS",
   ];
 
   return (
@@ -133,7 +132,7 @@ const AppSidebar: React.FC = () => {
             <span className="px-2.5 font-inter text-xs font-medium leading-[15.6px] tracking-widest text-left [text-underline-position:from-font] [text-decoration-skip-ink:none] text-components-titles-paragraphs-text-neutral-light text-[#BAC0CC]">
               HISTÓRIA CHATOV
             </span>
-            <ScrollArea className="h-[300px] relative">
+            <ScrollArea className="h-fit relative">
               {chatHistory.map((chat, index) => (
                 <div
                   key={index}
