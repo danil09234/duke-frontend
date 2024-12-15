@@ -35,7 +35,7 @@ const cardData = {
 const cardsData = [
   {
     icon: <MessageCircle className="w-4 h-4 text-orange-500" />,
-    text: "Ktorý študijný program na vybrať pre dceru?",
+    text: "Aké sú podmienky prijatia na bakalárske štúdium?",
   },
   {
     icon: <Star className="w-4 h-4 text-orange-500" />,
