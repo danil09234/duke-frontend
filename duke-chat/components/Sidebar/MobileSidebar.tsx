@@ -3,7 +3,14 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PlusCircle } from "lucide-react";
+import {
+  PlusCircle,
+  Menu,
+  Home,
+  Book,
+  Settings,
+  MessageSquare,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -16,9 +23,9 @@ import {
 } from "@/components/ui/sheet";
 
 const sections = [
-  { name: "Chaty", href: "/chats" },
-  { name: "Knižnica", href: "/library" },
-  { name: "Nájsť program", href: "/chats/chat123" },
+  { name: "Chaty", href: "/chats", icon: MessageSquare },
+  { name: "Knižnica", href: "/library", icon: Book },
+  { name: "Nájsť program", href: "/chats/chat123", icon: Home },
 ];
 
 export function MobileSidebar() {
@@ -28,35 +35,42 @@ export function MobileSidebar() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" className="md:hidden">
-          Menu
+        <Button variant="outline" size="icon" className="md:hidden">
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">Открыть меню</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="top" className="w-full px-0">
+      <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-gray-50">
         <SheetHeader>
-          <SheetTitle>Navigacia</SheetTitle>
+          <SheetTitle className="text-2xl font-bold text-primary">
+            DUKE Assistant
+          </SheetTitle>
         </SheetHeader>
-        <div className="flex justify-between items-center px-4 py-2">
-          <nav className="flex space-x-2">
+        <div className="flex flex-col space-y-4 mt-6">
+          <nav className="flex flex-col space-y-2">
             {sections.map((section) => (
               <Link
                 key={section.href}
                 href={section.href}
                 className={cn(
-                  "px-3 py-2 text-sm font-medium rounded-md",
+                  "flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors",
                   pathname === section.href
-                    ? "bg-gray-200 text-gray-900"
-                    : "text-gray-600 hover:bg-gray-100"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-muted"
                 )}
                 onClick={() => setOpen(false)}
               >
+                <section.icon className="mr-3 h-5 w-5" />
                 {section.name}
               </Link>
             ))}
           </nav>
-          <Button onClick={() => setOpen(false)}>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Nový chat
+          <Button
+            onClick={() => setOpen(false)}
+            className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+          >
+            <PlusCircle className="mr-2 h-5 w-5" />
+            Добавить чат
           </Button>
         </div>
       </SheetContent>
