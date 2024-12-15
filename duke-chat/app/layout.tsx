@@ -36,10 +36,10 @@ export default function RootLayout({
           <div className="flex flex-col md:flex-row h-full min-h-screen w-full">
             <AppSidebar />
             <div className="fles flex-col flex-1">
-              <header className="md:hidden h-[60px] flex-shrink-0">
+              <header className="md:hidden h-[73px] flex-shrink-0">
                 <MobileSidebar />
               </header>
-              <main className="overflow-auto scrollbar-hide h-[calc(100vh-60px)] md:h-[100vh]">
+              <main className="overflow-auto scrollbar-hide h-[calc(100vh-73px)] md:h-[100vh]">
                 {children}
               </main>
             </div>
