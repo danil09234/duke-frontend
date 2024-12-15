@@ -1,55 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  BanknoteIcon,
-  FileText,
-  MessageCircle,
-  PenLine,
-  Plane,
-  Plus,
-  Star,
-} from "lucide-react";
+import { Plus } from "lucide-react";
 import React from "react";
 import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
 
 const cardData = {
-  title: "Čo chcete vedieť o univerzite?",
+  title: "Chcete najsť dôležitý chat?",
   description:
-    "Zatiaľ si sa nášho asistenta na nič nepýtal. Ak potrebuješ pomoc, neváhaj sa opýtať – náš asistent nehryzie!",
+    "Momentálne nemáte žiadne obľúbené chaty. Začnite si nový chat alebo označte existujúci, aby ste vždy rýchlo našli tú správnu konverzáciu.",
   subdescription: "Stačí začať nový chat!",
   buttonText: "Nový chat",
 };
 
-const cardsData = [
-  {
-    icon: <MessageCircle className="w-4 h-4 text-orange-500" />,
-    text: "Ktorý študijný program na vybrať pre dceru?",
-  },
-  {
-    icon: <Star className="w-4 h-4 text-orange-500" />,
-    text: "Kedy je termín na podanie prihlášky na FEI KPI?",
-  },
-  {
-    icon: <Plane className="w-4 h-4 text-orange-500" />,
-    text: "Aké študijné programy ponúka Letecka fakulta?",
-  },
-  {
-    icon: <BanknoteIcon className="w-4 h-4 text-orange-500" />,
-    text: "Aké sú poplatky spojené so štúdiom alebo podaním prihlášky?",
-  },
-  {
-    icon: <FileText className="w-4 h-4 text-orange-500" />,
-    text: "Ako sa dá podať prihláška online pomocou MAIS?",
-  },
-  {
-    icon: <PenLine className="w-4 h-4 text-orange-500" />,
-    text: "Kde môžem nájsť informácie o prijímacích skúškach?",
-  },
-];
-
 export default function LibraryEmptyState(): JSX.Element {
   return (
-    <Card className="w-full max-w-3xl px-8 py-6 border-components-cards-borders-BR-color-2 z-10">
+    <Card className="w-full px-8 py-6 border-components-cards-borders-BR-color-2 z-10">
       <CardContent className="flex flex-col items-center gap-8 p-0">
         <ChatLibraryPNG />
         <div className="flex flex-col items-center gap-2 text-center max-w-[384]">

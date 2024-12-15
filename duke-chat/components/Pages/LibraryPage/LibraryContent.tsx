@@ -1,27 +1,10 @@
 import React from "react";
-import {
-  SearchIcon,
-  ListFilter,
-  ChevronDown,
-  MessagesSquare,
-  Heart,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import LibraryGrid from "@/components/Pages/LibraryPage/LibraryGrid";
+import { SearchIcon, MessagesSquare, Heart } from "lucide-react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { ChatsOverview } from "./ChatsOverview";
+import { FavoritesEmpty } from "./FavoritesEmpty";
 
 const LibraryContent = (): JSX.Element => {
   return (
@@ -74,27 +57,7 @@ const LibraryContent = (): JSX.Element => {
           </TabsContent>
 
           <TabsContent value="favorite">
-            <Card>
-              <CardHeader>
-                <CardTitle>Password</CardTitle>
-                <CardDescription>
-                  Change your password here. After saving, you'll be logged out.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <div className="space-y-1">
-                  <Label htmlFor="current">Current password</Label>
-                  <Input id="current" type="password" />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="new">New password</Label>
-                  <Input id="new" type="password" />
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button>Save password</Button>
-              </CardFooter>
-            </Card>
+            <FavoritesEmpty />
           </TabsContent>
         </Tabs>
       </div>
