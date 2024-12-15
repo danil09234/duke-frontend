@@ -14,7 +14,9 @@ export function LibraryPageContent() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <TopBarWrapperLibrary />
+      <div className="hidden md:block">
+        <TopBarWrapperLibrary />
+      </div>
       <LibraryContent />
     </div>
   );

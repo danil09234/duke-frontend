@@ -12,7 +12,9 @@ export function ChatPageContent() {
 
   return (
     <div className="flex flex-col py-0 h-full overflow-hidden relative">
-      <TopBarWrapper />
+      <div className="hidden md:block">
+        <TopBarWrapper />
+      </div>
       <AssistantRuntimeProvider runtime={runtime}>
         <MyThread assistantMessage={{ components: { Text: MarkdownText } }} />
       </AssistantRuntimeProvider>
