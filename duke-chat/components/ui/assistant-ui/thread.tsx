@@ -7,11 +7,10 @@ import {
   useThreadRuntime,
   useThread,
 } from "@assistant-ui/react";
-import Image from "next/image";
 import type { FC } from "react";
-import { SendHorizontalIcon, Plus } from "lucide-react";
+import { SendHorizontalIcon } from "lucide-react";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -137,7 +136,7 @@ export const MyThread: FC = () => {
   return (
     <>
       <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
-        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 z-10 pt-4">
+        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 z-10 pt-4 scrollbar-hide">
           {hasMessages ? (
             <ThreadPrimitive.Messages
               components={{
@@ -215,11 +214,26 @@ const MyAssistantMessage: FC = () => {
   return (
     <MessagePrimitive.Root className="relative grid w-full max-w-3xl grid-cols-[auto_1fr] grid-rows-[auto_1fr] py-4 z-10">
       <Avatar className="col-start-1 row-span-full row-start-1 mr-4">
+        <AvatarImage src="/resources/duke-avatar.png" alt="Assistant Avatar" />
         <AvatarFallback>A</AvatarFallback>
       </Avatar>
 
-      <div className="text-foreground col-start-2 row-start-1 my-1.5 max-w-xl break-words leading-7">
-        <MessagePrimitive.Content />
+      <div className="col-start-2 row-start-1 flex flex-col w-full">
+        <div className="flex gap-3 items-center">
+          <span className="text-sm font-medium text-slate-800">
+            DUKE Assistant
+          </span>
+          <div className="w-0 h-4 border border-gray-100" />
+          <span className="text-xs text-slate-500">
+            {new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </span>
+        </div>
+        <div className="text-[#666F8D] mt-2">
+          <MessagePrimitive.Content />
+        </div>
       </div>
     </MessagePrimitive.Root>
   );
