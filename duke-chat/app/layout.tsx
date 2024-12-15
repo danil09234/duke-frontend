@@ -30,16 +30,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
         <SidebarProvider>
-          <div className="flex flex-col md:flex-row min-h-screen w-full">
+          <div className="flex flex-col md:flex-row h-full min-h-screen w-full">
             <AppSidebar />
-            <div className="flex-1">
-              <header className="md:hidden">
+            <div className="fles flex-col flex-1">
+              <header className="md:hidden h-[60px] flex-shrink-0">
                 <MobileSidebar />
               </header>
-              <main>{children}</main>
+              <main className="overflow-auto scrollbar-hide h-[calc(100vh-60px)] md:h-[100vh]">
+                {children}
+              </main>
             </div>
           </div>
         </SidebarProvider>
