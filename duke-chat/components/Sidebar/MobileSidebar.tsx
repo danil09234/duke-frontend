@@ -28,7 +28,6 @@ import {
   NavigationMenuList,
 } from "@radix-ui/react-navigation-menu";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import styles from "@/styles/SidebarWrapper.module.css";
 
 const sections = [
