@@ -3,6 +3,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import localFont from "next/font/local";
 import "./globals.css";
 import AppSidebar from "@/components/Sidebar/AppSidebar";
+import { MobileSidebar } from "@/components/Sidebar/MobileSidebar";
 import ClientRouter from "@/components/ClientRouter";
 
 const geistSans = localFont({
@@ -29,11 +30,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
         <SidebarProvider>
-          <AppSidebar />
-          <main className="flex-1">{children}</main>
+          <div className="flex flex-col md:flex-row h-full min-h-screen w-full">
+            <AppSidebar />
+            <div className="fles flex-col flex-1">
+              <header className="md:hidden h-[73px] flex-shrink-0">
+                <MobileSidebar />
+              </header>
+              <main className="overflow-auto scrollbar-hide h-[calc(100vh-73px)] md:h-[100vh]">
+                {children}
+              </main>
+            </div>
+          </div>
         </SidebarProvider>
       </body>
     </html>
