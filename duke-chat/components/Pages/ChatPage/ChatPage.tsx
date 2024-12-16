@@ -31,7 +31,7 @@ function Body() {
 
 export default function ChatPage() {
   return (
-    <div className="flex h-screen bg-transparent">
+    <div className="flex h-full bg-transparent">
       <MainBodyWrapper />
     </div>
   );
