@@ -25,6 +25,7 @@ import {
 import React from "react";
 import ChatBackgroundSVG from "@/public/resources/background-chat.svg";
 import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
+import {MarkdownText} from "@/components/ui/assistant-ui/markdown-text";
 
 const cardData = {
   title: "Čo chcete vedieť o univerzite?",
@@ -204,7 +205,7 @@ const MyUserMessage: FC = () => {
   return (
     <MessagePrimitive.Root className="grid w-full max-w-3xl auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 py-4 z-10">
       <div className="bg-muted text-foreground col-start-2 row-start-1 max-w-xl break-words rounded-3xl px-5 py-2.5">
-        <MessagePrimitive.Content />
+        <MessagePrimitive.Content components={{ Text: MarkdownText }} />
       </div>
     </MessagePrimitive.Root>
   );
@@ -232,7 +233,7 @@ const MyAssistantMessage: FC = () => {
           </span>
         </div>
         <div className="text-[#666F8D] mt-2">
-          <MessagePrimitive.Content />
+          <MessagePrimitive.Content components={{ Text: MarkdownText }} />
         </div>
       </div>
     </MessagePrimitive.Root>
