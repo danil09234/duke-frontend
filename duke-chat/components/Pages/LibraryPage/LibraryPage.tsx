@@ -29,7 +29,7 @@ function Body() {
   );
 }
 
-export default function Chats() {
+export default function LibraryPage() {
   return (
     <div className="flex h-screen">
       <div className="flex flex-col h-full w-full max-h-full overflow-y-auto">
