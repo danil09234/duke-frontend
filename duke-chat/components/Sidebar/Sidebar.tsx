@@ -14,7 +14,7 @@ export function Sidebar({children}: { children: ReactNode }) {
                         <header className="md:hidden h-[73px] flex-shrink-0">
                             <MobileSidebar />
                         </header>
-                        <main className="overflow-auto scrollbar-hide h-[calc(100vh-73px)] md:h-[100vh]">
+                        <main className="overflow-hidden scrollbar-hide h-[calc(100vh-73px)] md:h-[100vh]">
                             {children}
                         </main>
                     </div>
