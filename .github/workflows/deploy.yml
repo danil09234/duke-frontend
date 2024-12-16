@@ -50,4 +50,4 @@ jobs:
       - name: Build project
         run: docker build -t frontend .
       - name: Run project
-        run: docker run -d -p 80:3000 -e OPENAI_API_KEY=$OPENAI_API_KEY frontend
+        run: docker run -d -p 80:3000 -e OPENAI_API_KEY=$OPENAI_API_KEY --name frontend frontend

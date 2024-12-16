@@ -21,7 +21,7 @@ jobs:
         run: pwd
       - name: Stop previous project execution
         continue-on-error: true
-        run: docker compose --profile "*" down
+        run: docker container stop frontend
       - name: Save the Backend logs
         uses: actions/upload-artifact@v4
         continue-on-error: true
