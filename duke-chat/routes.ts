@@ -22,7 +22,7 @@ export const routes: Route[] = [
   },
   {
     name: "Nájsť program",
-    path: "/find-program",
+    path: "/chats/chat1234",
     icon: Puzzle,
     shortcut: "⌘ 3",
   },

@@ -3,6 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import React from "react";
 import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
+} from "@radix-ui/react-navigation-menu";
+import { Link } from "react-router-dom";
 
 const cardData = {
   title: "Chcete najsť dôležitý chat?",
@@ -28,10 +34,18 @@ export default function LibraryEmptyState(): JSX.Element {
             {cardData.subdescription}
           </p>
         </div>
-        <Button className="inline-flex items-center gap-1 bg-[#FF4100] hover:bg-[#FF4100]/90 text-white border-none font-display-1-medium text-xs font-medium rounded-[8]">
-          <span>Nový chat</span>
-          <Plus className="h-2.5 w-2.5" />
-        </Button>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <Link to={"/chats/chat1234/"}>
+                <Button className="inline-flex items-center gap-1 bg-[#FF4100] hover:bg-[#FF4100]/90 text-white border-none font-display-1-medium text-xs font-medium rounded-[8]">
+                  <span>Nový chat</span>
+                  <Plus className="h-2.5 w-2.5" />
+                </Button>
+              </Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </CardContent>
     </Card>
   );
