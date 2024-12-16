@@ -1,7 +1,8 @@
 "use client";
 
 import { Plus, Search } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import {usePathname} from "next/navigation";
+import Link from "next/link";
 import {
   Sidebar,
   SidebarContent,
@@ -28,9 +29,10 @@ function Divider() {
   );
 }
 
-const AppSidebar: React.FC = () => {
+const DesktopSidebar: React.FC = () => {
   const { toggleSidebar, state } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,8 +52,6 @@ const AppSidebar: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [toggleSidebar, state]);
-
-  const location = useLocation();
 
   const chatHistory = [
     "Prijímacie skúšky na TUKE",
@@ -102,7 +102,7 @@ const AppSidebar: React.FC = () => {
           </div>
           {state === "collapsed" && !isMobile && <Divider />}
           {routes.map((item, index) => {
-            const isActive = location.pathname === item.path;
+            const isActive = pathname === item.path;
             return (
               <SidebarMenuItem key={index} className="w-full">
                 <SidebarMenuButton
@@ -114,7 +114,7 @@ const AppSidebar: React.FC = () => {
                   asChild
                 >
                   <Link
-                    to={item.path}
+                    href={item.path}
                     className={`flex items-center justify-between w-full group rounded-md transition-colors gap-2 px-3 py-3 ${
                       isActive
                         ? `${styles.activeSidebarItem} pointer-events-none`
@@ -135,10 +135,9 @@ const AppSidebar: React.FC = () => {
                     </span>
                     {state === "expanded" && (
                       <Badge
-                        className={`
-                              absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-white text-[#19213D]
-                              ${isActive ? "bg-[#F7F8FA] text-[#19213D]" : ""}
-                            `}
+                        className={`absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center justify-center px-2 py-1 bg-white text-[#19213D] ${
+                          isActive ? "bg-[#F7F8FA] text-[#19213D]" : ""
+                        }`}
                         variant="secondary"
                       >
                         {item.shortcut}
@@ -185,7 +184,7 @@ const AppSidebar: React.FC = () => {
         )}
 
         <div className="mt-auto">
-          <Link to={"/chats/chat123"}>
+          <Link href="pages/chats/chat123">
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
@@ -210,4 +209,4 @@ const AppSidebar: React.FC = () => {
   );
 };
 
-export default AppSidebar;
+export default DesktopSidebar;
