@@ -33,9 +33,9 @@ jobs:
       - name: Install Docker Engine
         if: ${{ steps.docker_check.outcome == 'failure' }}
         run: curl -fsSL https://get.docker.com/ | sh
-      - name: Stop previous project execution
+      - name: Stop and remove previous project container
         continue-on-error: true
-        run: docker container stop frontend
+        run: docker rm -f frontend || true
       - name: Cleanup project directory
         run: rm -rf ${{ github.workspace }}/*
       - name: Display tree after cleanup
