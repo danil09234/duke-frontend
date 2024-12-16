@@ -1,8 +1,7 @@
 "use client";
 
 import { Plus, Search } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -52,7 +51,7 @@ const AppSidebar: React.FC = () => {
     };
   }, [toggleSidebar, state]);
 
-  const pathname = usePathname();
+  const location = useLocation();
 
   const chatHistory = [
     "Prijímacie skúšky na TUKE",
@@ -103,7 +102,7 @@ const AppSidebar: React.FC = () => {
           </div>
           {state === "collapsed" && !isMobile && <Divider />}
           {routes.map((item, index) => {
-            const isActive = pathname === item.path;
+            const isActive = location.pathname === item.path;
             return (
               <SidebarMenuItem key={index} className="w-full">
                 <SidebarMenuButton
@@ -115,7 +114,7 @@ const AppSidebar: React.FC = () => {
                   asChild
                 >
                   <Link
-                    href={item.path}
+                    to={item.path}
                     className={`flex items-center justify-between w-full group rounded-md transition-colors gap-2 px-3 py-3 ${
                       isActive
                         ? `${styles.activeSidebarItem} pointer-events-none`
@@ -186,7 +185,7 @@ const AppSidebar: React.FC = () => {
         )}
 
         <div className="mt-auto">
-          <Link href={"/chats/chat123"} passHref>
+          <Link to={"/chats/chat1234"}>
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
