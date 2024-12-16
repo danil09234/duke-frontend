@@ -26,6 +26,28 @@ jobs:
         run: tree -I venv
       - name: Display working directory before cleanup
         run: pwd
+      - name: Check Docker Engine installation
+        id: docker_check
+        continue-on-error: true
+        run: which docker
+      - name: Install Docker Engine
+        if: ${{ steps.docker_check.outcome == 'failure' }}
+        run: >
+          # Add Docker's official GPG key:
+          sudo apt-get update
+          sudo apt-get install ca-certificates curl
+          sudo install -m 0755 -d /etc/apt/keyrings
+          sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+          sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+          # Add the repository to Apt sources:
+          echo \
+            "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+            $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+            sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          sudo apt-get update
+          
+          sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
       - name: Stop previous project execution
         continue-on-error: true
         run: docker container stop frontend
