@@ -185,7 +185,7 @@ const AppSidebar: React.FC = () => {
         )}
 
         <div className="mt-auto">
-          <Link to={"/chats/chat1234"}>
+          <Link to={"/chats/chat123"}>
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
