@@ -1,0 +1,46 @@
+name: Manual Project Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: 'Target branch (default: master)'
+        required: false
+        default: 'master'
+jobs:
+  deploy:
+    runs-on: production
+    concurrency:
+      group: deploy_servers
+      cancel-in-progress: true
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - name: Check tree command installation
+        id: tree_check
+        continue-on-error: true
+        run: which tree
+      - name: Install tree command
+        if: ${{ steps.tree_check.outcome == 'failure' }}
+        run: sudo apt-get install tree
+      - name: Display tree before cleanup
+        run: tree -I venv
+      - name: Display working directory before cleanup
+        run: pwd
+      - name: Stop previous project execution
+        continue-on-error: true
+        run: docker container stop frontend
+      - name: Cleanup project directory
+        run: rm -rf ${{ github.workspace }}/*
+      - name: Display tree after cleanup
+        run: tree
+      - name: Check out the code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.inputs.target_branch }}
+      - name: Display tree after project setup
+        run: tree
+      - name: Build project
+        run: docker build -t frontend .
+      - name: Run project
+        run: docker run -p 80:3000 -e OPENAI_API_KEY=$OPENAI_API_KEY frontend

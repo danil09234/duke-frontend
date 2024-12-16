@@ -1,0 +1,47 @@
+name: Stop project
+on:
+  workflow_dispatch:
+jobs:
+  stop_and_destroy:
+    runs-on: production
+    concurrency:
+      group: deploy_servers
+      cancel-in-progress: true
+    steps:
+      - name: Check tree command installation
+        id: tree_check
+        continue-on-error: true
+        run: which tree
+      - name: Install tree command
+        if: ${{ steps.tree_check.outcome == 'failure' }}
+        run: sudo apt-get install tree
+      - name: Display tree before cleanup
+        run: tree -I venv
+      - name: Display working directory before cleanup
+        run: pwd
+      - name: Stop previous project execution
+        continue-on-error: true
+        run: docker compose --profile "*" down
+      - name: Save the Backend logs
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: Backend logs
+          path: Backend/logs
+      - name: Save the SellersBot logs
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: SellersBot logs
+          path: SellersBot/logs
+      - name: Save the ClientsBot logs
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: ClientsBot logs
+          path: ClientsBot/logs
+      - name: Cleanup project directory
+        run: |
+          rm -rf ${{ github.workspace }}/*
+      - name: Display tree after cleanup
+        run: tree
