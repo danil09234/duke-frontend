@@ -46,8 +46,9 @@ export default function RootLayout() {
                   <Routes>
                     <Route path="/" element={<Chats />} />
                     <Route path="/chats" element={<Chats />} />
-                    <Route path="/chats/chat1234" element={<ChatPage />} />
+                    <Route path="/chats/chat123" element={<ChatPage />} />
                     <Route path="/library" element={<LibraryPage />} />
+                    <Route path="*" element={<Chats />} />
                   </Routes>
                 </main>
               </div>

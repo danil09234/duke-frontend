@@ -33,7 +33,7 @@ import styles from "@/styles/SidebarWrapper.module.css";
 const sections = [
   { name: "Chaty", href: "/chats", icon: LucideMessageCircle },
   { name: "Knižnica", href: "/library", icon: Book },
-  { name: "Nájsť program", href: "/chats/chat1234", icon: Puzzle },
+  { name: "Nájsť program", href: "/chats/chat123", icon: Puzzle },
 ];
 
 export function MobileSidebar() {
@@ -57,7 +57,7 @@ export function MobileSidebar() {
             <AvatarFallback>A</AvatarFallback>
           </Avatar>
           <NavigationMenuItem>
-            <Link to={"/chats/chat1234/"}>
+            <Link to={"/chats/chat123/"}>
               <TooltipIconButton
                 tooltip="New Chat"
                 side="right"
@@ -92,7 +92,7 @@ export function MobileSidebar() {
                       </Button>
                       <NavigationMenuItem>
                         <Link
-                          to={"/chats/chat1234/"}
+                          to={"/chats/chat123/"}
                           onClick={() => setOpen(false)}
                         >
                           <Button variant="ghost" size="icon">

@@ -7,7 +7,7 @@ import { WelcomeCard } from "@/components/PromptBox/WelcomeCard";
 const ChatsContent = (): JSX.Element => {
   return (
     <div
-      className="flex flex-col items-center px-4 py-10 sm:px-6 md:px-8 lg:px-[100] overflow-y-auto scrollbar-hide"
+      className="h-full flex flex-col items-center px-4 py-10 sm:px-6 md:px-8 lg:px-[100] overflow-y-auto scrollbar-hide"
       style={{
         backgroundImage: "url('/resources/big-background-gradient.png')",
         backgroundSize: "cover",
