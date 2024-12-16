@@ -6,8 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Chats from "@/components/Pages/ChatsPage/ChatsPage";
 import LibraryPage from "@/components/Pages/LibraryPage/LibraryPage";
 import ChatPage from "@/components/Pages/ChatPage/ChatPage";
-import Head from "next/head";
-import {Sidebar} from "@/components/Sidebar/Sidebar";
+import { Sidebar } from "@/components/Sidebar/Sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,10 +22,10 @@ const geistMono = localFont({
 export default function RootLayout() {
   return (
     <html lang="en">
-      <Head>
+      <head>
         <title>DUKE Assistant</title>
         <meta name="description" content="TUKE Application Assistant" />
-      </Head>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
@@ -34,7 +33,7 @@ export default function RootLayout() {
           <Routes>
             <Route path="/" element={<Chats />} />
             <Route path="/chats" element={<Chats />} />
-            <Route path="/chats/chat123" element={<ChatPage />} />
+            <Route path="/chats/*" element={<ChatPage />} />
             <Route path="/library" element={<LibraryPage />} />
             <Route path="*" element={<Chats />} />
           </Routes>
