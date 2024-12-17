@@ -184,7 +184,7 @@ const DesktopSidebar: React.FC = () => {
         )}
 
         <div className="mt-auto">
-          <Link href="pages/chats/chat123">
+          <Link href="chats/chat123">
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
