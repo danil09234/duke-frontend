@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Chats from "@/components/Pages/ChatsPage/ChatsPage";
 import LibraryPage from "@/components/Pages/LibraryPage/LibraryPage";
 import ChatPage from "@/components/Pages/ChatPage/ChatPage";
+import FindProgram from "@/components/Pages/FindProgramPage/FindProgram";
 import { Sidebar } from "@/components/Sidebar/Sidebar";
 
 const geistSans = localFont({
@@ -35,6 +36,7 @@ export default function RootLayout() {
             <Route path="/chats" element={<Chats />} />
             <Route path="/chats/*" element={<ChatPage />} />
             <Route path="/library" element={<LibraryPage />} />
+            <Route path="/find-program" element={<FindProgram />} />
             <Route path="*" element={<Chats />} />
           </Routes>
         </Sidebar>
