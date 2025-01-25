@@ -56,11 +56,11 @@ export function FindProgramPageContent() {
     };
 
     return (
-        <div className="flex flex-col py-0 h-full overflow-auto relative bg-white">
-            <div className="hidden md:block">
+        <div className="flex flex-col h-full relative bg-white">
+            <div className="hidden md:block absolute top-0 w-full">
                 <TopBarWrapperFindProgram />
             </div>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col items-center overflow-auto pt-16 pb-4 flex-1 scrollbar-hide">
                 {questions.map((q, idx) => (
                     <div key={idx}>
                         <QuestionItem
