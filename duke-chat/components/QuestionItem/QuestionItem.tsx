@@ -12,9 +12,10 @@ interface QuestionItemProps {
     questionNumber: number;
     questionText: string;
     answers: Answer[];
+    onAnswerClick: (answer: string) => void;
 }
 
-const QuestionItem: React.FC<QuestionItemProps> = ({ questionNumber, questionText, answers }): JSX.Element => {
+const QuestionItem: React.FC<QuestionItemProps> = ({ questionNumber, questionText, answers, onAnswerClick }): JSX.Element => {
     return (
         <div className="flex flex-col max-w-[415px] items-start gap-2">
             <Card className="overflow-hidden border border-solid border-[#e3e6ea] shadow-neutral-BS-regular">
@@ -39,6 +40,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({ questionNumber, questionTex
                                 key={answer.id}
                                 variant="ghost"
                                 className="bg-components-buttons-tertiary-backgrounds-BG-light-mode text-components-buttons-primary-text-text-dark-mode hover:bg-components-buttons-tertiary-backgrounds-BG-light-mode/90"
+                                onClick={() => onAnswerClick(answer.text)}
                             >
                                 {answer.text}
                             </Button>
