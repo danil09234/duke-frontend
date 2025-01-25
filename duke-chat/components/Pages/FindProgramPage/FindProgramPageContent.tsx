@@ -1,9 +1,8 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import TopBarWrapperFindProgram from "@/components/Topbar/TopBarWrapperFindProgram";
 import QuestionItem from "@/components/QuestionItem/QuestionItem";
 import LogicLines from "@/components/LogicLine/LogicLine";
+import FinalStudyProgramme from "@/components/FinalStudyProgramme/FinalStudyProgramme";
 
 const backendBase = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
@@ -16,6 +15,7 @@ export function FindProgramPageContent() {
     const [sessionId, setSessionId] = useState("");
     const [questions, setQuestions] = useState<Question[]>([]);
     const [responses, setResponses] = useState<string[]>([]);
+    const [finalProgramName, setFinalProgramName] = useState<string | null>(null);
 
     useEffect(() => {
         (async () => {
@@ -26,9 +26,9 @@ export function FindProgramPageContent() {
     }, []);
 
     useEffect(() => {
-        if (!sessionId) return;
+        if (!sessionId || finalProgramName) return;
         fetchQuestion();
-    }, [sessionId]);
+    }, [sessionId, finalProgramName]);
 
     const fetchQuestion = async () => {
         const res = await fetch(`${backendBase}/api/session/${sessionId}/question`);
@@ -46,9 +46,12 @@ export function FindProgramPageContent() {
             body: JSON.stringify({ answer }),
         });
         if (res.status === 200) {
-            fetchQuestion();
-        } else {
             const data = await res.json();
+            if (data === null) {
+                fetchQuestion();
+            } else {
+                setFinalProgramName(data.name);
+            }
         }
     };
 
@@ -69,6 +72,7 @@ export function FindProgramPageContent() {
                         {responses[idx] && <LogicLines value={responses[idx]} />}
                     </div>
                 ))}
+                {finalProgramName && <FinalStudyProgramme programmeName={finalProgramName} />}
             </div>
         </div>
     );
