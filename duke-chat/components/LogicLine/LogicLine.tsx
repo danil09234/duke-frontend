@@ -12,9 +12,9 @@ const LogicLines: React.FC<LogicLinesProps> = ({ value }): JSX.Element => {
         <div className="flex flex-col items-center">
             <Separator
                 orientation="vertical"
-                className="mb-0 z-10 h-8"
+                className="mb-0 h-8"
             />
-            <Card className="z-20 p-0 border border-[#f0f2f5]">
+            <Card className="p-0 border border-[#f0f2f5]">
                 <Badge
                     variant="secondary"
                     className="bg-components-badges-backgrounds-BG-color-1 text-components-badges-texts-dark font-display-1-regular text-xs rounded-[4px] px-2 py-1"
@@ -24,7 +24,7 @@ const LogicLines: React.FC<LogicLinesProps> = ({ value }): JSX.Element => {
             </Card>
             <Separator
                 orientation="vertical"
-                className="mt-0 z-10 h-8"
+                className="mt-0 h-8"
             />
         </div>
     );
