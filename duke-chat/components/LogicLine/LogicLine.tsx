@@ -3,7 +3,11 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 
-const LogicLines = (): JSX.Element => {
+interface LogicLinesProps {
+    value: string;
+}
+
+const LogicLines: React.FC<LogicLinesProps> = ({ value }): JSX.Element => {
     return (
         <div className="flex flex-col items-center w-24 h-32">
             <Separator
@@ -15,7 +19,7 @@ const LogicLines = (): JSX.Element => {
                     variant="secondary"
                     className="bg-components-badges-backgrounds-BG-color-1 text-components-badges-texts-dark font-display-1-regular text-xs rounded-[4px] px-2 py-1"
                 >
-                    Áno
+                    {value}
                 </Badge>
             </Card>
             <Separator

@@ -20,7 +20,7 @@ export function FindProgramPageContent() {
                         { id: 2, text: "Answer 2" },
                     ]}
                 />
-                <LogicLines />
+                <LogicLines value="Test" />
             </div>
         </div>
     );
