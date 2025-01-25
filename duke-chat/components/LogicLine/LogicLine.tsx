@@ -9,7 +9,7 @@ interface LogicLinesProps {
 
 const LogicLines: React.FC<LogicLinesProps> = ({ value }): JSX.Element => {
     return (
-        <div className="flex flex-col items-center w-24 h-32">
+        <div className="flex flex-col items-center">
             <Separator
                 orientation="vertical"
                 className="mb-0 z-10 h-8"
