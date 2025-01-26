@@ -15,12 +15,12 @@ const FinalStudyProgramme = ({ programmeName }: FinalStudyProgrammeProps): JSX.E
             <CardContent className="flex flex-col items-center gap-6 pt-6">
                 <div className="flex flex-col items-start gap-3 w-full">
                     <div className="flex flex-col items-start gap-1 w-full">
-                        <h2 className="w-full font-display-2-medium text-components-titles-paragraphs-text-dark text-center text-[14px] leading-[130%] font-medium">
+                        <h2 className="w-full font-display-2-medium text-components-titles-paragraphs-text-dark text-center text-[14px] leading-[130%] font-medium capitalize">
                             {programmeName}
                         </h2>
 
                         <p className="w-full font-paragraph-default-regular text-components-inputs-select-text-text-neutral text-center text-[14px] leading-[150%]">
-                            Na základe tvojich odpovedí sa zdá, že odbor {programmeName} by bol pre teba tou správnou voľbou!
+                            Na základe tvojich odpovedí sa zdá, že odbor <span className="capitalize">{programmeName}</span> by bol pre teba tou správnou voľbou!
                         </p>
                     </div>
 
@@ -29,7 +29,7 @@ const FinalStudyProgramme = ({ programmeName }: FinalStudyProgrammeProps): JSX.E
                         className="flex items-center justify-center gap-1 w-full text-components-links-text-text-accent hover:no-underline"
                     >
                         <span className="font-display-2-medium text-[14px] leading-[130%] font-medium text-components-buttons-primary-text-text-dark-mode">
-                            Čítať viac o štúdiu: {programmeName}
+                            Čítať viac o štúdiu: <span className="capitalize">{programmeName}</span>
                         </span>
                         <ArrowRight className="w-4 h-4 text-components-buttons-primary-text-text-dark-mode" />
                     </Button>
