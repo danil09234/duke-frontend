@@ -28,10 +28,10 @@ const FinalStudyProgramme = ({ programmeName }: FinalStudyProgrammeProps): JSX.E
                         variant="link"
                         className="flex items-center justify-center gap-1 w-full text-components-links-text-text-accent hover:no-underline"
                     >
-                        <span className="font-display-2-medium text-[14px] leading-[130%] font-medium">
+                        <span className="font-display-2-medium text-[14px] leading-[130%] font-medium text-components-buttons-primary-text-text-dark-mode">
                             Čítať viac o štúdiu: {programmeName}
                         </span>
-                        <ArrowRight className="w-4 h-4" />
+                        <ArrowRight className="w-4 h-4 text-components-buttons-primary-text-text-dark-mode" />
                     </Button>
                 </div>
             </CardContent>
