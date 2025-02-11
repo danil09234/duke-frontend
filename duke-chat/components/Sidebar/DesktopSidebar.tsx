@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, Search } from "lucide-react";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   Sidebar,
@@ -32,7 +32,7 @@ function Divider() {
 const DesktopSidebar: React.FC = () => {
   const { toggleSidebar, state } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -184,7 +184,7 @@ const DesktopSidebar: React.FC = () => {
         )}
 
         <div className="mt-auto">
-          <Link href="chats/chat123">
+          <Link href="/chats/eb37deb8eeeb2aa4997b2eee77">
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
