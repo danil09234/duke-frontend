@@ -12,7 +12,7 @@ const TopBarWrapper = (): JSX.Element => {
             variant="secondary"
             className="px-2 py-1 text-xs font-medium shadow-sm"
           >
-            Človek + AI
+            AI Asistent
           </Badge>
         </div>
       </div>
