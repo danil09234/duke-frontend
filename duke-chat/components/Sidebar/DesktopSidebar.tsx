@@ -15,7 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { routes } from "@/routes";
-import avatar from "@/public/resources/av2024-small.jpg";
+import avatar from "@/public/resources/avatar-user.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
@@ -73,7 +73,7 @@ const DesktopSidebar: React.FC = () => {
               <AvatarImage src={avatar.src} alt="User Avatar" />
               <AvatarFallback>VP</AvatarFallback>
             </Avatar>
-            <span className="font-medium text-gray-900">Vladyslav P.</span>
+            <span className="font-medium text-gray-900">Superštudent</span>
           </div>
           <div className="text-[#666F8D]">
             {!isMobile && <SidebarTrigger />}
@@ -102,7 +102,9 @@ const DesktopSidebar: React.FC = () => {
           </div>
           {state === "collapsed" && !isMobile && <Divider />}
           {routes.map((item, index) => {
-            const isActive = pathname === item.path;
+            const isActive =
+              pathname === item.path ||
+              (pathname === "/" && item.path === "/chats");
             return (
               <SidebarMenuItem key={index} className="w-full">
                 <SidebarMenuButton

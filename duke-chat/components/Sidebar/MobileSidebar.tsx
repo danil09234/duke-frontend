@@ -110,7 +110,9 @@ export function MobileSidebar() {
 
                 <NavigationMenuList className="mt-10 space-y-1">
                   {sections.map((section, index) => {
-                    const isActive = pathname === section.href;
+                    const isActive =
+                      pathname === section.href ||
+                      (pathname === "/" && section.href === "/chats");
                     return (
                       <NavigationMenuItem
                         key={index}
@@ -152,12 +154,12 @@ export function MobileSidebar() {
               <div className="mt-auto px-4 border-">
                 <div className="flex items-center w-full">
                   <img
-                    src="/resources/av2024-small.jpg"
+                    src="/resources/avatar-user.png"
                     alt="User avatar"
                     className="w-8 h-8 rounded-full shadow-sm object-cover"
                   />
                   <span className="ml-2 text-sm font-medium text-slate-800">
-                    Vladyslav P.
+                    Superštudent
                   </span>
                 </div>
               </div>
