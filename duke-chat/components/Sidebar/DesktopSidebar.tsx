@@ -64,7 +64,7 @@ const DesktopSidebar: React.FC = () => {
   return (
     <Sidebar
       collapsible="icon"
-      className="w-[300px] p-6 px-4 flex flex-col h-[100vh] border-none"
+      className="w-[300px] p-6 px-4 flex flex-col h-[100dvh] border-none"
     >
       <SidebarContent className="bg-[#f7f8fa]">
         <div className="flex items-center justify-between">
