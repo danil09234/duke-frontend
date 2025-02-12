@@ -3,6 +3,7 @@ import TopBarWrapperFindProgram from "@/components/Topbar/TopBarWrapperFindProgr
 import QuestionItem from "@/components/QuestionItem/QuestionItem";
 import LogicLines from "@/components/LogicLine/LogicLine";
 import FinalStudyProgramme from "@/components/FinalStudyProgramme/FinalStudyProgramme";
+import Line from "@/components/Line/Line";
 
 const backendBase = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
@@ -11,11 +12,16 @@ interface Question {
     answers: string[];
 }
 
+interface StudyProgramme {
+    name: string;
+    code?: string;
+}
+
 export function FindProgramPageContent() {
     const [sessionId, setSessionId] = useState("");
     const [questions, setQuestions] = useState<Question[]>([]);
     const [responses, setResponses] = useState<string[]>([]);
-    const [finalProgramName, setFinalProgramName] = useState<string | null>(null);
+    const [finalProgrammes, setFinalProgrammes] = useState<StudyProgramme[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -26,9 +32,9 @@ export function FindProgramPageContent() {
     }, []);
 
     useEffect(() => {
-        if (!sessionId || finalProgramName) return;
+        if (!sessionId || finalProgrammes.length > 0) return;
         fetchQuestion();
-    }, [sessionId, finalProgramName]);
+    }, [sessionId, finalProgrammes]);
 
     const fetchQuestion = async () => {
         const res = await fetch(`${backendBase}/api/session/${sessionId}/question`);
@@ -50,7 +56,7 @@ export function FindProgramPageContent() {
             if (data === null) {
                 fetchQuestion();
             } else {
-                setFinalProgramName(data.name);
+                setFinalProgrammes(data);
             }
         }
     };
@@ -72,7 +78,13 @@ export function FindProgramPageContent() {
                         {responses[idx] && <LogicLines value={responses[idx]} />}
                     </div>
                 ))}
-                {finalProgramName && <FinalStudyProgramme programmeName={finalProgramName} />}
+                {finalProgrammes.length > 0 &&
+                    finalProgrammes.map((programme, idx) => (
+                        <React.Fragment key={idx}>
+                            <FinalStudyProgramme programmeName={programme.name} />
+                            {idx < finalProgrammes.length - 1 && <Line />}
+                        </React.Fragment>
+                    ))}
             </div>
         </div>
     );
