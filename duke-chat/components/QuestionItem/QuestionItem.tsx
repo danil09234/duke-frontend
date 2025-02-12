@@ -2,6 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React from "react";
+import { prettifyLanguage } from "@/lib/languagePrettifier";
+import { prettifyStudyForm } from "@/lib/studyFormPrettifier";
 
 interface Answer {
     id: number;
@@ -42,7 +44,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({ questionNumber, questionTex
                                 className="bg-components-buttons-tertiary-backgrounds-BG-light-mode text-components-buttons-primary-text-text-dark-mode hover:bg-components-buttons-tertiary-backgrounds-BG-light-mode/90"
                                 onClick={() => onAnswerClick(answer.text)}
                             >
-                                {answer.text}
+                                {prettifyStudyForm(prettifyLanguage(answer.text))}
                             </Button>
                         ))}
                     </div>
