@@ -22,7 +22,7 @@ export function WelcomeCard({
         backgroundPosition: "center",
       }}
     >
-      <div className="flex flex-col max-w-[400] w-full">
+      <div className="flex flex-col max-w-[400px] w-full">
         <UserGreeting userName={userName} welcomeMessage={welcomeMessage} />
         <AssistantInput placeholder={inputPlaceholder} />
       </div>
