@@ -10,8 +10,8 @@ interface FinalStudyProgrammeProps {
 const FinalStudyProgramme = ({ programmeName }: FinalStudyProgrammeProps): JSX.Element => {
     return (
         <Card
-            className="w-[415px] bg-components-cards-backgrounds-BG-color-1 border-components-cards-borders-BR-color-1"
-        >
+    className="w-full sm:w-[415px] mx-auto bg-components-cards-backgrounds-BG-color-1 border-components-cards-borders-BR-color-1"
+>
             <CardContent className="flex flex-col items-center gap-6 pt-6">
                 <div className="flex flex-col items-start gap-3 w-full">
                     <div className="flex flex-col items-start gap-1 w-full">
