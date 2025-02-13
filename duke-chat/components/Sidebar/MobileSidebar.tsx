@@ -53,13 +53,15 @@ export function MobileSidebar() {
               <Menu className="h-5 w-5" />
             </Button>
           </DrawerTrigger>
-          <Avatar className="col-start-1 row-span-full row-start-1">
-            <AvatarImage
-              src="/resources/duke-avatar.png"
-              alt="Assistant Avatar"
-            />
-            <AvatarFallback>A</AvatarFallback>
-          </Avatar>
+          <Link to="/chats" onClick={() => setOpen(false)}>
+            <Avatar className="col-start-1 row-span-full row-start-1">
+              <AvatarImage
+                src="/resources/duke-avatar.png"
+                alt="Assistant Avatar"
+              />
+              <AvatarFallback>A</AvatarFallback>
+            </Avatar>
+          </Link>
           <NavigationMenuItem>
             <Link to={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
               <TooltipIconButton
