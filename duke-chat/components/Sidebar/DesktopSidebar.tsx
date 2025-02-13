@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, Search } from "lucide-react";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   Sidebar,
@@ -15,7 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { routes } from "@/routes";
-import avatar from "@/public/resources/av2024-small.jpg";
+import avatar from "@/public/resources/avatar-user.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
@@ -32,7 +32,7 @@ function Divider() {
 const DesktopSidebar: React.FC = () => {
   const { toggleSidebar, state } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -64,7 +64,7 @@ const DesktopSidebar: React.FC = () => {
   return (
     <Sidebar
       collapsible="icon"
-      className="w-[300px] p-6 px-4 flex flex-col h-[100vh] border-none"
+      className="w-[300px] p-6 px-4 flex flex-col h-[100dvh] border-none"
     >
       <SidebarContent className="bg-[#f7f8fa]">
         <div className="flex items-center justify-between">
@@ -73,7 +73,7 @@ const DesktopSidebar: React.FC = () => {
               <AvatarImage src={avatar.src} alt="User Avatar" />
               <AvatarFallback>VP</AvatarFallback>
             </Avatar>
-            <span className="font-medium text-gray-900">Vladyslav P.</span>
+            <span className="font-medium text-gray-900">Superštudent</span>
           </div>
           <div className="text-[#666F8D]">
             {!isMobile && <SidebarTrigger />}
@@ -102,7 +102,9 @@ const DesktopSidebar: React.FC = () => {
           </div>
           {state === "collapsed" && !isMobile && <Divider />}
           {routes.map((item, index) => {
-            const isActive = pathname === item.path;
+            const isActive =
+              pathname === item.path ||
+              (pathname === "/" && item.path === "/chats");
             return (
               <SidebarMenuItem key={index} className="w-full">
                 <SidebarMenuButton
@@ -184,7 +186,7 @@ const DesktopSidebar: React.FC = () => {
         )}
 
         <div className="mt-auto">
-          <Link href="chats/chat123">
+          <Link href="/chats/eb37deb8eeeb2aa4997b2eee77">
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"

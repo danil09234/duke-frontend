@@ -33,7 +33,11 @@ import styles from "@/styles/SidebarWrapper.module.css";
 const sections = [
   { name: "Chaty", href: "/chats", icon: LucideMessageCircle },
   { name: "Knižnica", href: "/library", icon: Book },
-  { name: "Nájsť program", href: "/chats/chat123", icon: Puzzle },
+  {
+    name: "Nájsť program",
+    href: "/chats/eb37deb8eeeb2aa4997b2eee77/",
+    icon: Puzzle,
+  },
 ];
 
 export function MobileSidebar() {
@@ -57,7 +61,7 @@ export function MobileSidebar() {
             <AvatarFallback>A</AvatarFallback>
           </Avatar>
           <NavigationMenuItem>
-            <Link to={"/chats/chat123/"}>
+            <Link to={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
               <TooltipIconButton
                 tooltip="New Chat"
                 side="right"
@@ -92,7 +96,7 @@ export function MobileSidebar() {
                       </Button>
                       <NavigationMenuItem>
                         <Link
-                          to={"/chats/chat123/"}
+                          to={"/chats/eb37deb8eeeb2aa4997b2eee77/"}
                           onClick={() => setOpen(false)}
                         >
                           <Button variant="ghost" size="icon">
@@ -106,7 +110,9 @@ export function MobileSidebar() {
 
                 <NavigationMenuList className="mt-10 space-y-1">
                   {sections.map((section, index) => {
-                    const isActive = pathname === section.href;
+                    const isActive =
+                      pathname === section.href ||
+                      (pathname === "/" && section.href === "/chats");
                     return (
                       <NavigationMenuItem
                         key={index}
@@ -148,12 +154,12 @@ export function MobileSidebar() {
               <div className="mt-auto px-4 border-">
                 <div className="flex items-center w-full">
                   <img
-                    src="/resources/av2024-small.jpg"
+                    src="/resources/avatar-user.png"
                     alt="User avatar"
                     className="w-8 h-8 rounded-full shadow-sm object-cover"
                   />
                   <span className="ml-2 text-sm font-medium text-slate-800">
-                    Vladyslav P.
+                    Superštudent
                   </span>
                 </div>
               </div>

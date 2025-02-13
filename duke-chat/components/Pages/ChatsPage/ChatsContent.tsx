@@ -17,7 +17,7 @@ const ChatsContent = (): JSX.Element => {
     >
       <div className="flex flex-col gap-10 max-w-4xl w-full">
         <WelcomeCard
-          userName="Vladyslav"
+          userName="Superštudent"
           welcomeMessage="Vitaj na stránke asistenta pre uchádzačov!"
           inputPlaceholder="Ako vám môžem pomôcť?"
         />
