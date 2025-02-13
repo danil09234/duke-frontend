@@ -35,7 +35,7 @@ const sections = [
   { name: "Knižnica", href: "/library", icon: Book },
   {
     name: "Nájsť program",
-    href: "/chats/eb37deb8eeeb2aa4997b2eee77/",
+    href: "/find-program",
     icon: Puzzle,
   },
 ];
