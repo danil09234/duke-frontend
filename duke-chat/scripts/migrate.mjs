@@ -18,10 +18,10 @@ const migrateDb = async () => {
     const db = drizzle(client, { schema: schema.default });
     await migrate(db, { migrationsFolder: "migrations" });
     console.log("🟢 Successfully Migrated");
-    process.exit(0); // Exit the process after successful migration
+    process.exit(0);
   } catch (error) {
     console.log("🔴 Error Migrating client", error);
-    process.exit(1); // Exit the process with error code
+    process.exit(1);
   }
 };
 migrateDb();
