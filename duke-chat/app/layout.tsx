@@ -8,6 +8,9 @@ import LibraryPage from "@/components/Pages/LibraryPage/LibraryPage";
 import ChatPage from "@/components/Pages/ChatPage/ChatPage";
 import FindProgram from "@/components/Pages/FindProgramPage/FindProgram";
 import { Sidebar } from "@/components/Sidebar/Sidebar";
+import LoginPage from "@/components/Pages/Login/page";
+import { usePathname } from "next/navigation";
+import ClientRouter from "@/components/ClientRouter";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,6 +24,9 @@ const geistMono = localFont({
 });
 
 export default function RootLayout() {
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/login";
+
   return (
     <html lang="en">
       <head>
@@ -30,16 +36,25 @@ export default function RootLayout() {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
-        <Sidebar>
-          <Routes>
-            <Route path="/" element={<Chats />} />
-            <Route path="/chats" element={<Chats />} />
-            <Route path="/chats/*" element={<ChatPage />} />
-            <Route path="/library" element={<LibraryPage />} />
-            <Route path="/find-program" element={<FindProgram />} />
-            <Route path="*" element={<Chats />} />
-          </Routes>
-        </Sidebar>
+        <ClientRouter>
+          {isLoginPage ? (
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+            </Routes>
+          ) : (
+            <Sidebar>
+              <Routes>
+                <Route path="/" element={<Chats />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/chats" element={<Chats />} />
+                <Route path="/chats/*" element={<ChatPage />} />
+                <Route path="/library" element={<LibraryPage />} />
+                <Route path="/find-program" element={<FindProgram />} />
+                <Route path="*" element={<Chats />} />
+              </Routes>
+            </Sidebar>
+          )}
+        </ClientRouter>
       </body>
     </html>
   );
