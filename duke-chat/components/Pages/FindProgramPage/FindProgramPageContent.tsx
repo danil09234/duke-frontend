@@ -25,7 +25,7 @@ export function FindProgramPageContent() {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${backendBase}/api/session`, { method: "POST" });
+            const res = await fetch(`${backendBase}/api/tree/session`, { method: "POST" });
             const data = await res.json();
             setSessionId(data);
         })();
@@ -37,7 +37,7 @@ export function FindProgramPageContent() {
     }, [sessionId, finalProgrammes]);
 
     const fetchQuestion = async () => {
-        const res = await fetch(`${backendBase}/api/session/${sessionId}/question`);
+        const res = await fetch(`${backendBase}/api/tree/session/${sessionId}/question`);
         if (res.ok) {
             const data = await res.json();
             setQuestions((prev) => [...prev, data]);
@@ -46,7 +46,7 @@ export function FindProgramPageContent() {
 
     const handleAnswer = async (answer: string) => {
         setResponses((prev) => [...prev, answer]);
-        const res = await fetch(`${backendBase}/api/session/${sessionId}/answer`, {
+        const res = await fetch(`${backendBase}/api/tree/session/${sessionId}/answer`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ answer }),
@@ -66,7 +66,7 @@ export function FindProgramPageContent() {
             <div className="hidden md:block absolute top-0 w-full">
                 <TopBarWrapperFindProgram />
             </div>
-            <div className="flex flex-col items-center overflow-auto pt-16 pb-4 flex-1 scrollbar-hide">
+            <div className="flex flex-col items-center overflow-auto pt-16 pb-4 flex-1 scrollbar-hide px-4">
                 {questions.map((q, idx) => (
                     <div key={idx}>
                         <QuestionItem

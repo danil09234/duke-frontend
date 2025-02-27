@@ -19,7 +19,7 @@ interface QuestionItemProps {
 
 const QuestionItem: React.FC<QuestionItemProps> = ({ questionNumber, questionText, answers, onAnswerClick }): JSX.Element => {
     return (
-        <div className="flex flex-col max-w-[415px] items-start gap-2">
+        <div className="flex flex-col w-full max-w-[415px] items-start gap-2 mx-auto">
             <Card className="overflow-hidden border border-solid border-[#e3e6ea] shadow-neutral-BS-regular">
                 <CardHeader className="bg-[#f7f8fa] p-4">
                     <div className="flex flex-col gap-1.5">
