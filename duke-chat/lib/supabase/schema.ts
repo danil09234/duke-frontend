@@ -11,5 +11,6 @@ export const user_messages = pgTable("user_messages", {
 
 export const user_message_limits = pgTable("user_message_limits", {
   userId: uuid("user_id").primaryKey().notNull(),
+  email: text("email").notNull(),
   limit: integer("limit").default(15).notNull(),
 });
