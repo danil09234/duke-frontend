@@ -1,5 +1,6 @@
 "use client";
 
+import { signInWithGoogle } from "@/utils/actions";
 import React, { useTransition } from "react";
 
 const LoginGoogle = () => {
@@ -7,7 +8,7 @@ const LoginGoogle = () => {
 
   const handleGoogleLogin = () => {
     startTransition(async () => {
-      // await signInWithGithub();
+      await signInWithGoogle();
     });
   };
   return (
