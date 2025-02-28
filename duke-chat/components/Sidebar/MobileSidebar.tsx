@@ -27,7 +27,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@radix-ui/react-navigation-menu";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import styles from "@/styles/SidebarWrapper.module.css";
 
 const sections = [
@@ -53,7 +53,7 @@ export function MobileSidebar() {
               <Menu className="h-5 w-5" />
             </Button>
           </DrawerTrigger>
-          <Link to="/chats" onClick={() => setOpen(false)}>
+          <Link href="/chats" onClick={() => setOpen(false)}>
             <Avatar className="col-start-1 row-span-full row-start-1">
               <AvatarImage
                 src="/resources/duke-avatar.png"
@@ -63,7 +63,7 @@ export function MobileSidebar() {
             </Avatar>
           </Link>
           <NavigationMenuItem>
-            <Link to={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
+            <Link href={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
               <TooltipIconButton
                 tooltip="New Chat"
                 side="right"
@@ -98,7 +98,7 @@ export function MobileSidebar() {
                       </Button>
                       <NavigationMenuItem>
                         <Link
-                          to={"/chats/eb37deb8eeeb2aa4997b2eee77/"}
+                          href={"/chats/eb37deb8eeeb2aa4997b2eee77/"}
                           onClick={() => setOpen(false)}
                         >
                           <Button variant="ghost" size="icon">
@@ -126,7 +126,7 @@ export function MobileSidebar() {
                         asChild
                       >
                         <Link
-                          to={section.href}
+                          href={section.href}
                           className={`flex items-center justify-between w-full group rounded-md transition-colors gap-2 px-3 py-3 ${
                             isActive
                               ? `${styles.activeSidebarItem} pointer-events-none`

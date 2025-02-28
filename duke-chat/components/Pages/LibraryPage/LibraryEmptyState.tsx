@@ -8,7 +8,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@radix-ui/react-navigation-menu";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const cardData = {
   title: "Chcete najsť dôležitý chat?",
@@ -37,7 +37,7 @@ export default function LibraryEmptyState(): JSX.Element {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link to={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
+              <Link href={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
                 <Button className="inline-flex items-center gap-1 bg-[#FF4100] hover:bg-[#FF4100]/90 text-white border-none font-display-1-medium text-xs font-medium rounded-[8]">
                   <span>Nový chat</span>
                   <Plus className="h-2.5 w-2.5" />

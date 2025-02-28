@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -15,7 +15,7 @@ const TopBarWrapperChats = (): JSX.Element => {
         <h1 className="text-base font-medium text-foreground">Chaty</h1>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link to={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
+            <Link href={"/chats/eb37deb8eeeb2aa4997b2eee77"}>
               <Button className="bg-[#FF4100] hover:bg-[#FF4100]/90 text-white px-4 py-2">
                 <Plus />
                 Nový chat
