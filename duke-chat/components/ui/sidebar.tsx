@@ -25,6 +25,17 @@ const SIDEBAR_WIDTH = "300px"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "4rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
+const SIDEBAR_STATE_KEY = "sidebarState";
+
+const getInitialSidebarState = () => {
+  if (typeof window !== "undefined") {
+    const savedState = localStorage.getItem(SIDEBAR_STATE_KEY);
+    if (savedState) {
+      return JSON.parse(savedState);
+    }
+  }
+  return true; // default to expanded
+};
 
 type SidebarContext = {
   state: "expanded" | "collapsed"
@@ -57,7 +68,7 @@ const SidebarProvider = React.forwardRef<
 >(
   (
     {
-      defaultOpen = true,
+      defaultOpen = getInitialSidebarState(),
       open: openProp,
       onOpenChange: setOpenProp,
       className,
@@ -84,6 +95,7 @@ const SidebarProvider = React.forwardRef<
         }
 
         // This sets the cookie to keep the sidebar state.
+        localStorage.setItem(SIDEBAR_STATE_KEY, JSON.stringify(openState));
         document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
       },
       [setOpenProp, open]
