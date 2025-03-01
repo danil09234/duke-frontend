@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import styles from "@/styles/SidebarWrapper.module.css";
 import React, { useEffect, useState } from "react";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
+import Logout from "@/components/Pages/Login/Logout";
 
 function Divider() {
   return (
@@ -29,10 +30,20 @@ function Divider() {
   );
 }
 
-const DesktopSidebar: React.FC = () => {
+const DesktopSidebar: React.FC =  () => {
   const { toggleSidebar, state } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
+
+
+  const [user, setUser] = useState<any>(null);
+  useEffect(() => {
+    async function getUser() {
+      setUser(null);
+    }
+    getUser();
+  }, []);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -184,11 +195,17 @@ const DesktopSidebar: React.FC = () => {
             </ScrollArea>
           </div>
         )}
-        {user && (
+        {/* {user && (
           <div>
             <Logout />
           </div>
-        )}
+        )} */}
+
+
+          <div>
+            <Logout />
+          </div>
+
         <div className="mt-auto">
           <Link href="/chats/eb37deb8eeeb2aa4997b2eee77">
             {state === "expanded" ? (
