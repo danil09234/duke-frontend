@@ -1,5 +1,4 @@
 import LoginGoogle from "@/components/Pages/Login/LoginGoogle";
-import Link from "next/link";
 
 export default function LoginPage() {
   return (

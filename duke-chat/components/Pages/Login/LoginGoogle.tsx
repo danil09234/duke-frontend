@@ -1,6 +1,7 @@
 "use client";
 
-import { signInWithGoogle } from "@/utils/actions";
+import { signInWithGoogle } from "@/actions/auth";
+// import { signInWithGoogle } from "@/utils/actions";
 import React, { useTransition } from "react";
 
 const LoginGoogle = () => {

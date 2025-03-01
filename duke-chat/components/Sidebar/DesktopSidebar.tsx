@@ -184,7 +184,11 @@ const DesktopSidebar: React.FC = () => {
             </ScrollArea>
           </div>
         )}
-
+        {user && (
+          <div>
+            <Logout />
+          </div>
+        )}
         <div className="mt-auto">
           <Link href="/chats/eb37deb8eeeb2aa4997b2eee77">
             {state === "expanded" ? (
