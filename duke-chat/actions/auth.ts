@@ -11,7 +11,8 @@ export async function getUserSession() {
   const { data, error } = await supabase.auth.getUser();
 
   if (error) {
-    redirect("/error");
+    // redirect("/error");
+    return { status: "error", user: null };
   }
   return { status: "success", user: data?.user };
 }
@@ -46,6 +47,6 @@ export async function signInWithGoogle() {
     return redirect(data.url);
   }
 
-  // revalidatePath("/", "layout");
-  // redirect("/");
+  revalidatePath("/", "layout");
+  redirect("/");
 }
