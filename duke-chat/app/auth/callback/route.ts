@@ -27,9 +27,12 @@ export async function GET(request: Request) {
         .single();
 
       if (!existingUser) {
+        console.log(`User does not exist in user_profile table, inserting... username: ${data?.user?.user_metadata?.name}`);
+        // console.log(`User ${JSON.stringify(data?.user, null, 2)}`);
+        
         const { error: dbError } = await supabase.from("user_profile").insert({
           email: data?.user?.email,
-          username: data?.user?.user_metadata?.username,
+          username: data?.user?.user_metadata?.name,
         });
 
         if (dbError) {
