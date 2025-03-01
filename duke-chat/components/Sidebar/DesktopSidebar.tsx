@@ -32,29 +32,49 @@ function Divider() {
   );
 }
 
-const imageCache = {};
+const imageCache: { [key: string]: string } = {};
+const pendingRequests: { [key: string]: Promise<string> } = {}; // тew object to hold pending requests
 
-const getCachedImage = async (url) => {
+const getCachedImage = async (url: string): Promise<string> => {
   if (imageCache[url]) {
     return imageCache[url];
   }
-  const response = await fetch(url);
-  const blob = await response.blob();
-  const objectURL = URL.createObjectURL(blob);
-  imageCache[url] = objectURL;
-  return objectURL;
+
+  //  if a request for this URL is already pending, return the pending promise
+  if (pendingRequests[url]) {
+    return pendingRequests[url];
+  }
+
+  // create a new promise and store it in pendingRequests
+  pendingRequests[url] = new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const objectURL = URL.createObjectURL(blob);
+      imageCache[url] = objectURL;
+      resolve(objectURL);
+    } catch (error) {
+      reject(error); // reject the promise on error
+    } finally {
+      delete pendingRequests[url]; // remove the request from pendingRequests once done
+    }
+  });
+
+  return pendingRequests[url]; // return the new promise
 };
 
-const loadImageWithRetry = async (url, retries = 5, delay = 2000) => {
+const loadImageWithRetry = async (url: string, retries = 5, delay = 2000): Promise<string> => {
   try {
     const cachedImage = await getCachedImage(url);
     return cachedImage;
-  } catch (error) {
+  } catch (error: any) {
     if (retries === 0) {
       throw new Error("Failed to load image after multiple attempts");
-    } else {
+    } else if (error.message.includes('429')) { // check for rate limit error
       await new Promise((resolve) => setTimeout(resolve, delay));
-      return loadImageWithRetry(url, retries - 1, delay * 2);
+      return loadImageWithRetry(url, retries - 1, delay * 2); // exponential backoff
+    } else {
+      throw error; // Rethrow another errors
     }
   }
 };
@@ -80,7 +100,7 @@ const DesktopSidebar: React.FC =  () => {
           try {
             const cachedImage = await loadImageWithRetry(data?.user?.user_metadata?.avatar_url);
             setAvatarLoaded(true);
-            setUser((prevUser) => ({ ...prevUser, user_metadata: { ...prevUser.user_metadata, avatar_url: cachedImage } }));
+            setUser((prevUser: User) => ({ ...prevUser, user_metadata: { ...prevUser.user_metadata, avatar_url: cachedImage } }));
           } catch (error) {
             console.log("Error loading avatar image, using fallback avatar.", error);
             setAvatarLoaded(false);
