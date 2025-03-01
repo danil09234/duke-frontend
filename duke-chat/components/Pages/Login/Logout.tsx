@@ -19,7 +19,7 @@ const Logout = ({ isSidebarExpanded }: { isSidebarExpanded: boolean }) => {
     <form onSubmit={handleLogout} className="w-full">
       {isSidebarExpanded ? (
         <Button
-          className="w-full bg-[#FFF] hover:bg-[#FFF]/90 text-[#19213D]"
+          className="w-full bg-[#FFF] border border-[#F0F2F5] hover:bg-[#FFF]/90 text-[#19213D] shadow-none"
           size="lg"
           type="submit"
           disabled={loading}
@@ -31,7 +31,7 @@ const Logout = ({ isSidebarExpanded }: { isSidebarExpanded: boolean }) => {
         <TooltipIconButton
           tooltip="Odhlásiť sa"
           side="right"
-          className="bg-[#FFF] w-8 h-8 rounded-[8px] hover:bg-[#FFF]/90"
+          className="bg-[#FFF] w-8 h-8 rounded-[8px] border border-[#F0F2F5] hover:bg-[#FFF]/90"
           type="submit"
           disabled={loading}
         >

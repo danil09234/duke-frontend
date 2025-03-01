@@ -29,6 +29,11 @@ import {
 } from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
 import styles from "@/styles/SidebarWrapper.module.css";
+import avatar from "@/public/resources/avatar-user.png";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
+import Logout from "../Pages/Login/Logout";
 
 const sections = [
   { name: "Chaty", href: "/chats", icon: LucideMessageCircle },
@@ -40,9 +45,53 @@ const sections = [
   },
 ];
 
+const imageCache = {};
+
+function fetchImage(imageUrl) {
+  if (imageCache[imageUrl]) {
+    return Promise.resolve(imageCache[imageUrl]); // Return cached image
+  }
+
+  return fetch(imageUrl)
+    .then((response) => response.blob()) // Fetch and get the image as a blob
+    .then((blob) => {
+      const url = URL.createObjectURL(blob); // Create a URL for the blob
+      imageCache[imageUrl] = url; // Cache the blob URL
+      return url;
+    });
+}
+
 export function MobileSidebar() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
+
+  const [user, setUser] = useState<User | any>(null);
+  const [avatarLoaded, setAvatarLoaded] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function getUser() {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+      } else {
+        setUser(data?.user);
+        if (data?.user?.user_metadata?.avatar_url) {
+          fetchImage(data?.user?.user_metadata?.avatar_url)
+            .then((url) => {
+              setAvatarLoaded(true);
+              setAvatarUrl(url);
+            })
+            .catch(() => {
+              console.error("Error loading avatar image");
+              setAvatarLoaded(true);
+            });
+        }
+      }
+    }
+    getUser();
+  }, []);
 
   return (
     <Drawer direction="left" open={open} onOpenChange={setOpen}>
@@ -153,17 +202,26 @@ export function MobileSidebar() {
                 </NavigationMenuList>
               </div>
 
-              <div className="mt-auto px-4 border-">
+              <div className="mt-auto flex px-4 border-">
                 <div className="flex items-center w-full">
-                  <img
-                    src="/resources/avatar-user.png"
-                    alt="User avatar"
-                    className="w-8 h-8 rounded-full shadow-sm object-cover"
-                  />
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage
+                      src={avatarLoaded ? avatarUrl : avatar.src}
+                      alt="User Avatar"
+                    />
+                    <AvatarFallback>
+                      <img src={avatar.src} alt="User Avatar" />
+                    </AvatarFallback>
+                  </Avatar>
                   <span className="ml-2 text-sm font-medium text-slate-800">
-                    Superštudent
+                    {user?.user_metadata?.name}
                   </span>
                 </div>
+                {user && (
+                  <div>
+                    <Logout isSidebarExpanded={false} />
+                  </div>
+                )}
               </div>
             </div>
           </DrawerContent>
