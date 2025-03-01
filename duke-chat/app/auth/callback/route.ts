@@ -18,16 +18,16 @@ export async function GET(request: Request) {
         return NextResponse.redirect(`${origin}/error`);
       }
 
-      // Check if user exists in user_profiles table
+      // Check if user exists in user_profile table
       const { data: existingUser } = await supabase
-        .from("user_profiles")
+        .from("user_profile")
         .select("*")
         .eq("email", data?.user?.email)
         .limit(1)
         .single();
 
       if (!existingUser) {
-        const { error: dbError } = await supabase.from("user_profiles").insert({
+        const { error: dbError } = await supabase.from("user_profile").insert({
           email: data?.user?.email,
           username: data?.user?.user_metadata?.username,
         });
