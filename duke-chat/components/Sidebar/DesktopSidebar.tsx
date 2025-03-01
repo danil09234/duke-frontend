@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { routes } from "@/routes";
 import avatar from "@/public/resources/avatar-user.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import styles from "@/styles/SidebarWrapper.module.css";
 import React, { useEffect, useState } from "react";
@@ -33,6 +32,33 @@ function Divider() {
   );
 }
 
+const imageCache = {};
+
+const getCachedImage = async (url) => {
+  if (imageCache[url]) {
+    return imageCache[url];
+  }
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const objectURL = URL.createObjectURL(blob);
+  imageCache[url] = objectURL;
+  return objectURL;
+};
+
+const loadImageWithRetry = async (url, retries = 5, delay = 2000) => {
+  try {
+    const cachedImage = await getCachedImage(url);
+    return cachedImage;
+  } catch (error) {
+    if (retries === 0) {
+      throw new Error("Failed to load image after multiple attempts");
+    } else {
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      return loadImageWithRetry(url, retries - 1, delay * 2);
+    }
+  }
+};
+
 const DesktopSidebar: React.FC =  () => {
   const { toggleSidebar, state } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
@@ -41,20 +67,26 @@ const DesktopSidebar: React.FC =  () => {
 
   const [user, setUser] = useState<User | any>(null);
   const [avatarLoaded, setAvatarLoaded] = useState(false);
-  
+
   useEffect(() => {
     async function getUser() {
       const supabase = createClient();
       const { data, error } = await supabase.auth.getUser();
+      console.log("User data:", data);
       if (error || !data?.user) {
-        console.error("Error getting user", error?.message);
+        console.log("Error getting user", error?.message);
       } else {
         setUser(data?.user);
         if (data?.user?.user_metadata?.avatar_url) {
-          const img = new Image();
-          img.src = data?.user?.user_metadata?.avatar_url;
-      
-          img.onload = () => setAvatarLoaded(true);
+          console.log("Avatar URL:", data?.user?.user_metadata?.avatar_url);
+          try {
+            const cachedImage = await loadImageWithRetry(data?.user?.user_metadata?.avatar_url);
+            setAvatarLoaded(true);
+            setUser((prevUser) => ({ ...prevUser, user_metadata: { ...prevUser.user_metadata, avatar_url: cachedImage } }));
+          } catch (error) {
+            console.log("Error loading avatar image, using fallback avatar.", error);
+            setAvatarLoaded(false);
+          }
         }
       }
     }
@@ -88,9 +120,16 @@ const DesktopSidebar: React.FC =  () => {
       <SidebarContent className="bg-[#f7f8fa]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src={avatarLoaded ? user?.user_metadata?.avatar_url : avatar.src} alt="User Avatar" />
-              {/* <AvatarFallback><img src={avatar.src} alt="User Avatar" /></AvatarFallback> */}
+            <Avatar key={avatarLoaded ? user?.user_metadata?.avatar_url : avatar.src} className="h-8 w-8">
+              <AvatarImage
+                src={user?.user_metadata?.avatar_url || avatar.src}
+                alt="User Avatar"
+                onError={(e) => {
+                  e.currentTarget.src = avatar.src;
+                  console.log("Error loading avatar image, using fallback avatar.");
+                }}
+              />
+              <AvatarFallback><img src={avatar.src} alt="User Avatar" /></AvatarFallback>
             </Avatar>
             <span className="font-medium text-gray-900">{user?.user_metadata?.name}</span>
           </div>
