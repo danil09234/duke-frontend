@@ -23,6 +23,9 @@ import styles from "@/styles/SidebarWrapper.module.css";
 import React, { useEffect, useState } from "react";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
 import Logout from "@/components/Pages/Login/Logout";
+import { createClient } from "@/utils/supabase/client";
+import { User } from '@supabase/supabase-js';
+
 
 function Divider() {
   return (
@@ -36,14 +39,28 @@ const DesktopSidebar: React.FC =  () => {
   const pathname = usePathname();
 
 
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | any>(null);
+  const [avatarLoaded, setAvatarLoaded] = useState(false);
+  
   useEffect(() => {
     async function getUser() {
-      setUser(null);
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+      } else {
+        setUser(data?.user);
+        if (data?.user?.user_metadata?.avatar_url) {
+          const img = new Image();
+          img.src = data?.user?.user_metadata?.avatar_url;
+          console.log(data?.user?.user_metadata?.avatar_url);
+          console.log(img.src);
+          img.onload = () => setAvatarLoaded(true);
+        }
+      }
     }
     getUser();
   }, []);
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -64,14 +81,6 @@ const DesktopSidebar: React.FC =  () => {
     };
   }, [toggleSidebar, state]);
 
-  const chatHistory = [
-    "Prijímacie skúšky na TUKE",
-    "Tipy a rady pre uchádzačov",
-    "Tipy pre nováčikov",
-    "Ako sa adaptovať ku štúdiu",
-    "Štipendiá, granty",
-  ];
-
   return (
     <Sidebar
       collapsible="icon"
@@ -81,10 +90,10 @@ const DesktopSidebar: React.FC =  () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={avatar.src} alt="User Avatar" />
-              <AvatarFallback>VP</AvatarFallback>
+              <AvatarImage src={avatarLoaded ? user?.user_metadata?.avatar_url : avatar.src} alt="User Avatar" />
+              {/* <AvatarFallback><img src={avatar.src} alt="User Avatar" /></AvatarFallback> */}
             </Avatar>
-            <span className="font-medium text-gray-900">Superštudent</span>
+            <span className="font-medium text-gray-900">{user?.user_metadata?.name}</span>
           </div>
           <div className="text-[#666F8D]">
             {!isMobile && <SidebarTrigger />}
@@ -163,48 +172,11 @@ const DesktopSidebar: React.FC =  () => {
           })}
         </SidebarMenu>
 
-        {state === "expanded" && (
-          <div className="flex flex-col gap-3 py-6 mt-4">
-            <span className="px-2.5 font-inter text-xs font-medium leading-[15.6px] tracking-widest text-left [text-underline-position:from-font] [text-decoration-skip-ink:none] text-components-titles-paragraphs-text-neutral-light text-[#BAC0CC]">
-              HISTÓRIA CHATOV
-            </span>
-            <ScrollArea className="h-fit relative">
-              {chatHistory.map((chat, index) => (
-                <div
-                  key={index}
-                  className="p-2 hover:bg-gray-100 rounded cursor-pointer"
-                >
-                  <span
-                    className="
-                    font-inter
-                    text-sm
-                    font-normal
-                    leading-[18.2px]
-                    text-left
-                    [text-underline-position:from-font]
-                    [text-decoration-skip-ink:none]
-                    text-[#666F8D]
-                    truncate
-                  "
-                  >
-                    {chat}
-                  </span>
-                </div>
-              ))}
-              <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-gradient-to-t from-[#F7F8FA] to-transparent" />
-            </ScrollArea>
+        {user && (
+          <div>
+            <Logout />
           </div>
         )}
-        {/* {user && (
-          <div>
-            <Logout />
-          </div>
-        )} */}
-
-
-          <div>
-            <Logout />
-          </div>
 
         <div className="mt-auto">
           <Link href="/chats/eb37deb8eeeb2aa4997b2eee77">
