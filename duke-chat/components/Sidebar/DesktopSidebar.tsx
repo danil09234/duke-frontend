@@ -171,13 +171,7 @@ const DesktopSidebar: React.FC =  () => {
           })}
         </SidebarMenu>
 
-        {user && (
-          <div>
-            <Logout />
-          </div>
-        )}
-
-        <div className="mt-auto">
+        <div className="mt-auto flex flex-col gap-2">
           <Link href="/chats/eb37deb8eeeb2aa4997b2eee77">
             {state === "expanded" ? (
               <Button
@@ -197,6 +191,11 @@ const DesktopSidebar: React.FC =  () => {
               </TooltipIconButton>
             )}
           </Link>
+          {user && (
+            <div>
+              <Logout isSidebarExpanded={state === "expanded"} />
+            </div>
+          )}
         </div>
       </SidebarContent>
     </Sidebar>
