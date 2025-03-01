@@ -53,8 +53,7 @@ const DesktopSidebar: React.FC =  () => {
         if (data?.user?.user_metadata?.avatar_url) {
           const img = new Image();
           img.src = data?.user?.user_metadata?.avatar_url;
-          console.log(data?.user?.user_metadata?.avatar_url);
-          console.log(img.src);
+      
           img.onload = () => setAvatarLoaded(true);
         }
       }
