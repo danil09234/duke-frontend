@@ -72,13 +72,11 @@ const DesktopSidebar: React.FC =  () => {
     async function getUser() {
       const supabase = createClient();
       const { data, error } = await supabase.auth.getUser();
-      console.log("User data:", data);
       if (error || !data?.user) {
         console.log("Error getting user", error?.message);
       } else {
         setUser(data?.user);
         if (data?.user?.user_metadata?.avatar_url) {
-          console.log("Avatar URL:", data?.user?.user_metadata?.avatar_url);
           try {
             const cachedImage = await loadImageWithRetry(data?.user?.user_metadata?.avatar_url);
             setAvatarLoaded(true);
