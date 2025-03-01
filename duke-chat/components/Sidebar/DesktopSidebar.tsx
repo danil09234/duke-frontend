@@ -25,6 +25,21 @@ import Logout from "@/components/Pages/Login/Logout";
 import { createClient } from "@/utils/supabase/client";
 import { User } from '@supabase/supabase-js';
 
+const imageCache = {};
+
+function fetchImage(imageUrl) {
+  if (imageCache[imageUrl]) {
+    return Promise.resolve(imageCache[imageUrl]); // Return cached image
+  }
+
+  return fetch(imageUrl)
+    .then(response => response.blob()) // Fetch and get the image as a blob
+    .then(blob => {
+      const url = URL.createObjectURL(blob); // Create a URL for the blob
+      imageCache[imageUrl] = url; // Cache the blob URL
+      return url;
+    });
+}
 
 function Divider() {
   return (
@@ -32,79 +47,33 @@ function Divider() {
   );
 }
 
-const imageCache: { [key: string]: string } = {};
-const pendingRequests: { [key: string]: Promise<string> } = {}; // тew object to hold pending requests
-
-const getCachedImage = async (url: string): Promise<string> => {
-  if (imageCache[url]) {
-    return imageCache[url];
-  }
-
-  //  if a request for this URL is already pending, return the pending promise
-  if (pendingRequests[url]) {
-    return pendingRequests[url];
-  }
-
-  // create a new promise and store it in pendingRequests
-  pendingRequests[url] = new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(url);
-      const blob = await response.blob();
-      const objectURL = URL.createObjectURL(blob);
-      imageCache[url] = objectURL;
-      resolve(objectURL);
-    } catch (error) {
-      reject(error); // reject the promise on error
-    } finally {
-      delete pendingRequests[url]; // remove the request from pendingRequests once done
-    }
-  });
-
-  return pendingRequests[url]; // return the new promise
-};
-
-const loadImageWithRetry = async (url: string, retries = 5, delay = 2000): Promise<string> => {
-  try {
-    const cachedImage = await getCachedImage(url);
-    return cachedImage;
-  } catch (error: any) {
-    if (retries === 0) {
-      throw new Error("Failed to load image after multiple attempts");
-    } else if (error.message.includes('429')) { // check for rate limit error
-      await new Promise((resolve) => setTimeout(resolve, delay));
-      return loadImageWithRetry(url, retries - 1, delay * 2); // exponential backoff
-    } else {
-      throw error; // Rethrow another errors
-    }
-  }
-};
-
 const DesktopSidebar: React.FC =  () => {
   const { toggleSidebar, state } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
 
-
   const [user, setUser] = useState<User | any>(null);
   const [avatarLoaded, setAvatarLoaded] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
     async function getUser() {
       const supabase = createClient();
       const { data, error } = await supabase.auth.getUser();
       if (error || !data?.user) {
-        console.log("Error getting user", error?.message);
+        console.error("Error getting user", error?.message);
       } else {
         setUser(data?.user);
         if (data?.user?.user_metadata?.avatar_url) {
-          try {
-            const cachedImage = await loadImageWithRetry(data?.user?.user_metadata?.avatar_url);
-            setAvatarLoaded(true);
-            setUser((prevUser: User) => ({ ...prevUser, user_metadata: { ...prevUser.user_metadata, avatar_url: cachedImage } }));
-          } catch (error) {
-            console.log("Error loading avatar image, using fallback avatar.", error);
-            setAvatarLoaded(false);
-          }
+          fetchImage(data?.user?.user_metadata?.avatar_url)
+            .then(url => {
+              setAvatarLoaded(true);
+              setAvatarUrl(url);
+            })
+            .catch(() => {
+              console.error("Error loading avatar image");
+              setAvatarLoaded(true);
+            });
         }
       }
     }
@@ -138,18 +107,11 @@ const DesktopSidebar: React.FC =  () => {
       <SidebarContent className="bg-[#f7f8fa]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Avatar key={avatarLoaded ? user?.user_metadata?.avatar_url : avatar.src} className="h-8 w-8">
-              <AvatarImage
-                src={user?.user_metadata?.avatar_url || avatar.src}
-                alt="User Avatar"
-                onError={(e) => {
-                  e.currentTarget.src = avatar.src;
-                  console.log("Error loading avatar image, using fallback avatar.");
-                }}
-              />
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={avatarLoaded ? avatarUrl : avatar.src} alt="User Avatar" />
               <AvatarFallback><img src={avatar.src} alt="User Avatar" /></AvatarFallback>
             </Avatar>
-            <span className="font-medium text-gray-900">{user?.user_metadata?.name}</span>
+         <span className="font-medium text-gray-900">{user?.user_metadata?.name}</span>
           </div>
           <div className="text-[#666F8D]">
             {!isMobile && <SidebarTrigger />}
