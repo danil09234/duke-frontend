@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getUserSession } from "@/actions/auth";
 import { redirect, usePathname } from "next/navigation";
+import { User } from "@supabase/supabase-js";
 
 export default function AuthLayout({
   children,
