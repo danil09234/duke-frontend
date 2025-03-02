@@ -23,7 +23,8 @@ import React, { useEffect, useState } from "react";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
 import Logout from "@/components/Pages/Login/Logout";
 import { createClient } from "@/utils/supabase/client";
-import { User } from '@supabase/supabase-js';
+import { User } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
 
 const imageCache = {};
 
@@ -33,8 +34,8 @@ function fetchImage(imageUrl) {
   }
 
   return fetch(imageUrl)
-    .then(response => response.blob()) // Fetch and get the image as a blob
-    .then(blob => {
+    .then((response) => response.blob()) // Fetch and get the image as a blob
+    .then((blob) => {
       const url = URL.createObjectURL(blob); // Create a URL for the blob
       imageCache[imageUrl] = url; // Cache the blob URL
       return url;
@@ -47,7 +48,7 @@ function Divider() {
   );
 }
 
-const DesktopSidebar: React.FC =  () => {
+const DesktopSidebar: React.FC = () => {
   const { toggleSidebar, state } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
@@ -66,7 +67,7 @@ const DesktopSidebar: React.FC =  () => {
         setUser(data?.user);
         if (data?.user?.user_metadata?.avatar_url) {
           fetchImage(data?.user?.user_metadata?.avatar_url)
-            .then(url => {
+            .then((url) => {
               setAvatarLoaded(true);
               setAvatarUrl(url);
             })
@@ -99,6 +100,21 @@ const DesktopSidebar: React.FC =  () => {
     };
   }, [toggleSidebar, state]);
 
+  const handleNewChat = async () => {
+    if (!user) return;
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("chats")
+      .insert({ user_id: user.id })
+      .select("id")
+      .single();
+    if (error) {
+      console.error("Error creating chat", error.message);
+      return;
+    }
+    redirect(`/chats/${data.id}`);
+  };
+
   return (
     <Sidebar
       collapsible="icon"
@@ -108,10 +124,17 @@ const DesktopSidebar: React.FC =  () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={avatarLoaded ? avatarUrl : avatar.src} alt="User Avatar" />
-              <AvatarFallback><img src={avatar.src} alt="User Avatar" /></AvatarFallback>
+              <AvatarImage
+                src={avatarLoaded ? avatarUrl : avatar.src}
+                alt="User Avatar"
+              />
+              <AvatarFallback>
+                <img src={avatar.src} alt="User Avatar" />
+              </AvatarFallback>
             </Avatar>
-         <span className="font-medium text-gray-900">{user?.user_metadata?.name}</span>
+            <span className="font-medium text-gray-900">
+              {user?.user_metadata?.name}
+            </span>
           </div>
           <div className="text-[#666F8D]">
             {!isMobile && <SidebarTrigger />}
@@ -191,7 +214,7 @@ const DesktopSidebar: React.FC =  () => {
         </SidebarMenu>
 
         <div className="mt-auto flex flex-col gap-2">
-          <Link href="/chats/eb37deb8eeeb2aa4997b2eee77">
+          <Link href="#" onClick={handleNewChat}>
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
