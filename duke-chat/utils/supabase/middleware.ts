@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { log } from "console";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function updateSession(request: NextRequest) {
@@ -54,6 +55,25 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
+  }
+
+  // Check if the user is the creator of the chat
+  if (request.nextUrl.pathname.startsWith("/chats/")) {
+    const chatId = request.nextUrl.pathname.split("/")[2];
+    console.log(chatId);
+    const { data: chat, error } = await supabase
+      .from("chats")
+      .select("user_id")
+      .eq("id", chatId)
+      .single();
+
+    console.log(chat);
+
+    if (!user || error || chat.user_id !== user.id) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
