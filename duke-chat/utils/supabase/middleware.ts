@@ -60,14 +60,12 @@ export async function updateSession(request: NextRequest) {
   // Check if the user is the creator of the chat
   if (request.nextUrl.pathname.startsWith("/chats/")) {
     const chatId = request.nextUrl.pathname.split("/")[2];
-    console.log(chatId);
     const { data: chat, error } = await supabase
       .from("chats")
       .select("user_id")
       .eq("id", chatId)
       .single();
 
-    console.log(chat);
 
     if (!user || error || chat.user_id !== user.id) {
       const url = request.nextUrl.clone();
