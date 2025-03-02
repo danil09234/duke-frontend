@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
 import {
   NavigationMenu,
@@ -9,6 +9,9 @@ import {
   NavigationMenuList,
 } from "@radix-ui/react-navigation-menu";
 import Link from "next/link";
+import { handleNewChat } from "@/actions/chats";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 
 const cardData = {
   title: "Chcete najsť dôležitý chat?",
@@ -19,6 +22,21 @@ const cardData = {
 };
 
 export default function LibraryEmptyState(): JSX.Element {
+  const [user, setUser] = useState<User | any>(null);
+
+  useEffect(() => {
+    async function getUser() {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+      } else {
+        setUser(data?.user);
+      }
+    }
+    getUser();
+  }, []);
+
   return (
     <Card className="w-full px-8 py-6 border-components-cards-borders-BR-color-2 z-10">
       <CardContent className="flex flex-col items-center gap-8 p-0">
@@ -37,7 +55,13 @@ export default function LibraryEmptyState(): JSX.Element {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
+              <Link
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNewChat(user);
+                }}
+              >
                 <Button className="inline-flex items-center gap-1 bg-[#FF4100] hover:bg-[#FF4100]/90 text-white border-none font-display-1-medium text-xs font-medium rounded-[8]">
                   <span>Nový chat</span>
                   <Plus className="h-2.5 w-2.5" />

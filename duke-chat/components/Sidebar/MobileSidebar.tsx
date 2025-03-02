@@ -34,6 +34,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 import Logout from "../Pages/Login/Logout";
+import { handleNewChat } from "@/actions/chats";
 
 const sections = [
   { name: "Chaty", href: "/chats", icon: LucideMessageCircle },
@@ -112,7 +113,13 @@ export function MobileSidebar() {
             </Avatar>
           </Link>
           <NavigationMenuItem>
-            <Link href={"/chats/eb37deb8eeeb2aa4997b2eee77/"}>
+            <Link
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNewChat(user);
+              }}
+            >
               <TooltipIconButton
                 tooltip="New Chat"
                 side="right"
@@ -147,8 +154,12 @@ export function MobileSidebar() {
                       </Button>
                       <NavigationMenuItem>
                         <Link
-                          href={"/chats/eb37deb8eeeb2aa4997b2eee77/"}
-                          onClick={() => setOpen(false)}
+                          href="#"
+                          onClick={(e) => {
+                            setOpen(false);
+                            e.preventDefault();
+                            handleNewChat(user);
+                          }}
                         >
                           <Button variant="ghost" size="icon">
                             <Plus className="h-5 w-5" />

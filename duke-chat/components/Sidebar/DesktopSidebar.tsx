@@ -24,7 +24,7 @@ import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-but
 import Logout from "@/components/Pages/Login/Logout";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
-import { redirect } from "next/navigation";
+import { handleNewChat } from "@/actions/chats";
 
 const imageCache = {};
 
@@ -99,21 +99,6 @@ const DesktopSidebar: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [toggleSidebar, state]);
-
-  const handleNewChat = async () => {
-    if (!user) return;
-    const supabase = createClient();
-    const { data, error } = await supabase
-      .from("chats")
-      .insert({ user_id: user.id })
-      .select("id")
-      .single();
-    if (error) {
-      console.error("Error creating chat", error.message);
-      return;
-    }
-    redirect(`/chats/${data.id}`);
-  };
 
   return (
     <Sidebar
@@ -214,7 +199,13 @@ const DesktopSidebar: React.FC = () => {
         </SidebarMenu>
 
         <div className="mt-auto flex flex-col gap-2">
-          <Link href="#" onClick={handleNewChat}>
+          <Link
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNewChat(user);
+            }}
+          >
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
