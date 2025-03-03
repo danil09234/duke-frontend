@@ -1,3 +1,5 @@
+"use client";
+
 import { useSidebar } from "@/components/ui/sidebar";
 import React from "react";
 import { FindProgramPageContent } from "@/components/Pages/FindProgramPage/FindProgramPageContent";
