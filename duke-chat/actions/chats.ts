@@ -28,5 +28,14 @@ export async function handleNewMessage(chatId: string, content: string) {
     });
   if (error) {
     console.error("Error inserting message", error.message);
+    return;
+  }
+
+  const { error: updateError } = await supabase
+    .from("chats")
+    .update({ updated_at: new Date().toISOString() })
+    .eq("id", chatId);
+  if (updateError) {
+    console.error("Error updating chat", updateError.message);
   }
 }
