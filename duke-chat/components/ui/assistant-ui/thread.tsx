@@ -172,11 +172,18 @@ const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
   onSend,
   className,
 }) => {
+  const handleSubmit = () => {
+    console.log('handleSubmit called');
+    if (onSend) onSend();
+    const inputElement = document.querySelector('textarea');
+    if (inputElement) {
+      console.log('User message:', inputElement.value);
+    }
+  };
+
   return (
     <ComposerPrimitive.Root
-      onSubmit={() => {
-        if (onSend) onSend();
-      }}
+      onSubmit={handleSubmit}
       className={
         "focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in " +
         className
@@ -193,6 +200,7 @@ const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
           tooltip="Send"
           variant="default"
           className="my-2.5 size-8 p-2 transition-opacity ease-in"
+          onClick={handleSubmit} // Добавлен обработчик клика
         >
           <SendHorizontalIcon />
         </TooltipIconButton>
