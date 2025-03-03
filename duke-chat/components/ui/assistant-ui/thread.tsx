@@ -120,13 +120,20 @@ export const MyThread: FC = () => {
   const thread = useThread();
   const messages = thread.messages;
   const threadRuntime = useThreadRuntime();
-
-  const handleCardClick = (message: string) => {
+ 
+  const handleCardClick = async (message: string) => {
+    console.log('Card clicked with message:', message);
+    const chatId = window.location.pathname.split("/")[2];
+    await handleNewMessage(chatId, message);
     threadRuntime.append({
       role: "user",
       content: [{ type: "text", text: message }],
     });
     setHasMessages(true);
+    const inputElement = document.querySelector('textarea');
+    if (inputElement) {
+      inputElement.value = ''; // Сброс значения текстового поля
+    }
   };
 
   React.useEffect(() => {
@@ -161,6 +168,7 @@ export const MyThread: FC = () => {
           <MyComposer
             onSend={() => setHasMessages(true)}
             className="bg-white"
+            setHasMessages={setHasMessages}
           />
         </div>
       </div>
@@ -169,10 +177,7 @@ export const MyThread: FC = () => {
   );
 };
 
-const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
-  onSend,
-  className,
-}) => {
+const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: (value: boolean) => void }> = ({ onSend, className, setHasMessages }) => {
   const handleSubmit = async () => {
     console.log('handleSubmit called');
     if (onSend) onSend();
@@ -182,6 +187,8 @@ const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
       console.log('User message:', message);
       const chatId = window.location.pathname.split("/")[2];
       await handleNewMessage(chatId, message);
+      inputElement.value = ''; // Сброс значения текстового поля
+      setHasMessages(true); // Обновление состояния компонента
     }
   };
 
