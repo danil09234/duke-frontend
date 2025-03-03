@@ -178,19 +178,31 @@ export const MyThread: FC = () => {
 };
 
 const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: (value: boolean) => void }> = ({ onSend, className, setHasMessages }) => {
+  const [chatId, setChatId] = React.useState(window.location.pathname.split("/")[2]);
+  const [message, setMessage] = React.useState("");
+
   const handleSubmit = async () => {
     console.log('handleSubmit called');
     if (onSend) onSend();
-    const inputElement = document.querySelector('textarea');
-    if (inputElement) {
-      const message = inputElement.value;
+    if (message.trim() !== "") {
       console.log('User message:', message);
-      const chatId = window.location.pathname.split("/")[2];
+      console.log('Current chat ID:', chatId);
       await handleNewMessage(chatId, message);
-      inputElement.value = ''; // Сброс значения текстового поля
-      setHasMessages(true); // Обновление состояния компонента
+      setMessage(""); // Reset message state
+      setHasMessages(true); // Update component state
+      console.log('Message sent and input reset');
+    } else {
+      console.error('Message is empty');
     }
   };
+
+  React.useEffect(() => {
+    const currentChatId = window.location.pathname.split("/")[2];
+    setChatId(currentChatId);
+    console.log('Component mounted or updated');
+    console.log('Current chat ID on mount/update:', currentChatId);
+    setMessage(""); // Reset message state on chat change
+  }, [window.location.pathname]);
 
   return (
     <ComposerPrimitive.Root
@@ -204,6 +216,8 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
         autoFocus
         placeholder="Write a message..."
         rows={1}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
         className="placeholder:text-muted-foreground size-full max-h-40 resize-none border-none bg-transparent p-4 pr-12 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
       />
       <ComposerPrimitive.Send asChild>

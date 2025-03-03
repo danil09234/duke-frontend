@@ -14,6 +14,11 @@ export async function handleNewChat(user: User | null) {
     console.error("Error creating chat", error.message);
     return;
   }
+  // Reset the input element state
+  const inputElement = document.querySelector('textarea');
+  if (inputElement) {
+    inputElement.value = '';
+  }
   redirect(`/chats/${data.id}`);
 }
 
