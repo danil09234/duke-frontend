@@ -26,6 +26,7 @@ import React from "react";
 import ChatBackgroundSVG from "@/public/resources/background-chat.svg";
 import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
 import {MarkdownText} from "@/components/ui/assistant-ui/markdown-text";
+import { handleNewMessage } from "@/actions/chats";
 
 const cardData = {
   title: "Čo chcete vedieť o univerzite?",
@@ -172,12 +173,15 @@ const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
   onSend,
   className,
 }) => {
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('handleSubmit called');
     if (onSend) onSend();
     const inputElement = document.querySelector('textarea');
     if (inputElement) {
-      console.log('User message:', inputElement.value);
+      const message = inputElement.value;
+      console.log('User message:', message);
+      const chatId = window.location.pathname.split("/")[2];
+      await handleNewMessage(chatId, message);
     }
   };
 
@@ -200,7 +204,7 @@ const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
           tooltip="Send"
           variant="default"
           className="my-2.5 size-8 p-2 transition-opacity ease-in"
-          onClick={handleSubmit} // Добавлен обработчик клика
+          onClick={handleSubmit}
         >
           <SendHorizontalIcon />
         </TooltipIconButton>

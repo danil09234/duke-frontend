@@ -16,3 +16,17 @@ export async function handleNewChat(user: User | null) {
   }
   redirect(`/chats/${data.id}`);
 }
+
+export async function handleNewMessage(chatId: string, content: string) {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("messages")
+    .insert({
+      chat_id: chatId,
+      sender_type: "user",
+      content,
+    });
+  if (error) {
+    console.error("Error inserting message", error.message);
+  }
+}
