@@ -286,9 +286,9 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
   // Show message limit notification when limit is reached
   if (messageLimit !== null && messageLimit <= 0) {
     return (
-      <Alert className="w-full border-orange-200 bg-orange-50">
-        <AlertCircle className="h-4 w-4 text-orange-500" />
-        <AlertDescription className="text-orange-800">
+      <Alert className="w-full border-[#FFC2AD] bg-[#FFF9F7]">
+        <AlertCircle className="h-[18px] w-[18px] text-[#FF4100]" />
+        <AlertDescription className="text-[#FF4100]">
           Dosiahli ste limit správ. Prosím, vráťte sa neskôr alebo kontaktujte podporu pre zvýšenie limitu.
         </AlertDescription>
       </Alert>
