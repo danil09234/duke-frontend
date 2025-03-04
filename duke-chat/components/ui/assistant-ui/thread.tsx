@@ -122,11 +122,30 @@ export const MyThread: FC = () => {
   const thread = useThread();
   const messages = thread.messages;
   const threadRuntime = useThreadRuntime();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    async function getUser() {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+      } else {
+        setUser(data?.user);
+      }
+    }
+    getUser();
+  }, []);
  
   const handleCardClick = async (message: string) => {
     console.log('Card clicked with message:', message);
     const chatId = window.location.pathname.split("/")[2];
-    await handleNewMessage(chatId, message);
+    if (user) {
+      console.log('User ID:', user.id);
+      await handleNewMessage(chatId, message, user.id);
+    } else {
+      console.error('User is null');
+    }
     threadRuntime.append({
       role: "user",
       content: [{ type: "text", text: message }],
