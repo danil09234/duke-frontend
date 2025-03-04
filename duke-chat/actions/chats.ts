@@ -34,7 +34,7 @@ export async function handleNewMessage(chatId: string, content: string, userId: 
     return;
   }
   if (userProfile.message_limit <= 0) {
-    console.error("Message limit reached");
+    // console.error("Message limit reached");
     return;
   }
   const { error } = await supabase

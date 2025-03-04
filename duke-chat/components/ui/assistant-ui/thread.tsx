@@ -141,10 +141,10 @@ export const MyThread: FC = () => {
   }, []);
  
   const handleCardClick = async (message: string) => {
-    console.log('Card clicked with message:', message);
+    // console.log('Card clicked with message:', message);
     const chatId = window.location.pathname.split("/")[2];
     if (user) {
-      console.log('User ID:', user.id);
+      // console.log('User ID:', user.id);
       await handleNewMessage(chatId, message, user.id);
     } else {
       console.error('User is null');
@@ -156,7 +156,7 @@ export const MyThread: FC = () => {
     setHasMessages(true);
     const inputElement = document.querySelector('textarea');
     if (inputElement) {
-      inputElement.value = ''; // Сброс значения текстового поля
+      inputElement.value = ''; 
     }
   };
 
@@ -242,13 +242,13 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
   }, []);
 
   const handleSubmit = async () => {
-    console.log('handleSubmit called');
+    // console.log('handleSubmit called');
     if (onSend) onSend();
     if (message.trim() !== "") {
-      console.log('User message:', message);
-      console.log('Current chat ID:', chatId);
+      // console.log('User message:', message);
+      // console.log('Current chat ID:', chatId);
       if (user) {
-        console.log('User ID:', user.id);
+        // console.log('User ID:', user.id);
         await handleNewMessage(chatId, message, user.id);
         
         // Decrement local message limit after sending a message
@@ -260,7 +260,7 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
       }
       setMessage(""); // Reset message state
       setHasMessages(true); // Update component state
-      console.log('Message sent and input reset');
+      // console.log('Message sent and input reset');
     } else {
       console.error('Message is empty');
     }
@@ -269,9 +269,9 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
   React.useEffect(() => {
     const currentChatId = window.location.pathname.split("/")[2];
     setChatId(currentChatId);
-    console.log('Component mounted or updated');
-    console.log('Current chat ID on mount/update:', currentChatId);
-    setMessage(""); // Reset message state on chat change
+    // console.log('Component mounted or updated');
+    // console.log('Current chat ID on mount/update:', currentChatId);
+    setMessage(""); 
   }, [window.location.pathname]);
 
   // Show loading state
