@@ -126,25 +126,45 @@ export const MyThread: FC = () => {
   const messages = thread.messages;
   const threadRuntime = useThreadRuntime();
   const [user, setUser] = useState<User | null>(null);
+  const [messageLimit, setMessageLimit] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function getUser() {
+    async function getUserAndMessageLimit() {
+      setIsLoading(true);
       const supabase = createClient();
       const { data, error } = await supabase.auth.getUser();
+      
       if (error || !data?.user) {
         console.error("Error getting user", error?.message);
-      } else {
-        setUser(data?.user);
+        setIsLoading(false);
+        return;
       }
+      
+      setUser(data.user);
+      
+      // Fetch user's message limit
+      const { data: userProfile, error: profileError } = await supabase
+        .from("user_profile")
+        .select("message_limit")
+        .eq("id", data.user.id)
+        .single();
+        
+      if (profileError) {
+        console.error("Error fetching message limit", profileError.message);
+      } else if (userProfile) {
+        setMessageLimit(userProfile.message_limit);
+      }
+      
+      setIsLoading(false);
     }
-    getUser();
+    
+    getUserAndMessageLimit();
   }, []);
- 
+
   const handleCardClick = async (message: string) => {
-    // console.log('Card clicked with message:', message);
     const chatId = window.location.pathname.split("/")[2];
     if (user) {
-      // console.log('User ID:', user.id);
       await handleNewMessage(chatId, message, user.id);
     } else {
       console.error('User is null');
@@ -168,35 +188,41 @@ export const MyThread: FC = () => {
 
   return (
     <>
-      <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
-        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 z-10 pt-4 scrollbar-hide">
-          {hasMessages ? (
-            <ThreadPrimitive.Messages
-              components={{
-                UserMessage: MyUserMessage,
-                AssistantMessage: MyAssistantMessage,
-              }}
-            />
-          ) : (
-            <div className="flex flex-col items-center gap-8 mt-auto mb-4 z-10">
-              <StartMaking />
-              <Frame onCardClick={handleCardClick} />
-            </div>
-          )}
+  
+        <>
+          <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
+            <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 z-10 pt-4 scrollbar-hide">
+              {hasMessages ? (
+                <ThreadPrimitive.Messages
+                  components={{
+                    UserMessage: MyUserMessage,
+                    AssistantMessage: MyAssistantMessage,
+                  }}
+                />
+              ) : (
+                <div className="flex flex-col items-center gap-8 mt-auto mb-4 z-10">
+                  <StartMaking />
+                  {messageLimit !== null && messageLimit > 0 && (
+                    <Frame onCardClick={handleCardClick} />
+                  )}
+                </div>
+              )}
 
-          {hasMessages && <div className="min-h-8 flex-grow" />}
-        </ThreadPrimitive.Viewport>
-      </ThreadPrimitive.Root>
-      <div className="flex w-full justify-center px-4 bg-white">
-        <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg pb-4 z-10">
-          <MyComposer
-            onSend={() => setHasMessages(true)}
-            className="bg-white"
-            setHasMessages={setHasMessages}
-          />
-        </div>
-      </div>
-      <CSVBackgroundEffect />
+              {hasMessages && <div className="min-h-8 flex-grow" />}
+            </ThreadPrimitive.Viewport>
+          </ThreadPrimitive.Root>
+          <div className="flex w-full justify-center px-4 bg-white">
+            <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg pb-4 z-10">
+              <MyComposer
+                onSend={() => setHasMessages(true)}
+                className="bg-white"
+                setHasMessages={setHasMessages}
+              />
+            </div>
+          </div>
+          <CSVBackgroundEffect />
+        </>
+      
     </>
   );
 };
