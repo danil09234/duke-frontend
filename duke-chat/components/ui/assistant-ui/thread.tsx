@@ -13,6 +13,8 @@ import { SendHorizontalIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 import {
   BanknoteIcon,
@@ -29,6 +31,7 @@ import {MarkdownText} from "@/components/ui/assistant-ui/markdown-text";
 import { handleNewMessage } from "@/actions/chats";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 
 const cardData = {
   title: "Čo chcete vedieť o univerzite?",
@@ -202,18 +205,40 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
   const [chatId, setChatId] = useState(window.location.pathname.split("/")[2]);
   const [message, setMessage] = useState("");
   const [user, setUser] = useState<User | null>(null);
+  const [messageLimit, setMessageLimit] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function getUser() {
+    async function getUserAndMessageLimit() {
+      setIsLoading(true);
       const supabase = createClient();
       const { data, error } = await supabase.auth.getUser();
+      
       if (error || !data?.user) {
         console.error("Error getting user", error?.message);
-      } else {
-        setUser(data?.user);
+        setIsLoading(false);
+        return;
       }
+      
+      setUser(data.user);
+      
+      // Fetch user's message limit
+      const { data: userProfile, error: profileError } = await supabase
+        .from("user_profile")
+        .select("message_limit")
+        .eq("id", data.user.id)
+        .single();
+        
+      if (profileError) {
+        console.error("Error fetching message limit", profileError.message);
+      } else if (userProfile) {
+        setMessageLimit(userProfile.message_limit);
+      }
+      
+      setIsLoading(false);
     }
-    getUser();
+    
+    getUserAndMessageLimit();
   }, []);
 
   const handleSubmit = async () => {
@@ -225,6 +250,11 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
       if (user) {
         console.log('User ID:', user.id);
         await handleNewMessage(chatId, message, user.id);
+        
+        // Decrement local message limit after sending a message
+        if (messageLimit !== null) {
+          setMessageLimit(messageLimit - 1);
+        }
       } else {
         console.error('User is null');
       }
@@ -244,6 +274,28 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
     setMessage(""); // Reset message state on chat change
   }, [window.location.pathname]);
 
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="w-full flex justify-center py-4">
+        <div className="animate-pulse h-12 w-full bg-gray-200 rounded-lg"></div>
+      </div>
+    );
+  }
+
+  // Show message limit notification when limit is reached
+  if (messageLimit !== null && messageLimit <= 0) {
+    return (
+      <Alert className="w-full border-orange-200 bg-orange-50">
+        <AlertCircle className="h-4 w-4 text-orange-500" />
+        <AlertDescription className="text-orange-800">
+          Dosiahli ste limit správ. Prosím, vráťte sa neskôr alebo kontaktujte podporu pre zvýšenie limitu.
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
+  // Show normal composer when limit is not reached
   return (
     <ComposerPrimitive.Root
       onSubmit={handleSubmit}
