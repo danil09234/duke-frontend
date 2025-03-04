@@ -27,6 +27,8 @@ import ChatBackgroundSVG from "@/public/resources/background-chat.svg";
 import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
 import {MarkdownText} from "@/components/ui/assistant-ui/markdown-text";
 import { handleNewMessage } from "@/actions/chats";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 
 const cardData = {
   title: "Čo chcete vedieť o univerzite?",
@@ -178,8 +180,22 @@ export const MyThread: FC = () => {
 };
 
 const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: (value: boolean) => void }> = ({ onSend, className, setHasMessages }) => {
-  const [chatId, setChatId] = React.useState(window.location.pathname.split("/")[2]);
-  const [message, setMessage] = React.useState("");
+  const [chatId, setChatId] = useState(window.location.pathname.split("/")[2]);
+  const [message, setMessage] = useState("");
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    async function getUser() {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+      } else {
+        setUser(data?.user);
+      }
+    }
+    getUser();
+  }, []);
 
   const handleSubmit = async () => {
     console.log('handleSubmit called');
@@ -187,7 +203,12 @@ const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: 
     if (message.trim() !== "") {
       console.log('User message:', message);
       console.log('Current chat ID:', chatId);
-      await handleNewMessage(chatId, message);
+      if (user) {
+        console.log('User ID:', user.id);
+        await handleNewMessage(chatId, message, user.id);
+      } else {
+        console.error('User is null');
+      }
       setMessage(""); // Reset message state
       setHasMessages(true); // Update component state
       console.log('Message sent and input reset');
