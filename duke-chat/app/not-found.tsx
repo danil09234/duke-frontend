@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Custom404() {
   return (
-    <div className="min-h-screen flex justify-center">
+    <div className="min-h-screen flex justify-center bg-white">
       <div className="mt-[20vh] text-center flex flex-col gap-[32px] w-full px-5">
         <div className="self-center text-[32px] text-[#19213D] font-bold leading-tight max-w-[660px] w-full">
           Whoops táto stránka nie je k dispozícii 😵‍💫
