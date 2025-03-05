@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TopBarWrapperFindProgram from "@/components/Topbar/TopBarWrapperFindProgram";
 import QuestionItem from "@/components/QuestionItem/QuestionItem";
 import LogicLines from "@/components/LogicLine/LogicLine";
@@ -22,6 +22,19 @@ export function FindProgramPageContent() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [responses, setResponses] = useState<string[]>([]);
   const [finalProgrammes, setFinalProgrammes] = useState<StudyProgramme[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+      setTimeout(() => {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -45,6 +58,7 @@ export function FindProgramPageContent() {
     if (res.ok) {
       const data = await res.json();
       setQuestions((prev) => [...prev, data]);
+      scrollToBottom();
     }
   };
 
@@ -61,9 +75,12 @@ export function FindProgramPageContent() {
     if (res.status === 200) {
       const data = await res.json();
       if (data === null) {
-        fetchQuestion();
+        setTimeout(() => {
+          fetchQuestion();
+        }, 100);
       } else {
         setFinalProgrammes(data);
+        scrollToBottom();
       }
     }
   };
@@ -73,7 +90,10 @@ export function FindProgramPageContent() {
       <div className="hidden md:block absolute top-0 w-full">
         <TopBarWrapperFindProgram />
       </div>
-      <div className="flex flex-col items-center overflow-auto pt-16 pb-4 flex-1 scrollbar-hide px-4">
+      <div
+        ref={containerRef}
+        className="flex flex-col items-center overflow-auto pt-16 pb-4 flex-1 scrollbar-hide px-4"
+      >
         {questions.map((q, idx) => (
           <div key={idx}>
             <QuestionItem
