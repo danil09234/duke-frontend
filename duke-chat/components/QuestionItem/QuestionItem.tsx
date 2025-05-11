@@ -35,7 +35,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({ questionNumber, questionTex
                     </div>
                 </CardHeader>
 
-                <CardContent className="p-4 pb-6">
+                <CardContent className="p-4">
                     <div className="flex gap-4 justify-center">
                         {answers.map((answer) => (
                             <Button
