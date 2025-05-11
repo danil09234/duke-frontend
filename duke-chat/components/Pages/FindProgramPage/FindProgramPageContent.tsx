@@ -30,6 +30,19 @@ export function FindProgramPageContent() {
     const [responses, setResponses] = useState<AnswerInfo[]>([]);
     const [finalProgrammes, setFinalProgrammes] = useState<StudyProgramme[]>([]);
     const isProcessingRef = useRef(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        if (containerRef.current) {
+            const container = containerRef.current;
+            setTimeout(() => {
+                container.scrollTo({
+                    top: container.scrollHeight,
+                    behavior: "smooth",
+                });
+            }, 100);
+        }
+    };
 
     useEffect(() => {
         const initSession = async () => {
@@ -54,6 +67,7 @@ export function FindProgramPageContent() {
                 if (res.ok) {
                     const data = await res.json();
                     setQuestions([data]);
+                    scrollToBottom();
                 }
             } catch (error) {
                 console.error("Failed to fetch first question:", error);
@@ -86,6 +100,7 @@ export function FindProgramPageContent() {
             const currentLength = questions.length;
             
             setQuestions(prev => [...prev, data]);
+            scrollToBottom();
             
             console.log("Questions state updated, new length:", currentLength + 1);
         } catch (error) {
@@ -98,12 +113,12 @@ export function FindProgramPageContent() {
     const handleAnswer = async (answerToken: string, questionIndex: number) => {
         if (isProcessingRef.current) return;
         isProcessingRef.current = true;
-        
+
         try {
             console.log(`Processing answer for question ${questionIndex + 1} with token: ${answerToken}`);
 
             const answerText = questions[questionIndex].answers[answerToken];
-            
+
             if (!answerText) {
                 console.error("Answer text not found for token:", answerToken);
                 return;
@@ -117,35 +132,35 @@ export function FindProgramPageContent() {
                 setFinalProgrammes([]);
 
                 setQuestions(questions.slice(0, questionIndex + 1));
-                
+
                 const cleanedResponses = responses.slice(0, questionIndex);
                 cleanedResponses.push(newAnswerInfo);
                 setResponses(cleanedResponses);
-                
+
                 console.log("Final programmes cleared:", finalProgrammes.length);
             } else {
                 const updatedResponses = [...responses];
                 updatedResponses[questionIndex] = newAnswerInfo;
                 setResponses(updatedResponses);
             }
-            
+
             console.log("Responses updated:", responses.map(r => r.text));
-            
+
             console.log(`Sending answer to backend: ${answerToken}`);
             const res = await fetch(`${backendBase}/api/tree/session/${sessionId}/answer`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ answer_token: answerToken }),
             });
-            
+
             if (!res.ok) {
                 console.error("Failed to send answer, status:", res.status);
                 return;
             }
-            
+
             const data = await res.json();
             console.log("Answer API response:", data);
-            
+
             if (data === null) {
                 console.log("Answer accepted, proceeding to next question");
                 setTimeout(() => {
@@ -154,6 +169,7 @@ export function FindProgramPageContent() {
             } else {
                 console.log("Final programmes received:", data.length);
                 setFinalProgrammes(data);
+                scrollToBottom();
             }
         } catch (error) {
             console.error("Error handling answer:", error);
@@ -175,15 +191,17 @@ export function FindProgramPageContent() {
             <div className="hidden md:block absolute top-0 w-full">
                 <TopBarWrapperFindProgram />
             </div>
-            <div className="flex flex-col items-center overflow-auto pt-16 pb-4 flex-1 scrollbar-hide px-4">
+            <div
+                ref={containerRef}
+                className="flex flex-col items-center overflow-auto pt-16 pb-4 flex-1 scrollbar-hide px-4">
                 {questions.map((q, idx) => (
                     <div key={`question-${idx}-${q.question.substring(0, 10)}`}>
                         <QuestionItem
                             questionNumber={idx + 1}
                             questionText={q.question}
-                            answers={Object.entries(q.answers).map(([key, text]) => ({ 
+                            answers={Object.entries(q.answers).map(([key, text]) => ({
                                 id: key,
-                                text 
+                                text
                             }))}
                             onAnswerClick={(answerId) => handleAnswer(answerId, idx)}
                         />
