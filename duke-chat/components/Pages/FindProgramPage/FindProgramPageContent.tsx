@@ -214,7 +214,7 @@ export function FindProgramPageContent() {
                     <div className="w-full">
                         {finalProgrammes.map((programme, idx) => (
                             <React.Fragment key={`program-${idx}-${programme.name.substring(0, 10)}`}>
-                                <FinalStudyProgramme programmeName={programme.name} />
+                                <FinalStudyProgramme {...programme} />
                                 {idx < finalProgrammes.length - 1 && <Line />}
                             </React.Fragment>
                         ))}
