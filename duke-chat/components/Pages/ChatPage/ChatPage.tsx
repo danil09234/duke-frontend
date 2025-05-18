@@ -21,7 +21,7 @@ function Body() {
       className={
         !isMobile
           ? "my-2 mr-2 rounded-2xl border shadow-lg overflow-hidden flex-1"
-          : "overflow-hidden flex-1"
+          : "overflow-hidden flex-1 max-h-[90dvh]"
       }
     >
       <ChatPageContent />

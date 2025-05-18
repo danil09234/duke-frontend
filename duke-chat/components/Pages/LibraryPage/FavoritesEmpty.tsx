@@ -8,10 +8,10 @@ export const FavoritesEmpty: React.FC = () => {
       <div className="flex flex-col flex-1 w-full max-md:max-w-full">
         <div className="flex flex-wrap gap-2.5 items-center w-full font-medium leading-tight max-md:max-w-full">
           <div className="flex-1 shrink self-stretch my-auto text-lg basis-0 text-slate-800 max-md:max-w-full">
-            All chats
+            Všetky chaty
           </div>
           <div className="flex gap-1.5 justify-center items-center self-stretch my-auto text-xs text-center text-blue-500">
-            <div className="self-stretch my-auto">Browse all </div>
+            <div className="self-stretch my-auto">Zobraziť všetky </div>
             <ArrowRightIcon className="w-4 " />
           </div>
         </div>

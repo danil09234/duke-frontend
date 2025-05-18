@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus, Search } from "lucide-react";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   Sidebar,
@@ -15,13 +15,32 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { routes } from "@/routes";
-import avatar from "@/public/resources/av2024-small.jpg";
+import avatar from "@/public/resources/avatar-user.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import styles from "@/styles/SidebarWrapper.module.css";
 import React, { useEffect, useState } from "react";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
+import Logout from "@/components/Pages/Login/Logout";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
+import { handleNewChat } from "@/actions/chats";
+
+const imageCache = {};
+
+function fetchImage(imageUrl) {
+  if (imageCache[imageUrl]) {
+    return Promise.resolve(imageCache[imageUrl]); // Return cached image
+  }
+
+  return fetch(imageUrl)
+    .then((response) => response.blob()) // Fetch and get the image as a blob
+    .then((blob) => {
+      const url = URL.createObjectURL(blob); // Create a URL for the blob
+      imageCache[imageUrl] = url; // Cache the blob URL
+      return url;
+    });
+}
 
 function Divider() {
   return (
@@ -32,7 +51,35 @@ function Divider() {
 const DesktopSidebar: React.FC = () => {
   const { toggleSidebar, state } = useSidebar();
   const [isMobile, setIsMobile] = useState(false);
-  const pathname = usePathname()
+  const pathname = usePathname();
+
+  const [user, setUser] = useState<User | any>(null);
+  const [avatarLoaded, setAvatarLoaded] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function getUser() {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+      } else {
+        setUser(data?.user);
+        if (data?.user?.user_metadata?.avatar_url) {
+          fetchImage(data?.user?.user_metadata?.avatar_url)
+            .then((url) => {
+              setAvatarLoaded(true);
+              setAvatarUrl(url);
+            })
+            .catch(() => {
+              console.error("Error loading avatar image");
+              setAvatarLoaded(true);
+            });
+        }
+      }
+    }
+    getUser();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -53,27 +100,26 @@ const DesktopSidebar: React.FC = () => {
     };
   }, [toggleSidebar, state]);
 
-  const chatHistory = [
-    "Prijímacie skúšky na TUKE",
-    "Tipy a rady pre uchádzačov",
-    "Tipy pre nováčikov",
-    "Ako sa adaptovať ku štúdiu",
-    "Štipendiá, granty",
-  ];
-
   return (
     <Sidebar
       collapsible="icon"
-      className="w-[300px] p-6 px-4 flex flex-col h-[100vh] border-none"
+      className="w-[300px] p-6 px-4 flex flex-col h-[100dvh] border-none"
     >
       <SidebarContent className="bg-[#f7f8fa]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={avatar.src} alt="User Avatar" />
-              <AvatarFallback>VP</AvatarFallback>
+              <AvatarImage
+                src={avatarLoaded ? avatarUrl : avatar.src}
+                alt="User Avatar"
+              />
+              <AvatarFallback>
+                <img src={avatar.src} alt="User Avatar" />
+              </AvatarFallback>
             </Avatar>
-            <span className="font-medium text-gray-900">Vladyslav P.</span>
+            <span className="font-medium text-gray-900">
+              {user?.user_metadata?.name}
+            </span>
           </div>
           <div className="text-[#666F8D]">
             {!isMobile && <SidebarTrigger />}
@@ -102,7 +148,9 @@ const DesktopSidebar: React.FC = () => {
           </div>
           {state === "collapsed" && !isMobile && <Divider />}
           {routes.map((item, index) => {
-            const isActive = pathname === item.path;
+            const isActive =
+              pathname === item.path ||
+              (pathname === "/" && item.path === "/chats");
             return (
               <SidebarMenuItem key={index} className="w-full">
                 <SidebarMenuButton
@@ -150,48 +198,21 @@ const DesktopSidebar: React.FC = () => {
           })}
         </SidebarMenu>
 
-        {state === "expanded" && (
-          <div className="flex flex-col gap-3 py-6 mt-4">
-            <span className="px-2.5 font-inter text-xs font-medium leading-[15.6px] tracking-widest text-left [text-underline-position:from-font] [text-decoration-skip-ink:none] text-components-titles-paragraphs-text-neutral-light text-[#BAC0CC]">
-              HISTÓRIA CHATOV
-            </span>
-            <ScrollArea className="h-fit relative">
-              {chatHistory.map((chat, index) => (
-                <div
-                  key={index}
-                  className="p-2 hover:bg-gray-100 rounded cursor-pointer"
-                >
-                  <span
-                    className="
-                    font-inter
-                    text-sm
-                    font-normal
-                    leading-[18.2px]
-                    text-left
-                    [text-underline-position:from-font]
-                    [text-decoration-skip-ink:none]
-                    text-[#666F8D]
-                    truncate
-                  "
-                  >
-                    {chat}
-                  </span>
-                </div>
-              ))}
-              <div className="absolute bottom-0 left-0 right-0 h-[250px] bg-gradient-to-t from-[#F7F8FA] to-transparent" />
-            </ScrollArea>
-          </div>
-        )}
-
-        <div className="mt-auto">
-          <Link href="chats/chat123">
+        <div className="mt-auto flex flex-col gap-2">
+          <Link
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNewChat(user);
+            }}
+          >
             {state === "expanded" ? (
               <Button
                 className="w-full bg-[#FF4100] hover:bg-[#FF4100]/90 text-white"
                 size="lg"
               >
                 <Plus className="h-4 w-4 mr-2" />
-                Start New Chat
+                Začať nový chat
               </Button>
             ) : (
               <TooltipIconButton
@@ -203,6 +224,11 @@ const DesktopSidebar: React.FC = () => {
               </TooltipIconButton>
             )}
           </Link>
+          {user && (
+            <div>
+              <Logout isSidebarExpanded={state === "expanded"} />
+            </div>
+          )}
         </div>
       </SidebarContent>
     </Sidebar>

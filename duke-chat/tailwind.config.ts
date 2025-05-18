@@ -70,6 +70,20 @@ const config = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        components: {
+          buttons: {
+            tertiary: {
+              backgrounds: {
+                'BG-light-mode': 'hsla(15, 100%, 98%, 1)',
+              },
+            },
+            primary: {
+              text: {
+                'text-dark-mode': 'hsla(15, 100%, 50%, 1)',
+              },
+            },
+          },
+        },
       },
       screens: {
         xs: "420px",

@@ -13,6 +13,8 @@ import { SendHorizontalIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TooltipIconButton } from "@/components/ui/assistant-ui/tooltip-icon-button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 import {
   BanknoteIcon,
@@ -26,6 +28,10 @@ import React from "react";
 import ChatBackgroundSVG from "@/public/resources/background-chat.svg";
 import ChatLibraryPNG from "@/public/resources/chat-illustration.svg";
 import {MarkdownText} from "@/components/ui/assistant-ui/markdown-text";
+import { handleNewMessage } from "@/actions/chats";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
 
 const cardData = {
   title: "Čo chcete vedieť o univerzite?",
@@ -119,13 +125,59 @@ export const MyThread: FC = () => {
   const thread = useThread();
   const messages = thread.messages;
   const threadRuntime = useThreadRuntime();
+  const [user, setUser] = useState<User | null>(null);
+  const [messageLimit, setMessageLimit] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleCardClick = (message: string) => {
+  useEffect(() => {
+    async function getUserAndMessageLimit() {
+      setIsLoading(true);
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+        setIsLoading(false);
+        return;
+      }
+      
+      setUser(data.user);
+      
+      // Fetch user's message limit
+      const { data: userProfile, error: profileError } = await supabase
+        .from("user_profile")
+        .select("message_limit")
+        .eq("id", data.user.id)
+        .single();
+        
+      if (profileError) {
+        console.error("Error fetching message limit", profileError.message);
+      } else if (userProfile) {
+        setMessageLimit(userProfile.message_limit);
+      }
+      
+      setIsLoading(false);
+    }
+    
+    getUserAndMessageLimit();
+  }, []);
+
+  const handleCardClick = async (message: string) => {
+    const chatId = window.location.pathname.split("/")[2];
+    if (user) {
+      await handleNewMessage(chatId, message, user.id);
+    } else {
+      console.error('User is null');
+    }
     threadRuntime.append({
       role: "user",
       content: [{ type: "text", text: message }],
     });
     setHasMessages(true);
+    const inputElement = document.querySelector('textarea');
+    if (inputElement) {
+      inputElement.value = ''; 
+    }
   };
 
   React.useEffect(() => {
@@ -136,47 +188,143 @@ export const MyThread: FC = () => {
 
   return (
     <>
-      <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
-        <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 z-10 pt-4 scrollbar-hide">
-          {hasMessages ? (
-            <ThreadPrimitive.Messages
-              components={{
-                UserMessage: MyUserMessage,
-                AssistantMessage: MyAssistantMessage,
-              }}
-            />
-          ) : (
-            <div className="flex flex-col items-center gap-8 mt-auto mb-4 z-10">
-              <StartMaking />
-              <Frame onCardClick={handleCardClick} />
-            </div>
-          )}
+  
+        <>
+          <ThreadPrimitive.Root className="bg-background flex-1 overflow-auto">
+            <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-auto scroll-smooth bg-inherit px-4 z-10 pt-4 scrollbar-hide">
+              {hasMessages ? (
+                <ThreadPrimitive.Messages
+                  components={{
+                    UserMessage: MyUserMessage,
+                    AssistantMessage: MyAssistantMessage,
+                  }}
+                />
+              ) : (
+                <div className="flex flex-col items-center gap-8 mt-auto mb-4 z-10">
+                  <StartMaking />
+                  {messageLimit !== null && messageLimit > 0 && (
+                    <Frame onCardClick={handleCardClick} />
+                  )}
+                </div>
+              )}
 
-          {hasMessages && <div className="min-h-8 flex-grow" />}
-        </ThreadPrimitive.Viewport>
-      </ThreadPrimitive.Root>
-      <div className="flex w-full justify-center px-4 bg-white">
-        <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg pb-4 z-10">
-          <MyComposer
-            onSend={() => setHasMessages(true)}
-            className="bg-white"
-          />
-        </div>
-      </div>
-      <CSVBackgroundEffect />
+              {hasMessages && <div className="min-h-8 flex-grow" />}
+            </ThreadPrimitive.Viewport>
+          </ThreadPrimitive.Root>
+          <div className="flex w-full justify-center px-4 bg-white">
+            <div className="sticky bottom-0 mt-3 flex w-full max-w-3xl flex-col items-center justify-end rounded-t-lg pb-4 z-10">
+              <MyComposer
+                onSend={() => setHasMessages(true)}
+                className="bg-white"
+                setHasMessages={setHasMessages}
+              />
+            </div>
+          </div>
+          <CSVBackgroundEffect />
+        </>
+      
     </>
   );
 };
 
-const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
-  onSend,
-  className,
-}) => {
+const MyComposer: FC<{ onSend?: () => void; className?: string; setHasMessages: (value: boolean) => void }> = ({ onSend, className, setHasMessages }) => {
+  const [chatId, setChatId] = useState(window.location.pathname.split("/")[2]);
+  const [message, setMessage] = useState("");
+  const [user, setUser] = useState<User | null>(null);
+  const [messageLimit, setMessageLimit] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getUserAndMessageLimit() {
+      setIsLoading(true);
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+        setIsLoading(false);
+        return;
+      }
+      
+      setUser(data.user);
+      
+      // Fetch user's message limit
+      const { data: userProfile, error: profileError } = await supabase
+        .from("user_profile")
+        .select("message_limit")
+        .eq("id", data.user.id)
+        .single();
+        
+      if (profileError) {
+        console.error("Error fetching message limit", profileError.message);
+      } else if (userProfile) {
+        setMessageLimit(userProfile.message_limit);
+      }
+      
+      setIsLoading(false);
+    }
+    
+    getUserAndMessageLimit();
+  }, []);
+
+  const handleSubmit = async () => {
+    // console.log('handleSubmit called');
+    if (onSend) onSend();
+    if (message.trim() !== "") {
+      // console.log('User message:', message);
+      // console.log('Current chat ID:', chatId);
+      if (user) {
+        // console.log('User ID:', user.id);
+        await handleNewMessage(chatId, message, user.id);
+        
+        // Decrement local message limit after sending a message
+        if (messageLimit !== null) {
+          setMessageLimit(messageLimit - 1);
+        }
+      } else {
+        console.error('User is null');
+      }
+      setMessage(""); // Reset message state
+      setHasMessages(true); // Update component state
+      // console.log('Message sent and input reset');
+    } else {
+      console.error('Message is empty');
+    }
+  };
+
+  React.useEffect(() => {
+    const currentChatId = window.location.pathname.split("/")[2];
+    setChatId(currentChatId);
+    // console.log('Component mounted or updated');
+    // console.log('Current chat ID on mount/update:', currentChatId);
+    setMessage(""); 
+  }, [window.location.pathname]);
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="w-full flex justify-center py-4">
+        <div className="animate-pulse h-12 w-full bg-gray-200 rounded-lg"></div>
+      </div>
+    );
+  }
+
+  // Show message limit notification when limit is reached
+  if (messageLimit !== null && messageLimit <= 0) {
+    return (
+      <Alert className="w-full border-[#FFC2AD] bg-[#FFF9F7]">
+        <AlertCircle className="h-[18px] w-[18px] text-[#FF4100]" />
+        <AlertDescription className="text-[#FF4100]">
+          Dosiahli ste limit správ. Prosím, vráťte sa neskôr alebo kontaktujte podporu pre zvýšenie limitu.
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
+  // Show normal composer when limit is not reached
   return (
     <ComposerPrimitive.Root
-      onSubmit={() => {
-        if (onSend) onSend();
-      }}
+      onSubmit={handleSubmit}
       className={
         "focus-within:border-aui-ring/20 flex w-full flex-row items-center rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in " +
         className
@@ -186,6 +334,8 @@ const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
         autoFocus
         placeholder="Write a message..."
         rows={1}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
         className="placeholder:text-muted-foreground size-full max-h-40 resize-none border-none bg-transparent p-4 pr-12 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
       />
       <ComposerPrimitive.Send asChild>
@@ -193,6 +343,7 @@ const MyComposer: FC<{ onSend?: () => void; className?: string }> = ({
           tooltip="Send"
           variant="default"
           className="my-2.5 size-8 p-2 transition-opacity ease-in"
+          onClick={handleSubmit}
         >
           <SendHorizontalIcon />
         </TooltipIconButton>

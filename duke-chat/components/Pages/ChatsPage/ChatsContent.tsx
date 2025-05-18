@@ -1,10 +1,29 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { SearchIcon, ListFilter, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ChatsGrid from "./ChatsGrid";
 import { WelcomeCard } from "@/components/PromptBox/WelcomeCard";
+import { User } from "@supabase/supabase-js";
+import { createClient } from "@/utils/supabase/client";
 
 const ChatsContent = (): JSX.Element => {
+  const [user, setUser] = useState<User | any>(null);
+  
+  useEffect(() => {
+    async function getUser() {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data?.user) {
+        console.error("Error getting user", error?.message);
+      } else {
+        setUser(data?.user);
+      }
+    }
+    getUser();
+  }, []);
+
   return (
     <div
       className="h-full flex flex-col items-center px-4 py-10 sm:px-6 md:px-8 lg:px-[100] overflow-y-auto scrollbar-hide"
@@ -17,7 +36,7 @@ const ChatsContent = (): JSX.Element => {
     >
       <div className="flex flex-col gap-10 max-w-4xl w-full">
         <WelcomeCard
-          userName="Vladyslav"
+          userName={user?.user_metadata?.name}
           welcomeMessage="Vitaj na stránke asistenta pre uchádzačov!"
           inputPlaceholder="Ako vám môžem pomôcť?"
         />
