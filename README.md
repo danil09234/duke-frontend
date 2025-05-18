@@ -2,7 +2,7 @@
 
 This project is a Next.js based application that includes a UI and API components backed by a PostgreSQL database. It uses Next.js, React, Tailwind CSS, Supabase, and several modern React libraries. This documentation covers setup, development, and deployment instructions.
 
-![FLyer-DUKE](public/resources/slide-duke.jpg "Flyer DUKE")
+![FLyer-DUKE](duke-chat/public/resources/slide-duke.jpg "Flyer DUKE")
 
 ## Prerequisites
 
@@ -51,7 +51,6 @@ This project is a Next.js based application that includes a UI and API component
 
    If you need additional environment variables for your project, consult the Supabase documentation and add them accordingly.
 
-
 ## Development
 
 To start the development server, run:
@@ -98,7 +97,6 @@ yarn start
 - **Linting**: Run `npm run lint` to check for linting errors.
 - **Generating Database Schema**: If supported, use `npm run generate`.
 
-
 ## Troubleshooting
 
 - **Database Errors**: Verify your `DATABASE_URL` in the .env file and that your PostgreSQL instance is accessible.
@@ -106,17 +104,16 @@ yarn start
 
 ## Conclusion
 
-This documentation provides an overview of how to set up, develop, and deploy the DUKE assistant application. 
+This documentation provides an overview of how to set up, develop, and deploy the DUKE assistant application.
 
 For further assistance, please consult with:
+
 - Vladyslav Panik: vpanik50@gmail.com
 - Danylo Zahourlko: dailzag05@gmail.com
 
 ---
 
 For more detailed configuration, refer to the individual configuration files such as `next.config.ts`, `tailwind.config.ts`, and `drizzle.config.ts`.
-
-
 
 @ KPI FEI TUKE 2024
 Vladyslav Panik & Danylo Zahorulko
