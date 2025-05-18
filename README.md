@@ -1,6 +1,6 @@
 # DUKE Assistant
 
-This project is a Next.js based application that includes a UI and API components backed by a PostgreSQL database. It uses Next.js, React, Tailwind CSS, Supabase, and several modern React libraries. This documentation covers setup, development, and deployment instructions.
+This project is a Next.js based application that includes a UI and API components backed by a PostgreSQL database. It uses React, Tailwind CSS, Supabase, and several modern React libraries. This documentation covers setup, development, and deployment instructions.
 
 ![FLyer-DUKE](duke-chat/public/resources/slide-duke.jpg "Flyer DUKE")
 
