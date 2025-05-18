@@ -130,7 +130,7 @@ const DesktopSidebar: React.FC = () => {
           <div className="relative py-4 mb-4">
             <Input
               className="h-[42px] pl-8 bg-white"
-              placeholder="Hľadáj chat..."
+              placeholder="Hľadaj chat..."
               defaultValue=""
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#19213D]" />

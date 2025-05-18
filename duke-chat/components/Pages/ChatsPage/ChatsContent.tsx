@@ -10,7 +10,7 @@ import { createClient } from "@/utils/supabase/client";
 
 const ChatsContent = (): JSX.Element => {
   const [user, setUser] = useState<User | any>(null);
-  
+
   useEffect(() => {
     async function getUser() {
       const supabase = createClient();
@@ -38,7 +38,7 @@ const ChatsContent = (): JSX.Element => {
         <WelcomeCard
           userName={user?.user_metadata?.name}
           welcomeMessage="Vitaj na stránke asistenta pre uchádzačov!"
-          inputPlaceholder="Ako vám môžem pomôcť?"
+          inputPlaceholder="Ako Vám môžem pomôcť?"
         />
 
         <div className="h-full flex flex-col gap-8 w-full overflow-y-hidden overflow-x-visible">
@@ -55,7 +55,7 @@ const ChatsContent = (): JSX.Element => {
                 <input
                   type="text"
                   className="flex-grow placeholder-[#666F8D] bg-transparent focus:outline-none"
-                  placeholder="Hľadáj chat..."
+                  placeholder="Hľadaj chat..."
                 />
               </div>
 

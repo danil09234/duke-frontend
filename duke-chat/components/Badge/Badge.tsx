@@ -21,7 +21,7 @@ export function BadgeDisclaimer() {
       <FlaskConical className="w-3 h-3 " />
 
       <span className="text-[12px] font-medium leading-none">
-        Prvá testová verzia bakalárskej práce
+        Beta verzia bakalárskej práce
       </span>
     </Badge>
   );
