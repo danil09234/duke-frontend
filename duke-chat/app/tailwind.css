@@ -5,6 +5,43 @@
   .all-\[unset\] {
     all: unset;
   }
+  
+  /* Background gradient utilities */
+  .bg-gradient-main {
+    background-image: url('/resources/big-background-gradient.png');
+    background-size: cover;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+  }
+  
+  .bg-gradient-welcome {
+    background-image: url('/resources/background-gradient.svg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Text clamping utility */
+  .text-clamp-3 {
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+  
+  /* Icon styling utilities */
+  .icon-orange-16 {
+    color: #FF4100;
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* SVG positioning utilities */
+  .chat-background-svg {
+    width: 1064px;
+    height: auto;
+    transform: translateY(400px);
+  }
 }
 
 :root {

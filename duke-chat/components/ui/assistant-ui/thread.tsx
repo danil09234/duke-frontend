@@ -110,12 +110,7 @@ const Frame: FC<{ onCardClick: (message: string) => void }> = ({
 function CSVBackgroundEffect() {
   return (
     <ChatBackgroundSVG
-      className="absolute overflow-visible"
-      style={{
-        width: "1064px",
-        height: "auto",
-        transform: "translateY(400px)",
-      }}
+      className="absolute overflow-visible chat-background-svg"
     />
   );
 }
