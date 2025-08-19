@@ -17,7 +17,7 @@ export const LibrarySnippetCard: React.FC<ChatCardProps> = ({
           {icon &&
             React.isValidElement(icon) &&
             React.cloneElement(icon as React.ReactElement, {
-              style: { color: "#FF4100", width: "16px", height: "16px" },
+              className: "icon-orange-16",
             })}
         </Avatar>
 
@@ -27,14 +27,7 @@ export const LibrarySnippetCard: React.FC<ChatCardProps> = ({
               {title}
             </div>
             <div
-              className="w-full leading-5 text-slate-500 flex-1"
-              style={{
-                wordBreak: "break-word",
-                overflow: "hidden",
-                display: "-webkit-box",
-                WebkitBoxOrient: "vertical",
-                WebkitLineClamp: 3,
-              }}
+              className="w-full leading-5 text-slate-500 flex-1 text-clamp-3"
             >
               {description}
             </div>
